@@ -5,36 +5,101 @@ require 'mechanize'
 
 
 
-search_price = "1220"
+search_price = "730"
 
 #docを作るためのメソッド
 #スクレイピング開始する
 charset = nil
-html = URI.open("https://www.mycompanero.com/en/brand/2-moncler?categories=women") do |f|    
-#html = URI.open("https://www.mycompanero.com/en/brand/2-moncler?categories=women&page=3") do |f|    
+#html = URI.open("https://www.lidiashopping.com/en/IT/men/t/designers/loewe") do |f|   
+html = URI.open("https://www.lidiashopping.com/en/IT/men/t/designers/moncler") do |f|
+#html = URI.open("https://www.lidiashopping.com/en/IT/men/t/designers/moncler?page=3") do |f|
 
 charset = f.charset
     f.read
 end
+
+#0.nokogiri使用確認
 doc = Nokogiri::HTML.parse(html, nil, charset)
 
 
 #1.取得商品数の確認
-#puts doc.css('.ajax_block_product').size
+#puts doc.css('.product').size
+
+
+#1.各要素の取得確認
+products = doc.css('.product')
+    products.each do |product|
+    #商品価格を取得する
+    product_price = product.css('.price').inner_text
+    #puts product.css(".product-title").text.strip
+    if product_price.include?(search_price) then
+        #商品価格
+        puts product_price.strip
+        #商品名
+        puts product.css(".category").text.strip
+        #画像リンク
+        #puts product.css('a').attribute("href").value
+        puts "https://www.lidiashopping.com/" + product.css('a').attribute("href").value
+    end
+
+end
+
+
+#2.繰り返し処理の動作確認
+# products = doc.css('.product')
+        
+# #価格の文字列調整だけ最初に実行
+# if search_price.length >= 4 then
+#     search_price = search_price.insert(1, ".")
+# end
+
+# if (products.size == 0)
+#     puts "actuel-Bには該当ブランドの商品が現在ありません"
+# else
+#     products.each do |product|
+#     #商品価格を取得する
+#     #puts product.css('.price').inner_text
+#     #puts product.css(".product-title").text.strip
+#     product_price = product.css('.price').inner_text
+    
+#         if (!doc.css('.bottom-pagination').css('a').empty?) then
+#             #繰り返し条件の入力
+#             while (!doc.css('.next').empty?) do
+
+#                 if product_price.include?(search_price) then
+#                     #商品価格
+#                     puts product_price.strip
+#                     #商品名
+#                     puts product.css(".category").text.strip
+#                     #画像リンク
+#                     #puts product.css('a').attribute("href").value
+#                     puts "https://www.lidiashopping.com/" + product.css('a').attribute("href").value
+#                 end
+#             end
+#         end
+#     end
+# end
+
+
+
 
 
 #2.ページ送りパーツの有無
-#puts doc.css('.pagination--container').empty?
+#puts doc.css('.bottom-pagination').css('a').empty?
+
+#puts doc.css('.next').empty?
+
 
 #3.次ページのurl取得
 #puts doc.css('.next').css('a').attribute('href')
 
+#4.次のページのURLを取得
+#puts next_page_url = doc.css('.next').css('a').attribute('href').nil?
+
 
 #免税価格を計算
-duty_free_price = search_price.to_i / 1.2
-        duty_free_price = duty_free_price.round.to_s
-        puts duty_free_price
-        puts duty_free_price.class
+#duty_free_price = search_price.to_i / 1.2
+#duty_free_price = duty_free_price.round.to_s
 
 
 #products = doc.css('.js-product-miniature-wrapper')

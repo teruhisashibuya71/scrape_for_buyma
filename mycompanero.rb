@@ -69,19 +69,26 @@ module Mycompanero
             
             current_page_url = brand_home_url
             next_page_url = ""
-
+ctime = 1
             #現在のURLと次のページのURLが異なるうちは処理を繰り返す
-            while (current_page_url != next_page_url) do
+            #while (current_page_url != next_page_url) do
+            while (true) do
                 #次のページのURLを取得するまえにページurlを代入
-                current_page_url == next_page_url
+                #current_page_url = next_page_url
+
                 #次のページのURLを取得
                 puts next_page_url = doc.css('.next').css('a').attribute('href')
                 
+                if (next_page_url.nil?) then
+                    break
+                end
                 #新しいurlでdocを作成
                 doc = mycompanero_make_doc(next_page_url)
                 #クローリングする
                 mycompanero_onetime_crawl(doc, search_price)
-
+                ctime = ctime += 1 
+                #puts "クローリング回数" + ctime.to_s
+                
             end
         end
     end
