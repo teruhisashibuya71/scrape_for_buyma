@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
-require 'selenium-webdriver'
+
 
 #✓後でページ送り機能を念のため付ける
 module Wise
@@ -31,9 +31,9 @@ module Wise
 
 
     def wise_onetime_crowl(wise_search_price, doc)
-        doc.css(".product-item").each do |product|
+        doc.css(".item").each do |product|
             #商品価格を取得する
-            item_price = product.css(".product-price").inner_text
+            item_price = product.css(".price").inner_text
             if item_price.include?(wise_search_price) then
                 #商品価格 商品名 画像リンク を取得する
                 puts item_price.strip
@@ -42,6 +42,7 @@ module Wise
             end
         end
     end
+    
     #クロールするメソッド
     def wise_crawl(brand_home_url, search_price)
         #価格の文字列調整だけ最初に実行
@@ -51,6 +52,7 @@ module Wise
         #初回クロール
         doc = wise_make_doc(brand_home_url)
         wise_onetime_crowl(search_price, doc)
+
         #ページ送り機能 unless文は条件式が falseの場合に繰り返す labelクラスの中身が空っぽでなかればクローリングする
         unless doc.css(".next").empty? then
             #次のページのURLを取得

@@ -35,7 +35,7 @@ module Nugnes
     end
 
     #クロールするメソッド
-    def nugnes_clowl(attack_site_url, search_price)
+    def nugnes_crawl(attack_site_url, search_price)
         #価格の文字列調整だけ最初に実行
         if 4 <= search_price.length then
             search_price = search_price.insert(1, ".")

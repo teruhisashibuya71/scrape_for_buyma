@@ -4,6 +4,8 @@ require 'open-uri'
 require 'mechanize'
 require 'selenium-webdriver'
 
+#nokogiriのテストファイル
+
 #brand_home_url = "https://www.montiboutique.com/it-IT/uomo/designer/gucci"
 brand_home_url = "https://www.montiboutique.com/it-IT/Uomo/designer/fendi/borse"
 target_price = "3500"

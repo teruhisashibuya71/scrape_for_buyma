@@ -8,7 +8,7 @@ require 'mechanize'
 #カテゴリボタンはHTMLだが、リンクのhrefの値がおかしい これも多分js
 #カテゴリボタンのクリック可能ONOFFは data-disabled = "ture" "false" で切り替えしているもよう
 #商品が無いカテゴリーのURLにアクセスした場合はwhileの90の条件に引っかからないため、商品有りませんでしたページを1回クーリングして処理終了 よって問題無し
-module Leamfarfetch
+module LeamfarfetchWoman
 
     def leamfarfetch_make_doc(leamfarfetch_categorized_url)
         charset = nil

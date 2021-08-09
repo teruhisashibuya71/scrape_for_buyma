@@ -38,7 +38,7 @@ module Coltorti
     end
 
     #クロールするメソッド
-    def coltorti_clowl(attack_site_url, search_price, search_category)
+    def coltorti_crawl(attack_site_url, search_price, search_category)
         #価格が微妙に低いケースがあるため、1ユーロ安い変数lower_serch_priceを作成する 一度数字にして1を引く その後文字列に戻す
         lower_search_price = search_price.to_i - 1
         lower_search_price = lower_search_price.to_s

@@ -17,7 +17,7 @@ require './wise'
 #require 'selenium-webdriver'
 #montiだけあとで https://www.montiboutique.com/it-IT/uomo/designer/fendi
 
-class FendiVipWoman
+class PradaVipMan
     #include + クラス名
     include Alducadaosta
     include Suit
@@ -32,7 +32,7 @@ class FendiVipWoman
     #服 靴 バッグ アクセ の4種類で対応する
     @category = "靴"
     @price = "695"
-    #vip_fendi_woman = FendiVipWoman.new
+    #vip_prada_man = FendiVipWoman.new
 
     def self.call_category
         @category
@@ -60,39 +60,39 @@ ATTACK_LIST_URL = ["https://www.alducadaosta.com/it/donna/designer/fendi",
     #"https://www.farfetch.com/be/shopping/women/auzmendi/items.aspx?view=90&scale=274&designer=15514"
     ]
 
-    vip_fendi_woman = FendiVipWoman.new
-    @price = FendiVipWoman.call_price
-    @category = FendiVipWoman.call_category
+    vip_prada_man = PradaVipMan.new
+    @price = PradaVipMan.call_price
+    @category = PradaVipMan.call_category
 
     ATTACK_LIST_URL.each do |attack_site_url|
         case attack_site_url
         when "https://www.alducadaosta.com/it/donna/designer/fendi" then
-            vip_fendi_woman.alducadaosta_crawl(attack_site_url, @price, @category)
+            vip_prada_man.alducadaosta_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         #when "https://www.brunarosso.com/s/designers/fendi/?category=men" then
-        #    vip_fendi_woman.brunarosso_crowl(attack_site_url, @@price, @@category)
+        #    vip_prada_man.brunarosso_crowl(attack_site_url, @@price, @@category)
         when "https://www.farfetch.com/it/shopping/women/G-B/items.aspx?view=90&scale=274&designer=15514" then
-            vip_fendi_woman.gbfarfetch_crowl(attack_site_url, @price, @category)
+            vip_prada_man.gbfarfetch_crowl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.coltortiboutique.com/it/designer/fendi?cat=166" then
-            vip_fendi_woman.coltorti_clowl(attack_site_url, @price, @category)
+            vip_prada_man.coltorti_clowl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://suitnegozi.com/collections/fendi-donna" then
-            vip_fendi_woman.suit_clowl(attack_site_url, @price)
+            vip_prada_man.suit_clowl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://www.tessabit.com/it/donna/designers/fendi" then
-            vip_fendi_woman.tessabit_clowl(attack_site_url, @price, @category)
+            vip_prada_man.tessabit_clowl(attack_site_url, @price, @category)
             @price = @price.delete(",")
         when "https://nugnes1920.com/collections/fendi-woman" then
-            vip_fendi_woman.nugnes_clowl(attack_site_url, @price)
+            vip_prada_man.nugnes_clowl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://www.gaudenziboutique.com/en-IT/women/designer/fendi" then
-            vip_fendi_woman.gaudenzi_clowl(attack_site_url, @price, @category)
+            vip_prada_man.gaudenzi_clowl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.wiseboutique.com/it_it/donna/designers/fendi.html" then
-            vip_fendi_woman.wise_crawl(attack_site_url, @price)
+            vip_prada_man.wise_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         #when "https://www.wiseboutique.com/it_it/donna/designers/fendi.html" then
-        #    vip_fendi_woman.sigrun_clowl(attack_site_url, @@price)
+        #    vip_prada_man.sigrun_clowl(attack_site_url, @@price)
         end
     end

@@ -14,7 +14,7 @@ module Gaudenzi
     end
 
     #category変数の値に応じて 各カテゴリページのurlを返すメソッド 引数はvipfendiクラスのクラス変数が入る
-    def gaudenzi_return_category_page_url(attack_site_url, search_category)
+    def gaudenzi_retzxurn_category_page_url(attack_site_url, search_category)
         doc = gaudenzi_make_doc(attack_site_url)
         if search_category == "服" then
             #服ならliタグの data-label="Abbigliamento" のhrefを取得
@@ -48,7 +48,7 @@ module Gaudenzi
     end
 
     #クロールするメソッド
-    def gaudenzi_clowl(attack_site_url, search_price, search_category)
+    def gaudenzi_crawl(attack_site_url, search_price, search_category)
         search_price = search_price
         #価格の文字列調整だけ最初に実行
         if search_price.length >= 4 then

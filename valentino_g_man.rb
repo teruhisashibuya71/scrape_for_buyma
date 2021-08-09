@@ -17,7 +17,8 @@ require './wise'
 #require 'selenium-webdriver'
 #montiだけあとで https://www.montiboutique.com/it-IT/uomo/designer/fendi
 
-class FendiVipWoman
+class ValentinoGaravaniVipMan
+    
     #include + クラス名
     include Alducadaosta
     include Suit

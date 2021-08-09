@@ -25,7 +25,7 @@ module Suit
     end
 
     #3.純粋に1度クロールするメソッド
-    def suit_just_clowl(doc, suit_search_price)
+    def suit_just_crawl(doc, suit_search_price)
         doc.css('.product-card').each do |node|
             item_price = node.css("span.money").inner_text
             #もし価格が同じなら商品価格 商品名 画像リンク を取得する
@@ -60,7 +60,7 @@ module Suit
     end
 
     #6.ページ送りできるクロールメソッド メソッド1〜5を内包
-    def suit_clowl(attack_site_url, search_price)
+    def suit_crawl(attack_site_url, search_price)
         #価格の文字列調整だけ最初に実行
         if search_price.length >= 4 then
             search_price = search_price.insert(1, ".")
@@ -71,17 +71,17 @@ module Suit
             #succevoが押せなくなるまで → class名に disableを含むかどうか
             until doc.css('.disabled').inner_text.strip ==  "Successivo" do
                 #クローリングメソッド呼び出す
-                suit_just_clowl(doc, search_price)
+                suit_just_crawl(doc, search_price)
                 #Mechanizeを利用して次のページのurlを取得して同じ変数を上書き
                 attack_site_url = suit_get_next_page_url(attack_site_url)
                 #新しいurlのhtml構造をdocに代入する
                 doc = suit_prepare_new_doc(attack_site_url)
             end
             #while抜けた後(最終ページにたどり着いた時は)1回クローリングして処理終了
-            suit_just_clowl(doc, search_price)
+            suit_just_crawl(doc, search_price)
         elsif
             # succsivo無し → 1回クローリングして終了
-            suit_just_clowl(doc, search_price)
+            suit_just_crawl(doc, search_price)
         end
     end
 end

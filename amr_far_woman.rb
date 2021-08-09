@@ -13,7 +13,7 @@ module AmrFarfetchWoman
 
     def amr_farfetch_make_doc(amr_farfetch_categorized_url)
         charset = nil
-        html = open(amr_farfetch_categorized_url) do |f|
+        html = URI.open(amr_farfetch_categorized_url) do |f|
             charset = f.charset
             f.read
         end
@@ -42,13 +42,22 @@ module AmrFarfetchWoman
 
 
     def amr_farfetch_onetime_crowl(attack_site_url, amr_farfetch_target_price, category, doc)
-        doc.css('li[data-testid="productCard"]').each do |node|
-            item_price = node.css('span[data-testid="price"]').inner_text
-            if item_price.include?(amr_farfetch_target_price) then
-                puts item_price
-                puts node.css('p[itemprop="name"]').inner_text
-                get_url = node.css('a').attribute("href").value
+        products = doc.css('li[data-testid="productCard"]')
+        #商品数0なら報告する
+        if (products.size == 0)
+            puts "AMR-Farfetchに該当のカテゴリー商品は現在ありません"
+        end
+        products.each do |product|
+            #セール価格を先に取得
+            item_price = product.css('span[data-testid="initialPrice"]').inner_text
+            #セール価格表示が無いなら通常価格を取得
+            if (item_price.empty?) then
+                item_price = product.css('span[data-testid="price"]').inner_text
+            end
+            if item_price.include?(blondie_farfetch_target_price) then
+                get_url = product.css('a').attribute("href").value
                 access_url = "https://www.farfetch.com" + get_url
+                #商品アクセスURL
                 puts access_url
             end
         end
@@ -63,7 +72,8 @@ module AmrFarfetchWoman
         doc = amr_farfetch_make_doc(amr_farfetch_categorized_url)
         amr_farfetch_onetime_crowl(amr_farfetch_categorized_url, target_price, category, doc)
         page_number = 1 #次ページurl作成用の変数
-        #urlのおおまかな変形をwhileの前に実行 各サイトで調整が必要 items.aspx? の後ろに URLの調整が入る　https://www.farfetch.com/it/shopping/women/ までで43桁 /items.aspx? 追加で55桁 +ショップ名の名前桁
+        #urlのおおまかな変形をwhileの前に実行 各サイトで調整が必要 items.aspx? の後ろに URLの調整が入る
+        #https://www.farfetch.com/it/shopping/women/ までで43桁 /items.aspx? 追加で55桁 +ショップ名の名前桁
         amr_farfetch_categorized_url = amr_farfetch_categorized_url.insert(58, "page=#{page_number}&")
         while doc.css('li[data-testid="productCard"]').size == 90 do
             page_number += 1
