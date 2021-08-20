@@ -20,7 +20,7 @@ module Leam
     end
 
     #gbと一緒 1回だけクロール
-    def leam_onetime_crowl(doc, search_price)
+    def leam_onetime_crawl(doc, search_price)
         products = doc.css(".item-inner")
         if (products.size == 0)
             puts "leamには該当ブランドの商品が現在ありません"
@@ -49,7 +49,7 @@ module Leam
         doc = leam_make_doc(brand_home_url)
         #puts "doc取得完了"
         #初回クロール
-        leam_onetime_crowl(doc, search_price)
+        leam_onetime_crawl(doc, search_price)
         #puts "初回クロール終了" 
 
         #-----------------------ここまでOK----------------------
@@ -64,7 +64,7 @@ module Leam
                 #新しいurlでdocを作成
                 doc = leam_make_doc(next_page_url)
                 #クローリングする
-                leam_onetime_crowl(doc, search_price)
+                leam_onetime_crawl(doc, search_price)
             end
         end
 

@@ -20,7 +20,7 @@ module SigrunWoehr
     end
 
     #gbと一緒 1回だけクロール
-    def sigrun_onetime_crowl(doc, search_price)
+    def sigrun_onetime_crawl(doc, search_price)
         products = doc.css(".productData")
         if (products.size == 0)
             puts "sigrunには該当ブランドの商品が現在ありません"
@@ -49,7 +49,7 @@ module SigrunWoehr
         doc = sigrun_make_doc(brand_home_url)
         #puts "doc取得完了"
         #初回クロール
-        sigrun_onetime_crowl(doc, search_price)
+        sigrun_onetime_crawl(doc, search_price)
         #puts "初回クロール終了" 
 
         #-----------------------ここまでOK----------------------
@@ -64,7 +64,7 @@ module SigrunWoehr
                 #新しいurlでdocを作成
                 doc = sigrun_make_doc(next_page_url)
                 #クローリングする
-                sigrun_onetime_crowl(doc, search_price)
+                sigrun_onetime_crawl(doc, search_price)
 
             end
         end

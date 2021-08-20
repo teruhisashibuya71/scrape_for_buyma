@@ -2,23 +2,23 @@ require 'rubygems'
 require 'open-uri'
 
 #なぜか何故かfarfetch提示商品の価格ずれている時がるので注意すること
-module AuzmendiFarfetchWoman
+module AuzmendiFarfetchMan
 
     #1.category変数の値に応じて 各カテゴリページのurlを返すメソッド
     #このメソッドは絶対に変わらない
     def auzmendi_farfetch_return_category_page_url(attack_site_url, search_category)
         #home_doc = auzmendi_farfetch_make_doc(attack_site_url)
         if search_category == "服" then
-            auzmendi_farfetch_clothing_url = attack_site_url.sub(/scale=274/, 'category=135967')
+            auzmendi_farfetch_clothing_url = attack_site_url.sub(/scale=282/, 'category=136330')
             return auzmendi_farfetch_clothing_url
         elsif search_category == "靴" then
-            auzmendi_farfetch_shoes_url = attack_site_url.sub(/scale=274/, 'category=136301')
+            auzmendi_farfetch_shoes_url = attack_site_url.sub(/scale=282/, 'category=135968')
             return auzmendi_farfetch_shoes_url
         elsif search_category == "バッグ" then
-            auzmendi_farfetch_bag_url = attack_site_url.sub(/scale=274/, 'category=135971')
+            auzmendi_farfetch_bag_url = attack_site_url.sub(/scale=282/, 'category=135970')
             return auzmendi_farfetch_bag_url
         else
-            auzmendi_farfetch_accessori_url = attack_site_url.sub(/scale=274/, 'category=135973')
+            auzmendi_farfetch_accessori_url = attack_site_url.sub(/scale=282/, 'category=135972')
             return auzmendi_farfetch_accessori_url
         end
     end
@@ -78,13 +78,14 @@ module AuzmendiFarfetchWoman
             #https://www.farfetch.com/it/shopping/women/ までで43桁 /items.aspx? 追加で55桁 +ショップ名の名前桁
             #insert以下の数字をショップ名に応じて変えること
             #基本は55文字スタート　auzmendiは8文字 55+8=63
-            auzmendi_farfetch_categorized_url = auzmendi_farfetch_categorized_url.insert(63, "page=#{page_number}&")
+            #レディースと比較して2文字少ないので
+            auzmendi_farfetch_categorized_url = auzmendi_farfetch_categorized_url.insert(61, "page=#{page_number}&")
             while doc.css('li[data-testid="productCard"]').size == 90 do
                 #次ページのURLはpage=2なので+1しとく
                 page_number += 1
                 
                 #基本開始位置は60文字 60+ショップ名の文字数 60+8=68  基本上の数字+5の数値が入る
-                auzmendi_farfetch_categorized_url[68] = "#{page_number}"
+                auzmendi_farfetch_categorized_url[66] = "#{page_number}"
                 
                 #次のページのURLを元にdocを再度作成→変数に代入
                 doc = auzmendi_farfetch_make_doc(auzmendi_farfetch_categorized_url)

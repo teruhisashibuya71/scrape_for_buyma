@@ -20,7 +20,7 @@ module Russocapri
     end
 
     #最初のクローリング
-    def russo_onetime_crowl(attack_site_url, russo_search_price, doc)
+    def russo_onetime_crawl(attack_site_url, russo_search_price, doc)
         doc.css('.item').each do |product|
             #商品価格を取得する  価格が同じなら商品名とリンクURLを取得する
             item_price = product.css(".price").inner_text.delete("€").strip
@@ -51,7 +51,7 @@ module Russocapri
         #価格をOOO.ooに書き換える
         search_price = search_price + ".00"
         doc = russo_make_doc(attack_site_url)
-        russo_onetime_crowl(attack_site_url, search_price, doc)
+        russo_onetime_crawl(attack_site_url, search_price, doc)
         
         #liの最後の要素を取得
         last_li_element = make_last_li_elemnt(doc)
@@ -70,13 +70,13 @@ module Russocapri
                 #docを詰め替える
                 doc = russo_make_doc(attack_site_url)
                 #クローリングする
-                russo_onetime_crowl(attack_site_url, search_price, doc)
+                russo_onetime_crawl(attack_site_url, search_price, doc)
                 #次のページにおける最後のli要素を再度取得する
                 last_li_element = make_last_li_elemnt(doc)
             end
 
             #最後のページを1回クロールして終了
-            russo_onetime_crowl(attack_site_url, search_price, doc)
+            russo_onetime_crawl(attack_site_url, search_price, doc)
         end
         
     end

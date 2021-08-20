@@ -76,47 +76,47 @@ ATTACK_LIST_URL = [#"https://www.farfetch.com/it/shopping/women/bruna-rosso/item
     ATTACK_LIST_URL.each do |attack_site_url|
         case attack_site_url
         when "https://www.farfetch.com/it/shopping/women/eleonora-bonucci/items.aspx?view=90&scale=274&designer=4224" then
-            vip_marni_woman.elenora_farfetch_crowl(attack_site_url, @price, @category)
+            vip_marni_woman.elenora_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")    
         when "https://www.farfetch.com/it/shopping/women/auzmendi/items.aspx?view=90&scale=274&designer=4224" then
-            vip_marni_woman.auzmendi_farfetch_crowl(attack_site_url, @price, @category)
+            vip_marni_woman.auzmendi_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")    
         when "https://www.gebnegozionline.com/it_it/donna/designers/marni.html" then
             vip_marni_woman.gb_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")    
         when "https://www.farfetch.com/it/shopping/women/monti/items.aspx?view=90&scale=274&designer=4224" then
-            vip_marni_woman.monti_farfetch_crowl(attack_site_url, @price, @category)
+            vip_marni_woman.monti_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")    
         when "https://www.farfetch.com/it/shopping/women/bruna-rosso/items.aspx?view=90&scale=274&designer=4224" then
-            vip_marni_woman.bruna_farfetch_crowl(attack_site_url, @price, @category)
+            vip_marni_woman.bruna_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")    
         when "https://www.alducadaosta.com/it/donna/designer/fendi" then
             vip_marni_woman.alducadaosta_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         #when "https://www.brunarosso.com/s/designers/fendi/?category=men" then
-        #    vip_marni_woman.brunarosso_crowl(attack_site_url, @@price, @@category)
+        #    vip_marni_woman.brunarosso_crawl(attack_site_url, @@price, @@category)
         when "https://www.farfetch.com/it/shopping/women/G-B/items.aspx?view=90&scale=274&designer=15514" then
-            vip_marni_woman.gbfarfetch_crowl(attack_site_url, @price, @category)
+            vip_marni_woman.gbfarfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.coltortiboutique.com/it/designer/fendi?cat=166" then
-            vip_marni_woman.coltorti_clowl(attack_site_url, @price, @category)
+            vip_marni_woman.coltorti_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://suitnegozi.com/collections/fendi-donna" then
-            vip_marni_woman.suit_clowl(attack_site_url, @price)
+            vip_marni_woman.suit_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://www.tessabit.com/it/donna/designers/fendi" then
-            vip_marni_woman.tessabit_clowl(attack_site_url, @price, @category)
+            vip_marni_woman.tessabit_crawl(attack_site_url, @price, @category)
             @price = @price.delete(",")
         when "https://nugnes1920.com/collections/fendi-woman" then
-            vip_marni_woman.nugnes_clowl(attack_site_url, @price)
+            vip_marni_woman.nugnes_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://www.gaudenziboutique.com/en-IT/women/designer/fendi" then
-            vip_marni_woman.gaudenzi_clowl(attack_site_url, @price, @category)
+            vip_marni_woman.gaudenzi_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.wiseboutique.com/it_it/donna/designers/fendi.html" then
             vip_marni_woman.wise_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         #when "https://www.wiseboutique.com/it_it/donna/designers/fendi.html" then
-        #    vip_marni_woman.sigrun_clowl(attack_site_url, @@price)
+        #    vip_marni_woman.sigrun_crawl(attack_site_url, @@price)
         end
     end

@@ -23,7 +23,7 @@ module Alducadaosta
     def alducadaosta_make_doc(categroy_page_url)
         #スクレイピング開始する
         charset = nil
-        html = open(categroy_page_url) do |f|
+        html = URI.open(categroy_page_url) do |f|
             charset = f.charset
             f.read
         end
@@ -50,18 +50,22 @@ module Alducadaosta
 
         #カテゴリーに応じたhtml構造を取得
         doc = alducadaosta_make_doc(category_page_url)
-        #クロール開始
-        doc.css('.product').each do |node|
-            #商品価格を取得する  価格が同じなら商品名とリンクURLを取得する
-            item_price = node.css("span.product__price").inner_text
-            #もし価格が同じなら
-            if item_price.include?(search_price) || item_price.include?(higher_search_price) || item_price.include?(lower_search_price) then
-                #商品価格 商品名 画像リンク を取得する
-                puts item_price
-                puts node.css("span.product__name").inner_text
-                get_url = node.css('a').attribute("href").value
-                access_url = "https://www.alducadaosta.com" + get_url
-                puts access_url
+        if (doc.css('.product').size == 0) then
+            puts "alducadaostaにこのカテゴリーの商品は現在ありません"
+        else
+            #クロール開始
+            doc.css('.product').each do |node|
+                #商品価格を取得する  価格が同じなら商品名とリンクURLを取得する
+                item_price = node.css("span.product__price").inner_text
+                #もし価格が同じなら
+                if item_price.include?(search_price) || item_price.include?(higher_search_price) || item_price.include?(lower_search_price) then
+                    #商品価格 商品名 画像リンク を取得する
+                    puts item_price
+                    puts node.css("span.product__name").inner_text
+                    get_url = node.css('a').attribute("href").value
+                    access_url = "https://www.alducadaosta.com" + get_url
+                    puts access_url
+                end
             end
         end
     end

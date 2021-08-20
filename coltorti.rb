@@ -10,7 +10,7 @@ module Coltorti
     def coltorti_make_doc(attack_site_url)
         #スクレイピング開始する
         charset = nil
-        html = open(attack_site_url) do |f|
+        html = URI.open(attack_site_url) do |f|
             charset = f.charset
             f.read
         end
@@ -49,8 +49,8 @@ module Coltorti
                 lower_search_price = lower_search_price.insert(1, ".")
             end
         end
-        puts search_price
-        puts lower_search_price
+        #puts search_price
+        #puts lower_search_price
         
         #カテゴリーに応じたページURLを取得
         category_page_url = coltorti_return_category_page_url(attack_site_url, search_category)
@@ -62,8 +62,8 @@ module Coltorti
             #もし価格がsearch_priceあるいはlower_search_priceと同じなら商品名とリンクURLを取得する
             if item_price.include?(search_price) || item_price.include?(lower_search_price) then
                 #商品価格 商品名 画像リンク を取得する
-                puts item_price.gsub(" ", "")
-                puts node.css(".product-item-name").inner_text.strip
+                #puts item_price.gsub(" ", "")
+                #puts node.css(".product-item-name").inner_text.strip
                 get_url = node.css(".product-item-name").css('a').attribute("href").value
                 puts get_url
             end

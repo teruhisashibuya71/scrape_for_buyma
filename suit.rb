@@ -10,7 +10,7 @@ module Suit
     def suit_make_doc(attack_site_url)
         #スクレイピング開始する
         charset = nil
-        html = open(attack_site_url) do |f|
+        html = URI.open(attack_site_url) do |f|
             charset = f.charset
             f.read
         end
@@ -51,7 +51,7 @@ module Suit
     def suit_prepare_new_doc(next_page_url)
         #次のページのurlを
         charset = nil
-        html = open(next_page_url) do |f|
+        html = URI.open(next_page_url) do |f|
             charset = f.charset
             f.read
         end

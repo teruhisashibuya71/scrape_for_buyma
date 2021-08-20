@@ -39,7 +39,7 @@ module DoepFarfetchWoman
     end
 
 
-    def dope_farfetch_onetime_crowl(attack_site_url, dope_farfetch_target_price, category, doc)
+    def dope_farfetch_onetime_crawl(attack_site_url, dope_farfetch_target_price, category, doc)
         doc.css('li[data-testid="productCard"]').each do |node|
             item_price = node.css('span[data-testid="price"]').inner_text
             if item_price.include?(dope_farfetch_target_price) then
@@ -53,13 +53,13 @@ module DoepFarfetchWoman
     end
 
 
-    def dope_farfetch_crowl(attack_site_url, target_price, category)
+    def dope_farfetch_crawl(attack_site_url, target_price, category)
         if target_price.length >= 4 then
             target_price = target_price.insert(1, ".")
         end
         dope_farfetch_categorized_url = dope_farfetch_return_category_page_url(attack_site_url, category)
         doc = dope_farfetch_make_doc(dope_farfetch_categorized_url)
-        dope_farfetch_onetime_crowl(dope_farfetch_categorized_url, target_price, category, doc)
+        dope_farfetch_onetime_crawl(dope_farfetch_categorized_url, target_price, category, doc)
         page_number = 1 #次ページurl作成用の変数
         #url調整  urlの「items.aspx?」 の後ろにURLの調整が入る https://www.farfetch.com/it/shopping/women/ までで43桁となる
         dope_farfetch_categorized_url = dope_farfetch_categorized_url.insert(67, "page=#{page_number}&")

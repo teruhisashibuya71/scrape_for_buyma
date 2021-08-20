@@ -69,36 +69,36 @@ ATTACK_LIST_URL = ["https://www.alducadaosta.com/it/donna/designer/maison_margie
             margiela_vip_woman.alducadaosta_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         #when "https://www.brunarosso.com/s/designers/fendi/?category=men" then
-        #    margiela_vip_woman.brunarosso_crowl(attack_site_url, @@price, @@category)
+        #    margiela_vip_woman.brunarosso_crawl(attack_site_url, @@price, @@category)
         when "https://www.farfetch.com/it/shopping/women/G-B/items.aspx?view=90&scale=274&designer=4981" then
-            margiela_vip_woman.gbfarfetch_crowl(attack_site_url, @price, @category)
+            margiela_vip_woman.gbfarfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.coltortiboutique.com/it/designer/maison_margiela?cat=166" then
-            margiela_vip_woman.coltorti_clowl(attack_site_url, @price, @category)
+            margiela_vip_woman.coltorti_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.tessabit.com/it/donna/designers/maison-margiela" then
-            margiela_vip_woman.tessabit_clowl(attack_site_url, @price, @category)
+            margiela_vip_woman.tessabit_crawl(attack_site_url, @price, @category)
             @price = @price.delete(",")
         when "https://asia.nugnes1920.com/collections/maison-margiela-woman" then
-            margiela_vip_woman.nugnes_clowl(attack_site_url, @price)
+            margiela_vip_woman.nugnes_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://www.gaudenziboutique.com/en-IT/women/designer/maison_margiela" then
-            margiela_vip_woman.gaudenzi_clowl(attack_site_url, @price, @category)
+            margiela_vip_woman.gaudenzi_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.wiseboutique.com/it_it/donna/designers/maison-margiela.html" then
             margiela_vip_woman.wise_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://www.farfetch.com/it/shopping/women/dope-factory/items.aspx?view=90&scale=274&designer=4981" then
-            margiela_vip_woman.dope_farfetch_crowl(attack_site_url, @price, @category)
+            margiela_vip_woman.dope_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=90&scale=274&designer=4981" then
-            margiela_vip_woman.amr_farfetch_crowl(attack_site_url, @price, @category)
+            margiela_vip_woman.amr_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.farfetch.com/it/shopping/women/blondie/items.aspx?view=90&scale=274&designer=4981" then
             margiela_vip_woman.blondie_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.montiboutique.com/it-IT/Donna/designer/maison_martin_margiela" then
-            margiela_vip_woman.monti_crowl(attack_site_url, @price, @category)
+            margiela_vip_woman.monti_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         end
     end

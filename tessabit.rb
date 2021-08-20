@@ -11,7 +11,7 @@ module Tessabit
     def tessabit_make_doc(attack_site_url)
         #スクレイピング開始する
         charset = nil
-        html = open(attack_site_url) do |f|
+        html = URI.open(attack_site_url) do |f|
             charset = f.charset
             f.read
         end
@@ -41,7 +41,7 @@ module Tessabit
 
 
     #クロールするメソッド
-    def tessabit_clowl(attack_site_url, search_price, search_category)
+    def tessabit_crawl(attack_site_url, search_price, search_category)
         #価格の文字列調整だけ最初に実行
         if search_price.length >= 4 then
             search_price = search_price.insert(1, ",")

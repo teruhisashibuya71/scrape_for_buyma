@@ -41,7 +41,7 @@ module AmrFarfetchWoman
     end
 
 
-    def amr_farfetch_onetime_crowl(attack_site_url, amr_farfetch_target_price, category, doc)
+    def amr_farfetch_onetime_crawl(attack_site_url, amr_farfetch_target_price, category, doc)
         products = doc.css('li[data-testid="productCard"]')
         #商品数0なら報告する
         if (products.size == 0)
@@ -64,13 +64,13 @@ module AmrFarfetchWoman
     end
 
 
-    def amr_farfetch_crowl(attack_site_url, target_price, category)
+    def amr_farfetch_crawl(attack_site_url, target_price, category)
         if target_price.length >= 4 then
             target_price = target_price.insert(1, ".")
         end
         amr_farfetch_categorized_url = amr_farfetch_return_category_page_url(attack_site_url, category)
         doc = amr_farfetch_make_doc(amr_farfetch_categorized_url)
-        amr_farfetch_onetime_crowl(amr_farfetch_categorized_url, target_price, category, doc)
+        amr_farfetch_onetime_crawl(amr_farfetch_categorized_url, target_price, category, doc)
         page_number = 1 #次ページurl作成用の変数
         #urlのおおまかな変形をwhileの前に実行 各サイトで調整が必要 items.aspx? の後ろに URLの調整が入る
         #https://www.farfetch.com/it/shopping/women/ までで43桁 /items.aspx? 追加で55桁 +ショップ名の名前桁

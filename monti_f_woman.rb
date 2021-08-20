@@ -35,7 +35,7 @@ module MontiFarfetchWoman
     end
 
 
-    def monti_farfetch_onetime_crowl(doc, monti_farfetch_target_price)
+    def monti_farfetch_onetime_crawl(doc, monti_farfetch_target_price)
         products = doc.css('li[data-testid="productCard"]')
         #商品数0なら報告する
         if (products.size == 0)
@@ -58,7 +58,7 @@ module MontiFarfetchWoman
     end
 
 
-    def monti_farfetch_crowl(attack_site_url, target_price, category)
+    def monti_farfetch_crawl(attack_site_url, target_price, category)
         #価格が4桁の場合は調整
         if target_price.length >= 4 then
             target_price = target_price.insert(1, ".")
@@ -70,7 +70,7 @@ module MontiFarfetchWoman
         doc = monti_farfetch_make_doc(monti_farfetch_categorized_url)
         
         #初回クロール
-        monti_farfetch_onetime_crowl(doc, target_price)
+        monti_farfetch_onetime_crawl(doc, target_price)
 
         #複数ページがある時の処理準備
         page_number = 1 #次ページurl作成用の変数
@@ -89,7 +89,7 @@ module MontiFarfetchWoman
             #次のページのURLを元にdocを再度作成→変数に代入
             doc = monti_farfetch_make_doc(monti_farfetch_categorized_url)
             #2ページ目をクロール
-            monti_farfetch_onetime_crowl(doc, monti_farfetch_target_price)
+            monti_farfetch_onetime_crawl(doc, monti_farfetch_target_price)
         end
     end
 end

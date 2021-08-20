@@ -4,51 +4,95 @@ require 'open-uri'
 require 'mechanize'
 
 
+#メカナイズ系
+# url = "https://www.pl-line.com/en/moncler?gender=men"
+# agent = Mechanize.new
+# page = agent.get(url)
+# doc = Nokogiri::HTML(page.body)  
+# doc.css('.product').size
 
-search_price = "730"
+
 
 #docを作るためのメソッド
 #スクレイピング開始する
 charset = nil
-#html = URI.open("https://www.lidiashopping.com/en/IT/men/t/designers/loewe") do |f|   
-html = URI.open("https://www.lidiashopping.com/en/IT/men/t/designers/moncler") do |f|
-#html = URI.open("https://www.lidiashopping.com/en/IT/men/t/designers/moncler?page=3") do |f|
+html = URI.open("https://shop.labelsfashion.com/men/designers/moncler") do |f|   
+#html = URI.open("https://www.pl-line.com/en/moncler?gender=men&p=2") do |f|
+#html = URI.open("https://www.michelefranzesemoda.com/it/dona/designer/jil-sander/gruppi?s=3") do |f|
 
 charset = f.charset
     f.read
 end
 
-#0.nokogiri使用確認
 doc = Nokogiri::HTML.parse(html, nil, charset)
 
+#0.使用確認
+#puts doc
 
 #1.取得商品数の確認
-#puts doc.css('.product').size
+puts doc.css('amscroll-page').size
+puts doc.attr('.amscroll-page')
+puts doc.attribute('.amscroll-page')
 
+search_price = "415"
 
 #1.各要素の取得確認
-products = doc.css('.product')
-    products.each do |product|
-    #商品価格を取得する
-    product_price = product.css('.price').inner_text
-    #puts product.css(".product-title").text.strip
-    if product_price.include?(search_price) then
-        #商品価格
-        puts product_price.strip
-        #商品名
-        puts product.css(".category").text.strip
-        #画像リンク
-        #puts product.css('a').attribute("href").value
-        puts "https://www.lidiashopping.com/" + product.css('a').attribute("href").value
-    end
+#puts products = doc.css('.product')
+# if search_price.length >= 4 then
+#     search_price = search_price.insert(1, ",")
+# end
+#     products.each do |product|
+#     #商品価格を取得する
+#     product_price = product.css('.price').inner_text
+#     #puts product.css(".product-title").text.strip
+#     if product_price.include?(search_price) then
+#         #商品価格
+#         puts product_price.strip
+#         #商品名
+#         puts product.css(".margin-bottom-two").inner_text.strip
+#         #画像リンク
+#         puts product.css('a').attribute("href").value
+#         #puts "https://www.lidiashopping.com/" + product.css('a').attribute("href").value
+#     end
+# end
 
-end
+# products = doc.css('.product-item')
+#     puts products[0].to_s
+#     puts products[0].css('.regular-price').inner_text
+#     puts products[0].css(".product-name").inner_text.strip
+#     puts products[0].css('a').attribute("href").value
 
 
-#2.繰り返し処理の動作確認
-# products = doc.css('.product')
+
+
+#3.繰り返し処理選定作業
+#puts doc.css('.pagination').empty?
+#puts doc.css('.next').empty?
+#puts doc.css('.nex').css('a').empty?
+#sizeメソッドの戻り値は integer
+#puts doc.css('.pagination').css('a').size
+#puts crawl_timess = doc.css('.pagination').css('a').size / 2 - 1
+#puts crawl_timess = crawl_timess / 2 - 1
+
+#
+
+
+#puts crawled_urls.include?(brand_home_url)
+
+
+
+#4
+#products = doc.css('.item').css('.price-box')
+
+# products = doc.css('.product-small')
         
-# #価格の文字列調整だけ最初に実行
+# products.each do |product|
+# puts product.css('.price').inner_text
+# puts product.css('.product-title').inner_text
+# puts product.css('a').attribute("href").value
+# end
+
+#価格の文字列調整だけ最初に実行
 # if search_price.length >= 4 then
 #     search_price = search_price.insert(1, ".")
 # end

@@ -77,7 +77,7 @@ ctime = 1
                 #current_page_url = next_page_url
 
                 #次のページのURLを取得
-                puts next_page_url = doc.css('.next').css('a').attribute('href')
+                next_page_url = doc.css('.next').css('a').attribute('href')
                 
                 if (next_page_url.nil?) then
                     break

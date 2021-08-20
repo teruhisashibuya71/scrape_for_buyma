@@ -5,7 +5,7 @@ module Gaudenzi
     def gaudenzi_make_doc(attack_site_url)
         #スクレイピング開始する
         charset = nil
-        html = open(attack_site_url) do |f|
+        html = URI.open(attack_site_url) do |f|
             charset = f.charset
             f.read
         end
@@ -14,7 +14,7 @@ module Gaudenzi
     end
 
     #category変数の値に応じて 各カテゴリページのurlを返すメソッド 引数はvipfendiクラスのクラス変数が入る
-    def gaudenzi_retzxurn_category_page_url(attack_site_url, search_category)
+    def gaudenzi_return_category_page_url(attack_site_url, search_category)
         doc = gaudenzi_make_doc(attack_site_url)
         if search_category == "服" then
             #服ならliタグの data-label="Abbigliamento" のhrefを取得
@@ -32,7 +32,7 @@ module Gaudenzi
         end
     end
 
-    def gaudenzi_onetime_crowl(attack_site_url, search_price, doc)
+    def gaudenzi_onetime_crawl(attack_site_url, search_price, doc)
         doc.css(".product").each do |node|
             #商品価格を取得する
             item_price = node.css(".price").inner_text
@@ -58,7 +58,7 @@ module Gaudenzi
         category_page_url = gaudenzi_return_category_page_url(attack_site_url, search_category)
         #クロール開始
         doc = gaudenzi_make_doc(category_page_url)
-        gaudenzi_onetime_crowl(category_page_url, search_price, doc)
+        gaudenzi_onetime_crawl(category_page_url, search_price, doc)
         #ページ送り機能 クラスpagerのaタグの数が1つ かつ 最初のaタグのclass名がprevである時までクローリングを実施
         if !doc.css('.next').inner_text.empty? then
             until doc.css('.pager').css('a').size == 1 && doc.css('.pager').css('a')[0].attr('class').to_s == "prev" do
@@ -68,7 +68,7 @@ module Gaudenzi
                 #docを詰め替える
                 doc = gaudenzi_make_doc(attack_site_url)
                 #クローリングする
-                gaudenzi_onetime_crowl(attack_site_url, search_price, doc)
+                gaudenzi_onetime_crawl(attack_site_url, search_price, doc)
             end
         end
     end

@@ -70,29 +70,29 @@ ATTACK_LIST_URL = ["https://www.alducadaosta.com/it/donna/designer/fendi",
             vip_prada_man.alducadaosta_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         #when "https://www.brunarosso.com/s/designers/fendi/?category=men" then
-        #    vip_prada_man.brunarosso_crowl(attack_site_url, @@price, @@category)
+        #    vip_prada_man.brunarosso_crawl(attack_site_url, @@price, @@category)
         when "https://www.farfetch.com/it/shopping/women/G-B/items.aspx?view=90&scale=274&designer=15514" then
-            vip_prada_man.gbfarfetch_crowl(attack_site_url, @price, @category)
+            vip_prada_man.gbfarfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.coltortiboutique.com/it/designer/fendi?cat=166" then
-            vip_prada_man.coltorti_clowl(attack_site_url, @price, @category)
+            vip_prada_man.coltorti_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://suitnegozi.com/collections/fendi-donna" then
-            vip_prada_man.suit_clowl(attack_site_url, @price)
+            vip_prada_man.suit_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://www.tessabit.com/it/donna/designers/fendi" then
-            vip_prada_man.tessabit_clowl(attack_site_url, @price, @category)
+            vip_prada_man.tessabit_crawl(attack_site_url, @price, @category)
             @price = @price.delete(",")
         when "https://nugnes1920.com/collections/fendi-woman" then
-            vip_prada_man.nugnes_clowl(attack_site_url, @price)
+            vip_prada_man.nugnes_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://www.gaudenziboutique.com/en-IT/women/designer/fendi" then
-            vip_prada_man.gaudenzi_clowl(attack_site_url, @price, @category)
+            vip_prada_man.gaudenzi_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.wiseboutique.com/it_it/donna/designers/fendi.html" then
             vip_prada_man.wise_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         #when "https://www.wiseboutique.com/it_it/donna/designers/fendi.html" then
-        #    vip_prada_man.sigrun_clowl(attack_site_url, @@price)
+        #    vip_prada_man.sigrun_crawl(attack_site_url, @@price)
         end
     end

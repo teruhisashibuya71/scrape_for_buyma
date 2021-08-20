@@ -11,7 +11,7 @@ module Nugnes
     def nugnes_make_doc(attack_site_url)
         #スクレイピング開始する
         charset = nil
-        html = open(attack_site_url) do |f|
+        html = URI.open(attack_site_url) do |f|
             charset = f.charset
             f.read
         end
@@ -19,7 +19,7 @@ module Nugnes
         return doc
     end
 
-    def nugnes_onetime_crowl(attack_site_url, nugnes_search_price, doc)
+    def nugnes_onetime_crawl(attack_site_url, nugnes_search_price, doc)
         doc.css('.product-card').each do |node|
             #商品価格を取得する  価格が同じなら商品名とリンクURLを取得する
             item_price = node.css(".money").inner_text
@@ -41,7 +41,7 @@ module Nugnes
             search_price = search_price.insert(1, ".")
         end
         doc = nugnes_make_doc(attack_site_url)
-        nugnes_onetime_crowl(attack_site_url, search_price, doc)
+        nugnes_onetime_crawl(attack_site_url, search_price, doc)
         #もしnextボタンがあるなら、nextが押せなくなるまでクロールを続ける
         #条件式がfalseの間は繰り返す → OOになるまでは..とも言える 今回はリンクurlがnilになるまでは
         until doc.css('.next').css('a').attribute("href").nil? do
@@ -51,7 +51,7 @@ module Nugnes
             #docを詰め替える
             doc = nugnes_make_doc(attack_site_url)
             #クローリングする
-            nugnes_onetime_crowl(attack_site_url, search_price, doc)
+            nugnes_onetime_crawl(attack_site_url, search_price, doc)
         end
     end
 end

@@ -6,10 +6,10 @@ require 'open-uri'
 #特記事項
 #カテゴリ分けが使えないサイト
 
-module Lidia
+module Vietti
 
     #docを作るためのメソッド
-    def lidia_make_doc(brand_home_url)
+    def vietti_make_doc(brand_home_url)
         #スクレイピング開始する
         charset = nil
         html = URI.open(brand_home_url) do |f|
@@ -21,22 +21,23 @@ module Lidia
     end
 
     #gbと一緒 1回だけクロール
-    def lidia_onetime_crawl(doc, search_price)
-        products = doc.css('.product')
+    def vietti_onetime_crawl(doc, search_price, brand_home_url)
+        products = doc.css('.item')
         if (products.size == 0)
-            puts "lidiaには該当ブランドの商品が現在ありません"
+            puts "viettiには該当ブランドの商品が現在ありません"
         else
             products.each do |product|
                 #商品価格を取得する
                 #セール価格あっても取得可能
                 product_price = product.css('.price').inner_text
                 if (product_price.include?(search_price)) then
+                #if (product_price.include?(search_price)) then
                     #商品価格
                     #puts product_price.strip
                     #商品名
-                    #puts product.css('.category').text.strip
+                    #puts product.css('.product-name').text.strip
                     #画像リンク
-                    puts "https://www.lidiashopping.com/" + product.css('a').attribute("href").value
+                    puts product.css('a').attribute("href").value
                 end
             end
         end
@@ -44,34 +45,31 @@ module Lidia
 
 
     #クロールするメソッド
-    def lidia_crawl(brand_home_url, search_price)
-        #免税価格に調整
-        #duty_free_price = search_price.to_i / 1.2
-        #duty_free_price = duty_free_price.round.to_s
+    def vietti_crawl(brand_home_url, search_price)
 
         #価格の文字列調整だけ最初に実行
         if search_price.length >= 4 then
             search_price = search_price.insert(1, ".")
         end
+        
+        #doc作成と初回クロール
+        doc = vietti_make_doc(brand_home_url)
+        vietti_onetime_crawl(doc, search_price, brand_home_url)
 
-        doc = lidia_make_doc(brand_home_url)
-        #初回クロール
-        lidia_onetime_crawl(doc, search_price)
-
-        #page-list要素が空っぽでなければ繰り返し処理へ入る
-        if (!doc.css('.bottom-pagination').empty?)
+        #pager要素が空っぽでなければ繰り返し処理へ
+        if (!doc.css('.pages').empty?)
             
             #nextクラスの要素ががからっぽになるまでは繰り返しクローリングする
             while (!doc.css('.next').empty?) do
                 
                 #次のページのURLを取得
-                next_page_url = "https://www.lidiashopping.com/" + doc.css('.next').css('a').attribute('href')
+                next_page_url = doc.css('.next').css('a').attribute('href')
                 
                 #新しいurlでdocを作成
-                doc = lidia_make_doc(next_page_url)
+                doc = vietti_make_doc(next_page_url)
 
                 #クローリングする
-                lidia_onetime_crawl(doc, search_price)
+                vietti_onetime_crawl(doc, search_price, brand_home_url)
 
             end
         end

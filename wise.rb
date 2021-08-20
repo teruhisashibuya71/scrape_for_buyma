@@ -21,7 +21,7 @@ module Wise
     def wise_make_doc(brand_home_url)
         #スクレイピング開始する
         charset = nil
-        html = open(brand_home_url) do |f|
+        html = URI.open(brand_home_url) do |f|
             charset = f.charset
             f.read
         end
@@ -30,7 +30,7 @@ module Wise
     end
 
 
-    def wise_onetime_crowl(wise_search_price, doc)
+    def wise_onetime_crawl(wise_search_price, doc)
         doc.css(".item").each do |product|
             #商品価格を取得する
             item_price = product.css(".price").inner_text
@@ -51,7 +51,7 @@ module Wise
         end
         #初回クロール
         doc = wise_make_doc(brand_home_url)
-        wise_onetime_crowl(search_price, doc)
+        wise_onetime_crawl(search_price, doc)
 
         #ページ送り機能 unless文は条件式が falseの場合に繰り返す labelクラスの中身が空っぽでなかればクローリングする
         unless doc.css(".next").empty? then
@@ -60,7 +60,7 @@ module Wise
             #新しいurlでdocを作成
             doc = wise_make_doc(next_page_url)
             #クローリングする
-            wise_onetime_crowl(search_price, doc)
+            wise_onetime_crawl(search_price, doc)
         end
     end
 end

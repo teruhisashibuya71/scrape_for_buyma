@@ -49,7 +49,7 @@ module Gb
     end
 
     #wiseと一緒 1回だけクロール
-    def gb_onetime_crowl(doc, search_price)
+    def gb_onetime_crawl(doc, search_price)
         items = doc.css(".item")
         if (items.size == 0)
             puts "商品無し"
@@ -79,7 +79,7 @@ module Gb
         categorized_url = make_categorized_url(brand_home_url, category)
         doc = gb_make_doc(categorized_url)
         #初回クロール
-        gb_onetime_crowl(doc, search_price)
+        gb_onetime_crawl(doc, search_price)
 
         #pagesの要素があるなら次のページのurlを取得する
         if (!doc.css('.pages').empty?)
@@ -90,7 +90,7 @@ module Gb
             #新しいurlでdocを作成
             doc = gb_make_doc(next_page_url)
             #クローリングする
-            gb_onetime_crowl(doc, search_price)
+            gb_onetime_crawl(doc, search_price)
             end
         end
 

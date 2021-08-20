@@ -39,7 +39,7 @@ module LeamfarfetchWoman
         end
     end
 
-    def leamfarfetch_onetime_crowl(attack_site_url, leamfarfetch_search_price, category, doc)
+    def leamfarfetch_onetime_crawl(attack_site_url, leamfarfetch_search_price, category, doc)
         doc.css('li[data-testid="productCard"]').each do |node|
             item_price = node.css('span[data-testid="price"]').inner_text
             if item_price.include?(leamfarfetch_search_price) then
@@ -52,13 +52,13 @@ module LeamfarfetchWoman
         end
     end
 
-    def leamfarfetch_crowl(attack_site_url, search_price, category)
+    def leamfarfetch_crawl(attack_site_url, search_price, category)
         if 4 <= search_price.length then
             search_price = search_price.insert(1, ".")
         end
         leamfarfetch_categorized_url = leamfarfetch_return_category_page_url(attack_site_url, category)
         doc = leamfarfetch_make_doc(leamfarfetch_categorized_url)
-        leamfarfetch_onetime_crowl(leamfarfetch_categorized_url, search_price, category, doc)
+        leamfarfetch_onetime_crawl(leamfarfetch_categorized_url, search_price, category, doc)
         page_number = 1 #次ページurl作成用の変数
         #urlのおおまかな変形をwhileの前に実行
         leamfarfetch_categorized_url = leamfarfetch_categorized_url.insert(56, "page=#{page_number}&")

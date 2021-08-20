@@ -31,8 +31,10 @@ class JilsanderWoman
 
 end
 
-ATTACK_LIST_URL = ["https://smets.lu/collections/jil-sander"
-                   ]
+ATTACK_LIST_URL = [
+    #"https://smets.lu/collections/jil-sander"
+    "https://www.michelefranzesemoda.com/it/donna/designer/jil-sander/"
+]
 
     jilsander_woman = JilsanderWoman.new
     @price = JilsanderWoman.call_price
@@ -43,6 +45,8 @@ ATTACK_LIST_URL = ["https://smets.lu/collections/jil-sander"
         when "https://smets.lu/collections/jil-sander" then
             jilsander_woman.gb_crawl(attack_site_url, @price)
             @price = @price.delete(".")
-        
+        when "https://www.michelefranzesemoda.com/it/donna/designer/jil-sander/" then
+            jilsander_woman.gb_crawl(attack_site_url, @price)
+            @price = @price.delete(".")
         end
     end

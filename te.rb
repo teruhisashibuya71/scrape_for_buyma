@@ -107,7 +107,7 @@ target_price = "3500"
 #puts pagewise.empty?
 
 ##shipping to JAPANと120品表示に切り替えを行うメソッド
-#    def prepare_crowl(brand_home_url)
+#    def prepare_crawl(brand_home_url)
 #        options = Selenium::WebDriver::Chrome::Options.new
 #        options.add_argument('--headless')
 #        driver = Selenium::WebDriver.for :chrome, options: options

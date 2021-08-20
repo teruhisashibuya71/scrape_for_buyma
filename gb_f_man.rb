@@ -39,7 +39,7 @@ module GbFarfetchMan
         ends
     end
 
-    def gbfarfetch_onetime_crowl(attack_site_url, gbfarfetch_search_price, category, doc)
+    def gbfarfetch_onetime_crawl(attack_site_url, gbfarfetch_search_price, category, doc)
         doc.css('li[data-testid="productCard"]').each do |node|
             item_price = node.css('span[data-testid="price"]').inner_text
             if item_price.include?(gbfarfetch_search_price) then
@@ -52,13 +52,13 @@ module GbFarfetchMan
         end
     end
 
-    def gbfarfetch_crowl(attack_site_url, search_price, category)
+    def gbfarfetch_crawl(attack_site_url, search_price, category)
         if search_price.length >= 4 then
             search_price = search_price.insert(1, ".")
         end
         gbfarfetch_categorized_url = gbfarfetch_return_category_page_url(attack_site_url, category)
         doc = gbfarfetch_make_doc(gbfarfetch_categorized_url)
-        gbfarfetch_onetime_crowl(gbfarfetch_categorized_url, search_price, category, doc)
+        gbfarfetch_onetime_crawl(gbfarfetch_categorized_url, search_price, category, doc)
         page_number = 1 #次ページurl作成用の変数
         #urlのおおまかな変形をwhileの前に実行
         gbfarfetch_categorized_url = gbfarfetch_categorized_url.insert(56, "page=#{page_number}&")

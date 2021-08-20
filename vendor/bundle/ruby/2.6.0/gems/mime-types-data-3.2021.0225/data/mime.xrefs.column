@@ -398,7 +398,7 @@ rfc^rfc3842|template^application/simple-message-summary
 person^_3GPP|template^application/simpleSymbolContainer
 person^Bryan_Blank^NCGIS|template^application/sipc
 -
-person^Terry_Crowley|template^application/slate
+person^Terry_crawley|template^application/slate
 notes^- OBSOLETED in favor of application/smil+xml|rfc^rfc4536|template^application/smil
 rfc^rfc4536|template^application/smil+xml
 rfc^rfc6597|template^application/smpte336m
