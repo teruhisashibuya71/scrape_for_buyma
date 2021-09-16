@@ -1,0 +1,16 @@
+🌟セレニウムのversionが変わった場合
+-arm64 brew reinstall chromedriver で再インストール
+resintall後に再度プログラムを実行すると開発元未確認エラーがでる
+システム環境設定→セキュリティとプライバシーで→一般→このまま許可をクリック
+
+動くようになる！
+
+
+参考
+
+reinstall
+https://qiita.com/lemtosh469/items/da86d1ce919d458a8d8d
+
+クロームドライバーのディレクトリ
+/opt/homebrew/bin/chromedriver'
+これがreinstallで更新されていると思われる

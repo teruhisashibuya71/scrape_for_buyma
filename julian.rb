@@ -31,12 +31,8 @@ module Julian
                 #セール価格あっても取得可能
                 product_price = product.css('.price').inner_text
                 if (product_price.include?(search_price) || product_price.include?(lower_search_price) || product_price.include?(higher_search_price)) then
-                #if (product_price.include?(search_price)) then
-                    #商品価格
                     #puts product_price.strip
-                    #商品名
                     #puts product.css('.name').text.strip
-                    #画像リンク
                     puts "https://www.julian-fashion.com/" + product.css('a').attribute("href").value
                 end
             end

@@ -8,7 +8,7 @@ module GbFarfetchWoman
 
     def gbfarfetch_make_doc(gbfarfetch_categorized_url)
         charset = nil
-        html = open(gbfarfetch_categorized_url) do |f|
+        html = URI.open(gbfarfetch_categorized_url) do |f|
             charset = f.charset
             f.read
         end
@@ -64,8 +64,8 @@ module GbFarfetchWoman
             doc.css('li[data-testid="productCard"]').each do |node|
                 item_price = node.css('span[data-testid="price"]').inner_text
                 if item_price.include?(search_price) then
-                    puts item_price
-                    puts node.css('p[itemprop="name"]').inner_text
+                    #puts item_price
+                    #puts node.css('p[itemprop="name"]').inner_text
                     get_url = node.css('a').attribute("href").value
                     access_url = "https://www.farfetch.com" + get_url
                     puts access_url

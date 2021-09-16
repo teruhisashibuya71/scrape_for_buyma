@@ -17,6 +17,8 @@ module Labels
         #指定のURLにアクセス
         driver.get(brand_home_url)
         
+        #商品価価格桁数調整無し
+
         #最初の商品ボックスの数 初期値2
         doc = Nokogiri::HTML.parse(driver.page_source)
         newest_number_product_wrapper = doc.css('.wrapper').size

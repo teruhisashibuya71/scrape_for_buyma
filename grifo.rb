@@ -38,7 +38,7 @@ module Grifo
     #クロールするメソッド
     def grifo_crawl(brand_home_url, search_price)
         #税込みか免税かわからないのでpriceを2つ用意する
-        #免税価格は小数点以下は切り捨て
+        #免税価格は小数点以下→四捨五入
         duty_free_price = search_price.to_i / 1.22
         duty_free_price = duty_free_price.round.to_s
 
@@ -46,7 +46,7 @@ module Grifo
         if search_price.length >= 4 then
             search_price = search_price.insert(1, ".")
             if duty_free_price.length >= 4 then
-                duty_free_price = searduty_free_pricech_price.insert(1, ".")
+                duty_free_price = search_price.insert(1, ".")
             end
         end
         #doc作成と商品の有無をチェック

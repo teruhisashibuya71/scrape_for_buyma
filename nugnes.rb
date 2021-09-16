@@ -26,8 +26,8 @@ module Nugnes
             #もし価格が同じなら
             if item_price.include?(nugnes_search_price) then
                 #商品価格 商品名 画像リンク を取得する
-                puts item_price
-                puts node.css("h4").inner_text
+                #puts item_price
+                #puts node.css("h4").inner_text
                 relative_product_url = node.css('a').attribute("href").value #フルurlが取得される
                 puts "https://nugnes1920.com" + relative_product_url
             end

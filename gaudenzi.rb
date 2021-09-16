@@ -39,10 +39,9 @@ module Gaudenzi
             #もし価格がsearch_priceあるいはlower_search_priceと同じなら商品名とリンクURLを取得する
             if item_price.include?(search_price) then
                 #商品価格 商品名 画像リンク を取得する
-                puts item_price
-                puts node.css(".name").inner_text
-                product_url = node.css(".photo").css('a').attribute("href").value
-                puts product_url
+                #puts item_price
+                #puts node.css(".name").inner_text
+                puts product_url = node.css(".photo").css('a').attribute("href").value
             end
         end
     end

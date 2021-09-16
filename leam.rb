@@ -59,8 +59,7 @@ module Leam
             #nextのa要素が空っぽでないかぎりはクローリングを繰り返す
             while (!doc.css('.next').css('a').empty?) do
                 #次のページのURLを取得
-                puts next_page_url = doc.css('.next').css('a').attribute('href')
-                
+                next_page_url = doc.css('.next').css('a').attribute('href')
                 #新しいurlでdocを作成
                 doc = leam_make_doc(next_page_url)
                 #クローリングする

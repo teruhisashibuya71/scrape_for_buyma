@@ -1,34 +1,35 @@
 require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
-require './dope_f_woman'
-require './amr_f_woman'
+
+
 require './gb_f_woman'
+require './coltorti'
+require './amr_f_woman'
 require './monti'
 require './alducadaosta'
 require './tessabit'
 require './wise'
 require './gaudenzi'
 require './nugnes'
-require './blondie_f_woman'
-require './coltorti'
+require './blondie'
 
 
-#✓dopeファクトリーファクトリーはオリジナルサイトをクロールすること
 
 class MargielaVipWoman
     #include + クラス名
-    include DoepFarfetchWoman
-    include AmrFarfetchWoman
+    
     include GbFarfetchWoman
+    include Coltorti
+    include AmrFarfetchWoman
     include Monti
     include Alducadaosta
     include Tessabit
     include Wise
     include Gaudenzi
     include Nugnes
-    include BlondieFarfetchWoman
-    include Coltorti
+    include Blondie
+    
 
     #服 靴 バッグ アクセ の4種類で対応する
     #価格入力欄

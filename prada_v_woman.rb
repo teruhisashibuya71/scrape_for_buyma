@@ -8,7 +8,7 @@ require './suit'
 require './tessabit'
 require './coltorti'
 require './gb_f_woman'
-require './brunarosso_f_woman'
+
 require './nugnes'
 require './gaudenzi'
 require './wise'

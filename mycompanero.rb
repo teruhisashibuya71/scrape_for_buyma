@@ -3,6 +3,8 @@ require 'nokogiri'
 require 'open-uri'
 
 
+
+
 #特記事項
 #カテゴリ分けが使えないサイト
 
@@ -63,13 +65,12 @@ module Mycompanero
         #初回クロール
         mycompanero_onetime_crawl(doc, search_price)
         #puts "初回クロール終了" 
-
+        ctime = 0
         #page-list要素が空っぽでなければ繰り返し処理へ入る
         if (!doc.css('.page-list').empty?)
             
             current_page_url = brand_home_url
             next_page_url = ""
-ctime = 1
             #現在のURLと次のページのURLが異なるうちは処理を繰り返す
             #while (current_page_url != next_page_url) do
             while (true) do

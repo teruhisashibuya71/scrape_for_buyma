@@ -3,68 +3,63 @@ require 'nokogiri'
 require 'open-uri'
 
 
-require './gb'
-require './coltorti'
-require './alducadaosta'
-require './russocapri'
-require './suit'
-require './sigrun'
-require './leam'
-require './tessabit'
-require './nugnes'
-require './blondie'
-require './auzmendi_f_woman'
 require './actuelb'
-require './gaudenzi'
+#require './amr'
 require './amr_f_woman'
+require './alducadaosta'
+require './auzmendi_f_woman'
+require './coltorti'
+require './gaudenzi'
+require './gb'
+require './gb_f_woman'
+require './leam'
+require './nugnes'
+require './russocapri'
+require './sigrun'
+require './suit'
+require './tessabit'
 require './wise'
-require './monti'
+require './wise_f_woman'
+#selenium
+require './blondie'
 require './brunarosso_woman'
-
-#require './blondie_f_woman'
+require './monti'
 
 
 #https://amrstore.com/collections/moncler
-#https://www.montiboutique.com/it-IT/Donna/designer/moncler
-#https://www.blondieshop.com/it/donna/woman-designer/moncler.html
-#https://www.brunarosso.com/s/designers/moncler/
+
 
 
 #一旦完成
 class MonclerVipWoman
-    #include + クラス名
-    include Gb
-    include Coltorti
-    include Alducadaosta
-    include Russocapri
-    include Suit
-    include SigrunWoehr
-    include Leam
-    include Tessabit
-    include Nugnes
-    include Blondie
-    include AuzmendiFarfetchWoman
-    include Actuelb
-    include Gaudenzi
-    include AmrFarfetchWoman
-    include Wise
-    include Monti
-    include BrunarossoWoman
-    
-    
-    #farfetchにはmonclerがない
-    #include MontiFarfetchWoman
-    
-    #farfetchにはmonclerが無い
-    #include BlondieFarfetchWoman 
-    
-
 
     #服 靴 バッグ アクセ の4種類で対応する
     #価格入力欄
     @category = "服"
-    @price = "695"
+    @price = "435"
 
+    #include + クラス名
+    include Actuelb
+    include Alducadaosta
+    include AmrFarfetchWoman
+    include AuzmendiFarfetchWoman
+    include Coltorti
+    include Gaudenzi
+    include Gb
+    include GbFarfetchWoman
+    include Leam
+    include Nugnes
+    include Russocapri
+    include SigrunWoehr
+    include Suit
+    include Tessabit
+    include Wise
+    include WiseFarfetchWoman
+    #selenium
+    include Blondie
+    include BrunarossoWoman
+    include Monti
+    
     def self.call_category
         @category
     end
@@ -77,24 +72,27 @@ class MonclerVipWoman
 end
 
 ATTACK_LIST_URL = [
-    #"https://www.gebnegozionline.com/it_it/donna/designers/moncler.html",
-    #"https://www.coltortiboutique.com/it/designer/moncler?cat=166",
-    #"https://www.alducadaosta.com/it/donna/designer/moncler",
-    #"https://www.farfetch.com/it/shopping/women/bruna-rosso/items.aspx?view=90&scale=274&designer=4535",
-    #"https://www.russocapri.com/it/tutti/designer/moncler/gruppi",
-    #"https://suitnegozi.com/collections/moncler-donna",
-    #"https://www.sigrun-woehr.com/en/By-Brand/Moncler/",
-    #"https://www.leam.com/it_eu/designer/moncler-donna.html",
-    #"https://www.tessabit.com/it/donna/designers/moncler",
-    #"https://nugnes1920.com/collections/moncler-woman",
-    #"https://www.blondieshop.com/it/donna/woman-designer/moncler.html",
-    #"https://www.farfetch.com/be/shopping/women/auzmendi/items.aspx?view=90&scale=274&designer=4535",
     #"https://actuelb.com/en/88-women-s-moncler",
-    #"https://www.gaudenziboutique.com/en-it/women/designer/moncler",
-    #"https://www.wiseboutique.com/it_it/donna/designers/moncler.html",
-    #"https://www.montiboutique.com/it-IT/Donna/designer/moncler"
-    "https://www.brunarosso.com/s/designers/moncler/?category=women"
-
+    ##amr
+    #"https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=90&scale=274&rootCategory=Women&designer=4535",
+    #"https://www.alducadaosta.com/it/donna/designer/moncler",
+    #"https://www.farfetch.com/be/shopping/women/auzmendi/items.aspx?view=90&scale=274&designer=4535",
+    #"https://www.coltortiboutique.com/it/designer/moncler?cat=166",
+    "https://www.gaudenziboutique.com/en-it/women/designer/moncler",
+    "https://www.farfetch.com/it/shopping/men/G-B/items.aspx?view=90&scale=282&rootCategory=Men&designer=4535",
+    ##"https://www.gebnegozionline.com/it_it/donna/designers/moncler.html",
+    "https://www.leam.com/it_eu/designer/moncler-donna.html",
+    "https://nugnes1920.com/collections/moncler-woman",
+    "https://www.russocapri.com/it/donna/categorie/shopping/gruppi/nuovi-arrivi?ds=moncler",
+    "https://suitnegozi.com/collections/moncler-donna",
+    "https://www.sigrun-woehr.com/en/By-Brand/Moncler/",
+    "https://www.tessabit.com/en_it/woman/designers/moncler.html?page=1",
+    "https://www.farfetch.com/it/shopping/women/wise-boutique/items.aspx?view=90&scale=274&rootCategory=Women&designer=4535",
+    ##"https://www.wiseboutique.com/it_it/donna/designers/moncler.html",
+    #以下selenium
+    "https://www.blondieshop.com/it/donna/woman-designer/moncler.html",
+    "https://www.brunarosso.com/s/designers/moncler/?category=women",
+    "https://www.montiboutique.com/it-IT/Donna/designer/moncler"
     ]
 
     moncler_vip_woman = MonclerVipWoman.new
@@ -103,71 +101,74 @@ ATTACK_LIST_URL = [
 
     ATTACK_LIST_URL.each do |attack_site_url|
         case attack_site_url
-        when "https://www.gebnegozionline.com/it_it/donna/designers/moncler.html" then
-            puts "gb開始"
-            moncler_vip_woman.gb_crawl(attack_site_url, @price, @category)
+        when "https://actuelb.com/en/88-women-s-moncler" then
+            moncler_vip_woman.actuel_crawl(attack_site_url, @price)
             @price = @price.delete(".")
-        when "https://www.coltortiboutique.com/it/designer/moncler?cat=166" then
-            puts "coltorti開始"
-            moncler_vip_woman.coltorti_crawl(attack_site_url, @price, @category)
+
+        #when "amr" then
+            #    moncler_vip_woman.actuel_crawl(attack_site_url, @price)
+            #    @price = @price.delete(".")
+            
+        when "https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=90&scale=274&rootCategory=Women&designer=4535" then
+            moncler_vip_woman.amr_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.alducadaosta.com/it/donna/designer/moncler" then
-            puts "alducadaosta開始"
             moncler_vip_woman.alducadaosta_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
-        when "https://www.farfetch.com/it/shopping/women/bruna-rosso/items.aspx?view=90&scale=274&designer=4535" then
-            puts "brunarossof開始"
-            moncler_vip_woman.bruna_farfetch_crawl(attack_site_url, @price, @category)
+        when "https://www.farfetch.com/be/shopping/women/auzmendi/items.aspx?view=90&scale=274&designer=4535" then
+            moncler_vip_woman.auzmendi_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
-        when "https://www.russocapri.com/it/tutti/designer/moncler/gruppi" then
-            puts "russoスタート"
+        when "https://www.coltortiboutique.com/it/designer/moncler?cat=166" then
+            moncler_vip_woman.coltorti_crawl(attack_site_url, @price, @category)
+            @price = @price.delete(".")
+        when "https://www.gaudenziboutique.com/en-it/women/designer/moncler" then
+            moncler_vip_woman.gaudenzi_crawl(attack_site_url, @price, @category)
+            @price = @price.delete(".")
+        when "https://www.farfetch.com/it/shopping/men/G-B/items.aspx?view=90&scale=282&rootCategory=Men&designer=4535" then
+            moncler_vip_woman.gbfarfetch_crawl(attack_site_url, @price, @category)
+            @price = @price.delete(".")
+        #gb
+        ##when "https://www.gebnegozionline.com/it_it/donna/designers/moncler.html" then
+        ##    moncler_vip_woman.gb_crawl(attack_site_url, @price, @category)
+        ##    @price = @price.delete(".")
+
+        when "https://www.leam.com/it_eu/designer/moncler-donna.html" then
+            moncler_vip_woman.leam_crawl(attack_site_url, @price)
+            @price = @price.delete(".")
+        when "https://nugnes1920.com/collections/moncler-woman" then
+            moncler_vip_woman.nugnes_crawl(attack_site_url, @price)
+            @price = @price.delete(".")
+        when "https://www.russocapri.com/it/donna/categorie/shopping/gruppi/nuovi-arrivi?ds=moncler" then
             moncler_vip_woman.russo_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://suitnegozi.com/collections/moncler-donna" then
-            puts "suitスタート"
             moncler_vip_woman.suit_crawl(attack_site_url, @price)
             @price = @price.delete(".")
         when "https://www.sigrun-woehr.com/en/By-Brand/Moncler/" then
-            puts "sigrunスタート"
             moncler_vip_woman.sigrun_crawl(attack_site_url, @price)
             @price = @price.delete(".")
-        when "https://www.leam.com/it_eu/designer/moncler-donna.html" then
-            puts "leamスタート"
-            moncler_vip_woman.leam_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
-        when "https://www.tessabit.com/it/donna/designers/moncler" then
-            puts "tessabitスタート"
+        when "https://www.tessabit.com/en_it/woman/designers/moncler.html?page=1" then
             moncler_vip_woman.tessabit_crawl(attack_site_url, @price, @category)
             @price = @price.delete(",")
-        when "https://nugnes1920.com/collections/moncler-woman" then
-            puts "nugnesスタート"
-            moncler_vip_woman.nugnes_crawl(attack_site_url, @price)
+        when "https://www.farfetch.com/it/shopping/women/wise-boutique/items.aspx?view=90&scale=274&rootCategory=Women&designer=4535" then
+            moncler_vip_woman.wise_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
+
+        #オンラインwise
+        #when "https://www.wiseboutique.com/it_it/donna/designers/moncler.html" then
+        #    moncler_vip_woman.wise_crawl(attack_site_url, @price)
+        #    @price = @price.delete(".")
+
+            #以下selenium
         when "https://www.blondieshop.com/it/donna/woman-designer/moncler.html" then
-            puts "blondieスタート"
+            #puts "blondieスタート"
             moncler_vip_woman.blondie_crawl_selenium(attack_site_url, @price)
-            @price = @price.delete(".")
-        when "https://www.farfetch.com/be/shopping/women/auzmendi/items.aspx?view=90&scale=274&designer=4535" then
-            puts "azumendiスタート"
-            moncler_vip_woman.auzmendi_farfetch_crawl(attack_site_url, @price, @category)
-            @price = @price.delete(".")
-        when "https://actuelb.com/en/88-women-s-moncler" then
-            puts "actuelスタート"
-            moncler_vip_woman.actuel_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
-        when "https://www.gaudenziboutique.com/en-it/women/designer/moncler" then
-            puts "gaudenziスタート"
-            moncler_vip_woman.gaudenzi_crawl(attack_site_url, @price, @category)
-            @price = @price.delete(".")
-        when "https://www.wiseboutique.com/it_it/donna/designers/moncler.html" then
-            puts "wiseスタート"
-            moncler_vip_woman.wise_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
-        when "https://www.montiboutique.com/it-IT/Donna/designer/moncler" then
-            moncler_vip_woman.monti_crawl_selenium(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.brunarosso.com/s/designers/moncler/?category=women" then
             moncler_vip_woman.brunarosso_crawl_selenium(attack_site_url, @price, @category)
             #商品価格はそのまま
+        when "https://www.montiboutique.com/it-IT/Donna/designer/moncler" then
+            moncler_vip_woman.monti_crawl_selenium(attack_site_url, @price, @category)
+            @price = @price.delete(".")
         end
     end

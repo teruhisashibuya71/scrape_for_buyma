@@ -4,7 +4,8 @@ require 'nokogiri'
 require 'open-uri'
 require 'mechanize'
 
-#
+#アズメンディのカテゴリチェック
+#全体チェック
 module Russocapri
 
     #docを作るためのメソッド

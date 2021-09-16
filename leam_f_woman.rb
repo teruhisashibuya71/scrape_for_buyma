@@ -43,8 +43,8 @@ module LeamfarfetchWoman
         doc.css('li[data-testid="productCard"]').each do |node|
             item_price = node.css('span[data-testid="price"]').inner_text
             if item_price.include?(leamfarfetch_search_price) then
-                puts item_price
-                puts node.css('p[itemprop="name"]').inner_text
+                #puts item_price
+                #puts node.css('p[itemprop="name"]').inner_text
                 get_url = node.css('a').attribute("href").value
                 access_url = "https://www.farfetch.com" + get_url
                 puts access_url

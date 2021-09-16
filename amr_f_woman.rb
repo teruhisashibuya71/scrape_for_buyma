@@ -41,7 +41,7 @@ module AmrFarfetchWoman
     end
 
 
-    def amr_farfetch_onetime_crawl(attack_site_url, amr_farfetch_target_price, category, doc)
+    def amr_farfetch_onetime_crawl(attack_site_url, target_price, category, doc)
         products = doc.css('li[data-testid="productCard"]')
         #商品数0なら報告する
         if (products.size == 0)
@@ -54,7 +54,7 @@ module AmrFarfetchWoman
             if (item_price.empty?) then
                 item_price = product.css('span[data-testid="price"]').inner_text
             end
-            if item_price.include?(blondie_farfetch_target_price) then
+            if item_price.include?(target_price) then
                 get_url = product.css('a').attribute("href").value
                 access_url = "https://www.farfetch.com" + get_url
                 #商品アクセスURL

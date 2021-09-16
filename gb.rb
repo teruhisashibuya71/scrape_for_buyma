@@ -1,10 +1,13 @@
 require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
+require 'mechanize'
 
 
 #✓後でページ送り機能を念のため付ける
 module Gb
+    #メカナイズ使ってみる
+    #@@agent = Mechanize.new
 
     ##docを作るためのメソッド
     #def gb_make_doc(brand_home_url)
@@ -38,13 +41,15 @@ module Gb
 
     #docを作るためのメソッド
     def gb_make_doc(categorized_url)
-        #スクレイピング開始する
-        charset = nil
-        html = URI.open(categorized_url) do |f|
-            charset = f.charset
-            f.read
-        end
-        doc = Nokogiri::HTML.parse(html, nil, charset)
+        # charset = nil
+        # html = URI.open(categorized_url) do |f|
+        #     charset = f.charset
+        #     f.read
+        # end
+        # doc = Nokogiri::HTML.parse(html, nil, charset)
+        agent = Mechanize.new
+        page = agent.get(categorized_url)
+        doc = Nokogiri::HTML(page.body) 
         return doc
     end
 
@@ -76,21 +81,24 @@ module Gb
         end
 
         #商品カテゴリー別のURLを取得
-        categorized_url = make_categorized_url(brand_home_url, category)
+        puts categorized_url = make_categorized_url(brand_home_url, category)
         doc = gb_make_doc(categorized_url)
         #初回クロール
+        puts "初回クロール"
         gb_onetime_crawl(doc, search_price)
-
+        puts "初回終了"
         #pagesの要素があるなら次のページのurlを取得する
         if (!doc.css('.pages').empty?)
+            puts "複数ページあり"
             #ネクストボタンが押せるうちはクローリングを繰り返す
             while (!doc.css('.pages-item-next').empty?) do
-            #次のページのURLを取得
-            next_page_url = doc.css('.pages-item-next').css('a').attribute('href')
-            #新しいurlでdocを作成
-            doc = gb_make_doc(next_page_url)
-            #クローリングする
-            gb_onetime_crawl(doc, search_price)
+                #次のページのURLを取得
+                next_page_url = doc.css('.pages-item-next').css('a').attribute('href')
+                puts "次のページのURLは" + next_page_url
+                #新しいurlでdocを作成
+                doc = gb_make_doc(next_page_url)
+                #クローリングする
+                gb_onetime_crawl(doc, search_price)
             end
         end
 

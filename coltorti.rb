@@ -19,6 +19,7 @@ module Coltorti
     end
 
     #category変数の値に応じて 各カテゴリページのurlを返すメソッド 引数はvipfendiクラスのクラス変数が入る
+    #クリック欄がなければnilclassになる
     def coltorti_return_category_page_url(attack_site_url, search_category)
         home_doc = coltorti_make_doc(attack_site_url)
         if search_category == "服" then
@@ -32,6 +33,7 @@ module Coltorti
             coltorti_bag_url = home_doc.css('li[data-label="Borse"]').css('a').attribute("href").value
             return coltorti_bag_url
         else
+            #一覧になければ
             coltorti_accessori_url = home_doc.css('li[data-label="Accessori"]').css('a').attribute("href").value
             return coltorti_accessori_url
         end

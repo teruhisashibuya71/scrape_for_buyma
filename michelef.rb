@@ -71,7 +71,6 @@ module Michelefranzese
                 else
                     #先頭のURLを次のページのクロールurlとする
                     next_page_url = next_page_url[0].attribute('href')
-                    
                 end
                 
                 #新しいurlでdocを作成

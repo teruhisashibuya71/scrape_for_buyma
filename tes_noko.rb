@@ -1,60 +1,95 @@
 require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
-require 'mechanize'
-
-
-#メカナイズ系
-# url = "https://www.pl-line.com/en/moncler?gender=men"
-# agent = Mechanize.new
-# page = agent.get(url)
-# doc = Nokogiri::HTML(page.body)  
-# doc.css('.product').size
-
 
 
 #docを作るためのメソッド
 #スクレイピング開始する
 charset = nil
-html = URI.open("https://shop.labelsfashion.com/men/designers/moncler") do |f|   
-#html = URI.open("https://www.pl-line.com/en/moncler?gender=men&p=2") do |f|
-#html = URI.open("https://www.michelefranzesemoda.com/it/dona/designer/jil-sander/gruppi?s=3") do |f|
+#html = URI.open("https://www.antonia.it/it/brands/moncler") do |f|   
+html = URI.open("https://www.tessabit.com/en_it/woman/designers/moncler.html?page=1") do |f|
 
 charset = f.charset
     f.read
 end
 
 doc = Nokogiri::HTML.parse(html, nil, charset)
+puts doc.css('.izHQXc').size
 
+#puts doc.css('.pagination').css('.selected').inner_text
 #0.使用確認
 #puts doc
 
 #1.取得商品数の確認
-puts doc.css('amscroll-page').size
-puts doc.attr('.amscroll-page')
-puts doc.attribute('.amscroll-page')
+#puts doc.css('.productContent').size
 
-search_price = "415"
+#2.対象価格
+#search_price = "844"
 
-#1.各要素の取得確認
-#puts products = doc.css('.product')
+#3.免税処理 価格は小数点表示のため、小数点以下は切り捨ててOK
+#切り上げ .ceil
+#切り捨て .floor
+#四捨五入 .round
+#duty_free_price = search_price.to_i / 1.22
+#duty_free_price = duty_free_price.floor.to_s
+
+
+#4商品の桁数調整
 # if search_price.length >= 4 then
-#     search_price = search_price.insert(1, ",")
+#     search_price = search_price.insert(1, ".")
 # end
+
+#4商品の桁数調整(免税version)
+# if duty_free_price.length >= 4 then
+#     duty_free_price = duty_free_price.insert(1, ".")
+# end
+
+
+
+
+#商品product-item-info
+#名前product-item-name
+#価格price-box
+#リンク
+
+# puts doc.css('.product-item').size
+# #1.各要素の取得確認
+# products = doc.css('.product-item')
 #     products.each do |product|
 #     #商品価格を取得する
-#     product_price = product.css('.price').inner_text
-#     #puts product.css(".product-title").text.strip
-#     if product_price.include?(search_price) then
+#     puts product_price = product.css('.price').inner_text
+#     #puts product.css(".price-box").text.strip
+#     #if product_price.include?(search_price) then
 #         #商品価格
 #         puts product_price.strip
 #         #商品名
-#         puts product.css(".margin-bottom-two").inner_text.strip
+#         puts product.css(".h5").inner_text.strip
 #         #画像リンク
 #         puts product.css('a').attribute("href").value
-#         #puts "https://www.lidiashopping.com/" + product.css('a').attribute("href").value
+#         #puts "https://www.dafneshop.it" + product.css('a').attribute("href").value
+#     #end
+# end
+
+
+#1.各要素の取得確認(免税version)
+# products = doc.css('.product-miniature')
+# products.each do |product|
+#     #商品価格を取得する
+#     product_price = product.css('.product-price-and-shipping').inner_text
+#     #puts product.css(".product-title").text.strip
+#     if product_price.include?(duty_free_price) then
+#         #商品価格
+#         puts product_price.strip
+#         #商品名
+#         puts product.css(".product-title").inner_text.strip
+#         #画像リンク
+#         puts product.css('a').attribute("href").value
+#         #puts "https://www.dafneshop.it" + product.css('a').attribute("href").value
 #     end
 # end
+
+
+
 
 # products = doc.css('.product-item')
 #     puts products[0].to_s
@@ -73,7 +108,9 @@ search_price = "415"
 #puts doc.css('.pagination').css('a').size
 #puts crawl_timess = doc.css('.pagination').css('a').size / 2 - 1
 #puts crawl_timess = crawl_timess / 2 - 1
+#puts doc.css('#pagination').css('li').size
 
+#.attribute('href')
 #
 
 
@@ -128,8 +165,9 @@ search_price = "415"
 
 
 
+
 #2.ページ送りパーツの有無
-#puts doc.css('.bottom-pagination').css('a').empty?
+#puts doc.css('.page-list').css('li').size
 
 #puts doc.css('.next').empty?
 

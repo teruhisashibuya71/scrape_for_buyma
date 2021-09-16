@@ -12,7 +12,7 @@ module GbFarfetchMan
 
     def gbfarfetch_make_doc(gbfarfetch_categorized_url)
         charset = nil
-        html = open(gbfarfetch_categorized_url) do |f|
+        html = URI.open(gbfarfetch_categorized_url) do |f|
             charset = f.charset
             f.read
         end
@@ -36,15 +36,15 @@ module GbFarfetchMan
         else
             gbfarfetch_accessori_url = attack_site_url.sub(/scale=282/, 'category=135972')
             return gbfarfetch_accessori_url
-        ends
+        end
     end
 
     def gbfarfetch_onetime_crawl(attack_site_url, gbfarfetch_search_price, category, doc)
         doc.css('li[data-testid="productCard"]').each do |node|
             item_price = node.css('span[data-testid="price"]').inner_text
             if item_price.include?(gbfarfetch_search_price) then
-                puts item_price
-                puts node.css('p[itemprop="name"]').inner_text
+                #puts item_price
+                #puts node.css('p[itemprop="name"]').inner_text
                 get_url = node.css('a').attribute("href").value
                 access_url = "https://www.farfetch.com" + get_url
                 puts access_url
@@ -52,32 +52,42 @@ module GbFarfetchMan
         end
     end
 
-    def gbfarfetch_crawl(attack_site_url, search_price, category)
+    def gb_farfetch_crawl(attack_site_url, search_price, category)
         if search_price.length >= 4 then
             search_price = search_price.insert(1, ".")
         end
         gbfarfetch_categorized_url = gbfarfetch_return_category_page_url(attack_site_url, category)
         doc = gbfarfetch_make_doc(gbfarfetch_categorized_url)
-        gbfarfetch_onetime_crawl(gbfarfetch_categorized_url, search_price, category, doc)
-        page_number = 1 #次ページurl作成用の変数
-        #urlのおおまかな変形をwhileの前に実行
-        gbfarfetch_categorized_url = gbfarfetch_categorized_url.insert(56, "page=#{page_number}&")
-        while doc.css('li[data-testid="productCard"]').size == 90 do
-            page_number += 1
-            gbfarfetch_categorized_url[61] = "#{page_number}"
-            doc = gbfarfetch_make_doc(gbfarfetch_categorized_url)
-            doc.css('li[data-testid="productCard"]').each do |node|
-                item_price = node.css('span[data-testid="price"]').inner_text
-                if item_price.include?(search_price) then
-                    puts item_price
-                    puts node.css('p[itemprop="name"]').inner_text
-                    get_url = node.css('a').attribute("href").value
-                    access_url = "https://www.farfetch.com" + get_url
-                    puts access_url
+        products = doc.css('li[data-testid="productCard"]')
+        
+        #商品数0なら報告する
+        if (products.size == 0)
+            puts "auzmendi-Farfetchに該当のカテゴリー商品は現在ありません"
+        else
+            gbfarfetch_onetime_crawl(gbfarfetch_categorized_url, search_price, category, doc)
+            page_number = 1 #次ページurl作成用の変数
+            #urlのおおまかな変形をwhileの前に実行
+            #53 + 3文字= 56文字 
+            gbfarfetch_categorized_url = gbfarfetch_categorized_url.insert(56, "page=#{page_number}&")
+            
+            while doc.css('li[data-testid="productCard"]').size == 90 do
+                page_number += 1
+                #56文字+5文字
+                gbfarfetch_categorized_url[61] = "#{page_number}"
+                doc = gbfarfetch_make_doc(gbfarfetch_categorized_url)
+                doc.css('li[data-testid="productCard"]').each do |node|
+                    item_price = node.css('span[data-testid="price"]').inner_text
+                    if item_price.include?(search_price) then
+                        #puts item_price
+                        #puts node.css('p[itemprop="name"]').inner_text
+                        get_url = node.css('a').attribute("href").value
+                        access_url = "https://www.farfetch.com" + get_url
+                        puts access_url
+                    end
                 end
+                #docの中身を入れ替える
+                doc = gbfarfetch_make_doc(gbfarfetch_categorized_url)
             end
-            #docの中身を入れ替える
-            doc = gbfarfetch_make_doc(gbfarfetch_categorized_url)
         end
     end
 end

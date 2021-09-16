@@ -30,8 +30,8 @@ module Suit
             item_price = node.css("span.money").inner_text
             #もし価格が同じなら商品価格 商品名 画像リンク を取得する
             if item_price.include?(suit_search_price) then
-                puts item_price
-                puts node.css("h3").inner_text
+                #puts item_price
+                #puts node.css("h3").inner_text
                 get_img_url = node.css('a').attribute("href").value
                 access_img_url = "https://suitnegozi.com/" + get_img_url
                 puts access_img_url

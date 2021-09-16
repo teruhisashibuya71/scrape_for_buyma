@@ -66,7 +66,7 @@ ATTACK_LIST_URL = [#"https://www.mycompanero.com/fr/brand/2-moncler?categories=f
         case attack_site_url
         when "https://www.mycompanero.com/fr/brand/2-moncler?categories=femme" then
             moncler_n_woman.mycompanero_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
+            @price = @price.delete(",")
         when "https://www.lidiashopping.com/en/IT/women/t/designers/moncler" then
             moncler_n_woman.lidia_crawl(attack_site_url, @price)
             @price = @price.delete(".")
