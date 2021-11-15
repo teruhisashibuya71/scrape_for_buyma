@@ -24,13 +24,13 @@ module Russocapri
     def russo_onetime_crawl(attack_site_url, russo_search_price, doc)
         doc.css('.item').each do |product|
             #商品価格を取得する  価格が同じなら商品名とリンクURLを取得する
-            item_price = product.css(".price").inner_text.delete("€").strip
+            item_price = product.css("h6").inner_text.delete("€").strip
             #もし価格が同じなら
-            if (item_price == russo_search_price) then
+            if (item_price.include?(russo_search_price)) then
                 #商品価格
-                puts item_price.strip
+                #puts item_price.strip
                 #商品名
-                puts product.css("p").inner_text
+                #puts product.css("p").inner_text
                 #リンクurl
                 puts product.css('a').attribute("href").value
             end
@@ -50,7 +50,7 @@ module Russocapri
     def russo_crawl(attack_site_url, search_price)
 
         #価格をOOO.ooに書き換える
-        search_price = search_price + ".00"
+        #search_price = search_price + ".00"
         doc = russo_make_doc(attack_site_url)
         russo_onetime_crawl(attack_site_url, search_price, doc)
         

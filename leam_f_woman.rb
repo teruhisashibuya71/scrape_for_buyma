@@ -40,7 +40,7 @@ module LeamfarfetchWoman
     end
 
     def leamfarfetch_onetime_crawl(attack_site_url, leamfarfetch_search_price, category, doc)
-        doc.css('li[data-testid="productCard"]').each do |node|
+        doc.css('[data-component="ProductCard"]').each do |node|
             item_price = node.css('span[data-testid="price"]').inner_text
             if item_price.include?(leamfarfetch_search_price) then
                 #puts item_price
@@ -62,12 +62,12 @@ module LeamfarfetchWoman
         page_number = 1 #次ページurl作成用の変数
         #urlのおおまかな変形をwhileの前に実行
         leamfarfetch_categorized_url = leamfarfetch_categorized_url.insert(56, "page=#{page_number}&")
-        while doc.css('li[data-testid="productCard"]').size == 90 do
+        while doc.css('[data-component="ProductCard"]').size == 90 do
             page_number += 1
             leamfarfetch_categorized_url[61] = "#{page_number}"
             puts leamfarfetch_categorized_url
             doc = leamfarfetch_make_doc(leamfarfetch_categorized_url)
-            doc.css('li[data-testid="productCard"]').each do |node|
+            doc.css('[data-component="ProductCard"]').each do |node|
                 item_price = node.css('span[data-testid="price"]').inner_text
                 if item_price.include?(search_price) then
                     puts item_price

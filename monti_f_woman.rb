@@ -36,7 +36,7 @@ module MontiFarfetchWoman
 
 
     def monti_farfetch_onetime_crawl(doc, monti_farfetch_target_price)
-        products = doc.css('li[data-testid="productCard"]')
+        products = doc.css('[data-component="ProductCard"]')
         #商品数0なら報告する
         if (products.size == 0)
             puts "montiFarfetchに該当のカテゴリー商品は現在ありません"
@@ -79,7 +79,7 @@ module MontiFarfetchWoman
         #insert以下の数字をショップ名に応じて変えること
         #AMR(3文字)で58  つまり基本は55文字　ショップ名10文字の場合は→65となる  montiは5文字なので60となる    63+2=65 
         monti_farfetch_categorized_url = monti_farfetch_categorized_url.insert(60, "page=#{page_number}&")
-        while doc.css('li[data-testid="productCard"]').size == 90 do
+        while doc.css('[data-component="ProductCard"]').size == 90 do
             #次ページのURLはpage=2なので+1しとく
             page_number += 1
             

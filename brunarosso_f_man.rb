@@ -35,7 +35,7 @@ module BrunarossoFarfetchMan
 
 
     def bruna_farfetch_onetime_crawl(doc, target_price)
-        products = doc.css('li[data-testid="productCard"]')
+        products = doc.css('[data-component="ProductCard"]')
         if (products.size == 0)
             puts "brunarossoFarfetchに該当のカテゴリー商品は現在ありません"
         end
@@ -75,20 +75,19 @@ module BrunarossoFarfetchMan
         #urlのおおまかな変形をwhileの前に実行 各サイトで調整が必要 items.aspx? の後ろに URLの調整が入る
         #https://www.farfetch.com/it/shopping/women/ までで43桁 /items.aspx? 追加で55桁 +ショップ名の名前桁
         #insert以下の数字をショップ名に応じて変えること
-        #AMR(3文字)で58なので　ショップ名10文字→65  brunarosso 11文字  58+8=66  63+8=71 
-        #レディースの比較して2文字少ない
-        bruna_farfetch_categorized_url = bruna_farfetch_categorized_url.insert(64, "page=#{page_number}&")
-        while doc.css('li[data-testid="productCard"]').size == 90 do
+        #AMR(3文字)で58なので　基本55文字 ショップ名10文字だと→65  brunarosso 11文字  58+8=66  63+8=71 
+        # eleonora-bonucci → 16文字 
+        #レディースの比較して2文字少ないのでメンズは基本53文字 53 + 16 = 69
+        bruna_farfetch_categorized_url = bruna_farfetch_categorized_url.insert(69, "page=#{page_number}&")
+        while doc.css('[data-component="ProductCard"]').size == 90 do
             #次ページのURLはpage=2なので+1しとく
             page_number += 1
             #pageの数字を代入 71行目に+5する
-            bruna_farfetch_categorized_url[69] = "#{page_number}"
-            
+            bruna_farfetch_categorized_url[74] = "#{page_number}"
             #次のページのURLを元にdocを再度作成→変数に代入
             doc = bruna_farfetch_make_doc(bruna_farfetch_categorized_url)
             #2ページ目をクロール
             bruna_farfetch_onetime_crawl(doc, bruna_farfetch_target_price)
-
         end
     end
 end

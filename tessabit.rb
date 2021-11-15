@@ -3,84 +3,109 @@ require 'nokogiri'
 require 'open-uri'
 require 'mechanize'
 
-#alducadaostaはjs導入必須
-#✓在庫の無いカテゴリーがあった場合にurlがnilになるなるので処理を変更する必要あり
+
+
+#PaginationStyled-sc-1aduclw-18 disRaXがれば繰り返し処理へ
+#最下層までスクロール sleep 
+#navButton-icon-xu0 icon-root-1sI first がclickableなうちは処理を繰り返す
+
 module Tessabit
-
-    #docを作るためのメソッド
-    def tessabit_make_doc(attack_site_url)
-        #スクレイピング開始する
-        charset = nil
-        html = URI.open(attack_site_url) do |f|
-            charset = f.charset
-            f.read
-        end
-        doc = Nokogiri::HTML.parse(html, nil, charset)
-        return doc
-    end
-
-    #category変数の値に応じて 各カテゴリページのurlを返すメソッド 引数はvipfendiクラスのクラス変数が入る
-    def tessabit_return_category_page_url(attack_site_url, search_category)
-        home_doc = tessabit_make_doc(attack_site_url)
-        if search_category == "服" then
-            tessabit_clothing_url = home_doc.css('li[data-text="Abbigliamento"]').css('a').attribute("href").value #服はliタグ class=data-text="Clothing" のhrefを取得
-            return tessabit_clothing_url
-        elsif search_category == "靴" then
-            tessabit_shoes_url = home_doc.css('li[data-text="Scarpe"]').css('a').attribute("href").value
-            return tessabit_shoes_url
-        else
-            #bagsとAccessoriesの両方のURLを取得してクローリングする必要あり...
-            tessabit_bags_url = home_doc.css('li[data-text="Borse"]').css('a').attribute("href").value
-            tessabit_accessories_url = home_doc.css('li[data-text="Accessori"]').css('a').attribute("href").value
-            tessabit_others_url_array = []
-            tessabit_others_url_array.push(tessabit_bags_url)
-            tessabit_others_url_array.push(tessabit_accessories_url)
-            return tessabit_others_url_array
+    
+    def tessabit_one_time_crawl(doc, search_price)
+        products = doc.css('.izHQXc')
+        products.each do |product|
+        product_price = product.css('.kdAeOb').inner_text
+            if product_price.include?(search_price) then
+                #商品価格
+                #puts product_price.strip
+                #商品名
+                #puts product.css(".name").text.strip
+                #画像リンク
+                puts "https://www.tessabit.com" + product.css('a').attribute("href").value
+            end
         end
     end
 
+    def tessabit_crawl_selenium(brand_home_url, search_price)
+    
+        #ヘッドレスバージョン
+        options = Selenium::WebDriver::Chrome::Options.new
+        options.add_argument('--headless')
+        driver = Selenium::WebDriver.for :chrome, options: options
+        #ノーマル
+        #driver = Selenium::WebDriver.for :chrome
+        wait = Selenium::WebDriver::Wait.new(timeout: 10)
+        driver.manage.window.resize_to(1500,1000)
 
-    #クロールするメソッド
-    def tessabit_crawl(attack_site_url, search_price, search_category)
-        #価格の文字列調整だけ最初に実行
+        #商品価格調整
+        #商品価格の調整はコンマ
         if search_price.length >= 4 then
-            search_price = search_price.insert(1, ",")
+            search_price = search_price.insert(1, ".")
         end
-        #カテゴリーに応じたページURLを取得
-        category_page_url = tessabit_return_category_page_url(attack_site_url, search_category)
-        #カテゴリーに応じたhtml構造を取得 まずはcategory_page_urlが配列かどうかを判断する
-        if category_page_url.instance_of?(Array) then
-            #配列に対してクロールする
-            category_page_url.each do |target_url|
-                doc = tessabit_make_doc(target_url)
-                doc.css('.product-box').each do |node|
-                    #商品価格を取得する  価格が同じなら商品名とリンクURLを取得する
-                    item_price = node.css("span.price").inner_text
-                    #もし価格が同じなら
-                    if item_price.include?(search_price) then
-                        #商品価格 商品名 画像リンク を取得する
-                        puts item_price.gsub(" ", "")
-                        puts node.css(".product-name").inner_text.strip
-                        get_url = node.css('a').attribute("href").value #フルurlが取得される
-                        puts get_url
+
+        #スタート
+        driver.get(brand_home_url)
+
+        sleep 8
+
+        #商品が表示されるまで待つ
+        wait.until { driver.find_element(:class, 'Section-sc-1aduclw-1').displayed? }
+        
+        
+        #初回クロール開始
+        doc = Nokogiri::HTML.parse(driver.page_source)
+        products = doc.css('.izHQXc')
+
+        if  (products.size > 0) then
+            tessabit_one_time_crawl(doc, search_price)
+            #ページネーション PaginationStyled-sc-1aduclw-18クラスあるなら繰り返し処理へ
+            if (doc.css('.PaginationStyled-sc-1aduclw-18').size > 0) then
+                
+                #リンクの最後のページまで飛ぶボタンがクリックできる限りは処理を繰り返す
+                while (driver.find_elements(:class, 'PaginationStyled-sc-1aduclw-18')[0].find_elements(:class, 'navButton-root-2Fj').last.enabled?) do
+                    
+                    #クッキーウィンンドウが表示されていたらクリックする
+                    if (driver.find_elements(:class, 'iubenda-cs-container').size != 0) then
+                        driver.execute_script('document.getElementsByClassName("iubenda-cs-accept-btn")[0].click()')
                     end
+
+                    sleep 1
+
+                    #チャットウインドウが表示されていたらクリックして閉じる
+                    if (driver.find_elements(:class, 'sc-1q7kfbv-0').size != 0) then
+                        driver.execute_script('document.getElementsByClassName("sc-htpNat d697ci-0")[0].click()')
+                    end
+
+                    sleep 1
+
+                    #ジャパンサイトのバナー表示があるならクリックする
+                    if (driver.find_elements(:class, 'Root-sc-1x8nxv0-0').size != 0) then
+                        driver.execute_script('document.getElementsByClassName("Dismiss-sc-1x8nxv0-4")[0].click()')
+                    end
+                    
+                    #ページの一番下まで移動
+                    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+                    sleep 1
+                    
+                    #次のページへ移動
+
+                    driver.find_elements(:class, 'PaginationStyled-sc-1aduclw-18')[0].find_elements(:class, 'navButton-root-2Fj')[2].click
+
+                    sleep 6
+
+                    #商品コンテンツが表示されるまで待つ
+                    wait.until { driver.find_element(:class, 'Section-sc-1aduclw-1').displayed? }
+                    
+                    #再度docを取得する
+                    doc = Nokogiri::HTML.parse(driver.page_source)
+
+                    #もう一度クロール
+                    tessabit_one_time_crawl(doc, search_price)
                 end
             end
         else
-            #通常のクロールを行う
-            doc = tessabit_make_doc(category_page_url)
-            doc.css('.product-box').each do |node|
-                #商品価格を取得する  価格が同じなら商品名とリンクURLを取得する
-                item_price = node.css("span.price").inner_text
-                #もし価格が同じなら
-                if item_price.include?(search_price) then
-                    #商品価格 商品名 画像リンク を取得する
-                    puts item_price.gsub(" ", "")
-                    puts node.css(".product-name").inner_text.strip
-                    get_url = node.css('a').attribute("href").value #フルurlが取得される
-                    puts get_url
-                end
-            end
+            puts "tessabitには該当ブランドの商品がありません"
         end
     end
 end

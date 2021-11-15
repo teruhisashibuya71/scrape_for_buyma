@@ -36,7 +36,7 @@ module BlondieFarfetchWoman
 
 
     def blondie_farfetch_onetime_crawl(doc, blondie_farfetch_target_price)
-        products = doc.css('li[data-testid="productCard"]')
+        products = doc.css('[data-component="ProductCard"]')
         #商品数0なら報告する
         if (products.size == 0)
             puts "blondie-Farfetchに該当のカテゴリー商品は現在ありません"
@@ -79,7 +79,7 @@ module BlondieFarfetchWoman
         #insert以下の数字をショップ名に応じて変えること
         #基本は55文字スタート　blondieは7文字 55+7=62
         blondie_farfetch_categorized_url = blondie_farfetch_categorized_url.insert(62, "page=#{page_number}&")
-        while doc.css('li[data-testid="productCard"]').size == 90 do
+        while doc.css('[data-component="ProductCard"]').size == 90 do
             #次ページのURLはpage=2なので+1しとく
             page_number += 1
             

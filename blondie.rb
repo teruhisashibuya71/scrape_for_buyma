@@ -65,26 +65,17 @@ module Blondie
             if (driver.find_elements(:id, 'modal-content-111').size != 0) then
                 driver.execute_script('document.getElementsByClassName("action-close")[0].click()')
             end
-            #doc = Nokogiri::HTML.parse(driver.page_source)
-            #if doc.css('#modal-content-111').size > 0
-            #    puts "バナーウインドウをキャッチ"
-            #    driver.execute_script('document.getElementsByClassName("action-close")[0].click()')
-            #end
+            
             driver.find_element(:xpath => "//*[@id='continent-list']/div[3]/div").click
             
-
-            #「italy」が画面に表示されるまで待ってからクリックする  //*[@id="continent-list"]/div[4]/ul/li[15]/a
+            #「italy」が画面に表示されるまで待ってからクリックする
             wait.until { driver.find_element(:xpath => "//*[@id='continent-list']/div[4]/ul/li[15]/a").displayed?}
             
             #不定期なnewslatter対応
             if (driver.find_elements(:id, 'modal-content-111').size != 0) then
                 driver.execute_script('document.getElementsByClassName("action-close")[0].click()')
             end
-            #doc = Nokogiri::HTML.parse(driver.page_source)
-            #if doc.css('#modal-content-111').size > 0
-            #    puts "バナーウインドウをキャッチ"
-            #    driver.execute_script('document.getElementsByClassName("action-close")[0].click()')
-            #end
+
             driver.find_element(:xpath => "//*[@id='continent-list']/div[4]/ul/li[15]/a").click
         end
 

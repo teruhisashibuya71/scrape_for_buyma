@@ -39,7 +39,7 @@ module BrunarossoWoman
         #ドロップダウンメニューをクリック
         driver.execute_script('document.getElementById("shipping_country_id").click()')
         #italyをクリック
-        driver.find_element(:xpath, '//*[@id="shipping_country_id"]/option[106]').click
+        driver.find_element(:xpath, '//*[@id="shipping_country_id"]/option[107]').click
         #validateボタンをクリック
         driver.find_element(:xpath, '//*[@id="formShippingCountry"]/div[3]/button').click
         sleep 1

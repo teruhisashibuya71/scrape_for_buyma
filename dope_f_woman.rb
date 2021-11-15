@@ -40,7 +40,7 @@ module DoepFarfetchWoman
 
 
     def dope_farfetch_onetime_crawl(attack_site_url, dope_farfetch_target_price, category, doc)
-        doc.css('li[data-testid="productCard"]').each do |node|
+        doc.css('[data-component="ProductCard"]').each do |node|
             item_price = node.css('span[data-testid="price"]').inner_text
             if item_price.include?(dope_farfetch_target_price) then
                 puts item_price
@@ -63,11 +63,11 @@ module DoepFarfetchWoman
         page_number = 1 #次ページurl作成用の変数
         #url調整  urlの「items.aspx?」 の後ろにURLの調整が入る https://www.farfetch.com/it/shopping/women/ までで43桁となる
         dope_farfetch_categorized_url = dope_farfetch_categorized_url.insert(67, "page=#{page_number}&")
-        while doc.css('li[data-testid="productCard"]').size == 90 do
+        while doc.css('[data-component="ProductCard"]').size == 90 do
             page_number += 1
             dope_farfetch_categorized_url[72] = "#{page_number}" #65行目数字 + 5桁
             doc = dope_farfetch_make_doc(dope_farfetch_categorized_url)
-            doc.css('li[data-testid="productCard"]').each do |node|
+            doc.css('[data-component="ProductCard"]').each do |node|
                 item_price = node.css('span[data-testid="price"]').inner_text
                 if item_price.include?(target_price) then
                     puts item_price

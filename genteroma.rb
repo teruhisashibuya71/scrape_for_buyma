@@ -7,15 +7,14 @@ require 'selenium-webdriver'
 module Genteroma
     
     def gente_crawl_selenium(brand_home_url, search_price)
-        #アクセス先のURL入力
-        #brand_home_url = "https://www.genteroma.com/it/designer/uomo/moncler.html"
-        #brand_home_url = "https://www.genteroma.com/it/designer/uomo/prada.html"
-        #search_price = "720"
         
+        #ヘッドレス
         options = Selenium::WebDriver::Chrome::Options.new
         options.add_argument('--headless')
         driver = Selenium::WebDriver.for :chrome, options: options
+        
         #driver = Selenium::WebDriver.for :chrome
+        driver.manage.window.resize_to(1300,1000)
         wait = Selenium::WebDriver::Wait.new(timeout: 10)
         driver.get(brand_home_url)
         

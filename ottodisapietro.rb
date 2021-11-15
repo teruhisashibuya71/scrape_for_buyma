@@ -9,12 +9,12 @@ module Ottodisapietro
     def ottodisapietro_crawl_selenium(brand_home_url, search_price)
         
         #ヘッドレスバージョン
-        #options = Selenium::WebDriver::Chrome::Options.new
-        #options.add_argument('--headless')
-        #driver = Selenium::WebDriver.for :chrome, options: options    
+        options = Selenium::WebDriver::Chrome::Options.new
+        options.add_argument('--headless')
+        driver = Selenium::WebDriver.for :chrome, options: options    
         
         #クローム使う準備
-        driver = Selenium::WebDriver.for :chrome
+        #driver = Selenium::WebDriver.for :chrome
         wait = Selenium::WebDriver::Wait.new(:timeout => 10)
         driver.get(brand_home_url)
         
@@ -30,7 +30,7 @@ module Ottodisapietro
             while (true) do
                 #ボタンクリック
                 driver.find_element(:id, 'infinite-scroll-load-more').click
-                sleep 1    
+                sleep 1
                 #一番下までスクロール
                 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 sleep 1
@@ -51,8 +51,6 @@ module Ottodisapietro
         if search_price.length >= 4 then
             search_price = search_price.insert(1, ",")
         end
-
-        puts search_price
         
         if (products.size == 0)
             puts "ottodisapietroは該当ブランドの商品が現在ありません"

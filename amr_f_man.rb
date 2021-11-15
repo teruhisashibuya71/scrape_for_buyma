@@ -42,7 +42,7 @@ module AmrFarfetchMan
 
 
     def amr_farfetch_onetime_crawl(attack_site_url, amr_farfetch_target_price, category, doc)
-        products = doc.css('li[data-testid="productCard"]')
+        products = doc.css('[data-component="ProductCard"]')
         #商品数0なら報告する
         if (products.size == 0)
             puts "AMR-Farfetchに該当のカテゴリー商品は現在ありません"
@@ -54,7 +54,7 @@ module AmrFarfetchMan
             if (item_price.empty?) then
                 item_price = product.css('span[data-testid="price"]').inner_text
             end
-            if item_price.include?(blondie_farfetch_target_price) then
+            if item_price.include?(amr_farfetch_target_price) then
                 get_url = product.css('a').attribute("href").value
                 access_url = "https://www.farfetch.com" + get_url
                 #商品アクセスURL
@@ -75,11 +75,11 @@ module AmrFarfetchMan
         #urlのおおまかな変形をwhileの前に実行 各サイトで調整が必要 items.aspx? の後ろに URLの調整が入る
         #https://www.farfetch.com/it/shopping/women/ までで43桁 /items.aspx? 追加で55桁 +ショップ名の名前桁
         amr_farfetch_categorized_url = amr_farfetch_categorized_url.insert(56, "page=#{page_number}&")
-        while doc.css('li[data-testid="productCard"]').size == 90 do
+        while doc.css('[data-component="ProductCard"]').size == 90 do
             page_number += 1
             amr_farfetch_categorized_url[61] = "#{page_number}"
             doc = amr_farfetch_make_doc(amr_farfetch_categorized_url)
-            doc.css('li[data-testid="productCard"]').each do |node|
+            doc.css('[data-component="ProductCard"]').each do |node|
                 item_price = node.css('span[data-testid="price"]').inner_text
                 if item_price.include?(target_price) then
                     puts item_price

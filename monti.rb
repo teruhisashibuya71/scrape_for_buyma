@@ -23,39 +23,53 @@ module Monti
 
 
     def monti_crawl_selenium(brand_home_url, search_price, target_category)
-        #ノーマル
-        #driver = Selenium::WebDriver.for :chrome
-    
+        
         #ヘッドレス
         options = Selenium::WebDriver::Chrome::Options.new
         options.add_argument('--headless')
         driver = Selenium::WebDriver.for :chrome, options: options
+        #ノーマル
+        #driver = Selenium::WebDriver.for :chrome
+        driver.manage.window.resize_to(1300,1000)
         wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-    
+
         #アクセス開始
         driver.get(brand_home_url)
         
         wait.until { driver.find_element(:xpath => "/html/body/footer/section/ul[4]/li[3]/a/span").displayed? }
         country = driver.find_element(:xpath => "/html/body/footer/section/ul[4]/li[3]/a/span").text
+
+        sleep 2
+
+        #freeShippingや各種プロモウインドウが表示されたら削除
+        if (driver.find_elements(:id, 'brg-modal-content').size != 0) then
+            #画面の端っこをクリックしてウインドウ削除
+            driver.action.move_by(10, 10).click.perform
+        end
+
         if (!country.include?("ITALY")) then
             #クッキーウインドウのクリック
             sleep 1
             driver.execute_script('document.getElementsByClassName("accept")[0].click()')
             sleep  1
     
-            #会員登録ボタンのjsｆがでてくるかどうかで条件分岐つけたほうが動作安定する
-            #driver.execute_script('document.getElementsByClassName("brg-btn-green")[0].click()')
-            #driver.get(brand_home_url)
-    
             #発送先Japanをクリック sleep入れないとleft要素見つからない
             wait.until { driver.find_element(:class => "links").displayed? }
             driver.find_element(:xpath, '/html/body/footer/section/ul[4]/li[3]/a/span').click
-            sleep 1
+            #sleep 1
     
+
+            #freeShippingや各種プロモウインドウの表示を待つ必要あり
+            sleep 4
+            if (driver.find_elements(:id, 'brg-modal-content').size != 0) then
+                #画面の端っこをクリックしてウインドウ削除
+                driver.action.move_by(10, 10).click.perform
+            end
+
             #発送地域が全て表示されるまで待ってからeuropeをクリック
             wait.until { driver.find_element(:class => "left").displayed? }
             driver.find_element(:xpath, '/html/body/div[3]/form/div/div[1]/h5[1]').click
-            #仕方がないのでsleepでで対応
+            #仕方がないのでsleepで対応
             sleep 1
     
             #国の名前が表示されるまで待ってitalyをクリック

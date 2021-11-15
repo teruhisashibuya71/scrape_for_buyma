@@ -16,7 +16,6 @@ module Bernardelli
     #初回クロール
     def bernardelli_onetime_crawl(doc, search_price)
         products = doc.css('.product-item')
-        puts products.size
         if (products.size == 0)
             puts "bernardelliには該当ブランドの商品が現在ありません"
         else
@@ -37,9 +36,13 @@ module Bernardelli
     #クロールするメソッド
     def bernardelli_crawl_selenium(brand_home_url, search_price)
 
-        options = Selenium::WebDriver::Chrome::Options.new
-        options.add_argument('--headless')
-        driver = Selenium::WebDriver.for :chrome, options: options
+        #ヘッドレス
+        #options = Selenium::WebDriver::Chrome::Options.new
+        #options.add_argument('--headless')
+        #driver = Selenium::WebDriver.for :chrome, options: options
+        
+        #ノーマル
+        driver = Selenium::WebDriver.for :chrome
         wait = Selenium::WebDriver::Wait.new(:timeout => 10)
         driver.get(brand_home_url)
 
@@ -54,8 +57,16 @@ module Bernardelli
         bernardelli_onetime_crawl(doc, search_price)
 
         
+        
         #ページ数表示が1でなければ繰り返し処理へ id=pagination
         if (doc.css('#pagination').css('li').size != 1)
+
+            #クッキーウインドウがあれば消去する
+
+            #割引バナーが表示されているなら削除 出るまで最大8秒待つ 出ないなら次の処理へ(elemtentsの効果)
+            if (driver.find_elements(:id, 'CybotCookiebotDialog').size != 0) then
+                driver.execute_script('document.getElementById("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll").click()')
+            end
 
             #クローリングしたurlを記憶しておく空の配列を用意
             crawled_urls = []
@@ -71,7 +82,6 @@ module Bernardelli
             
             #nextクラスの要素ががからっぽになるまでは繰り返しクローリングする
             while (true) do
-                puts "whileのなか"
 
                 #次のページのURLを取得 最後のliのa.href waitはページが切り替わった時のために毎回必要となる
                 wait.until { driver.find_element(:id => "pagination").displayed?}
@@ -83,7 +93,8 @@ module Bernardelli
 
                 #一番下までスライドしてから少し上にスクロールして「>」マークを画面内にとらえる
                 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                driver.execute_script("window.scrollBy(document.body.scrollHeight, -300);")
+                sleep 3
+                driver.execute_script("window.scrollBy(document.body.scrollHeight, -500);")
 
                 #「>」をクリック paginationの表示確認とっているのでwait無し
                 driver.find_element(:id, 'pagination').find_elements(:tag_name, 'li').last.click

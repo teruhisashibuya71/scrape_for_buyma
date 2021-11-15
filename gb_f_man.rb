@@ -40,7 +40,7 @@ module GbFarfetchMan
     end
 
     def gbfarfetch_onetime_crawl(attack_site_url, gbfarfetch_search_price, category, doc)
-        doc.css('li[data-testid="productCard"]').each do |node|
+        doc.css('[data-component="ProductCard"]').each do |node|
             item_price = node.css('span[data-testid="price"]').inner_text
             if item_price.include?(gbfarfetch_search_price) then
                 #puts item_price
@@ -58,7 +58,7 @@ module GbFarfetchMan
         end
         gbfarfetch_categorized_url = gbfarfetch_return_category_page_url(attack_site_url, category)
         doc = gbfarfetch_make_doc(gbfarfetch_categorized_url)
-        products = doc.css('li[data-testid="productCard"]')
+        products = doc.css('[data-component="ProductCard"]')
         
         #商品数0なら報告する
         if (products.size == 0)
@@ -70,12 +70,12 @@ module GbFarfetchMan
             #53 + 3文字= 56文字 
             gbfarfetch_categorized_url = gbfarfetch_categorized_url.insert(56, "page=#{page_number}&")
             
-            while doc.css('li[data-testid="productCard"]').size == 90 do
+            while doc.css('[data-component="ProductCard"]').size == 90 do
                 page_number += 1
                 #56文字+5文字
                 gbfarfetch_categorized_url[61] = "#{page_number}"
                 doc = gbfarfetch_make_doc(gbfarfetch_categorized_url)
-                doc.css('li[data-testid="productCard"]').each do |node|
+                doc.css('[data-component="ProductCard"]').each do |node|
                     item_price = node.css('span[data-testid="price"]').inner_text
                     if item_price.include?(search_price) then
                         #puts item_price

@@ -3,18 +3,42 @@ require 'nokogiri'
 require 'open-uri'
 
 
-#docを作るためのメソッド
-#スクレイピング開始する
-charset = nil
-#html = URI.open("https://www.antonia.it/it/brands/moncler") do |f|   
-html = URI.open("https://www.tessabit.com/en_it/woman/designers/moncler.html?page=1") do |f|
+#取得方法
+#1.特定のspanタグを取得する場合('span.OOOO')
+#doc.css('span.price')
 
-charset = f.charset
+
+
+charset = nil
+html = URI.open("https://www.russocapri.com/it/uomo/categorie/shopping/gruppi/nuovi-arrivi?ds=alexander-mcqueen") do |f|
+
+    charset = f.charset
     f.read
 end
 
 doc = Nokogiri::HTML.parse(html, nil, charset)
-puts doc.css('.izHQXc').size
+puts doc.css('.item').size
+puts doc.css('.item').css("h6").inner_text
+
+        # doc.css('.contfoto').each do |node|
+        #     #商品価格を取得する
+        #     item_price = node.css(".prezzo").inner_text
+        #     #もし価格がsearch_priceあるいはlower_search_priceと同じなら商品名とリンクURLを取得する
+        #     #if item_price.include?(search_price) || item_price.include?(lower_search_price) then
+        #         #商品価格 商品名 画像リンク を取得する
+        #         puts item_price.gsub(" ", "")
+        #         puts node.css(".notranslate").inner_text.strip
+        #         get_url = node.css('a').attribute("href").value
+        #         puts "https://www.capsulebyeso.com/en/" + get_url
+        #     #end
+        # end
+
+# puts doc.css('.bloccopagine').css('.pagine').size
+puts doc.css('.bloccopagine').css('.pagine').last.inner_text.include?('LAST') #true
+
+# class_value = doc.css('.next').attribute('class').to_s
+# puts class_value.include?("disabled")
+#puts doc.css('.next').css('a').attribute('href')
 
 #puts doc.css('.pagination').css('.selected').inner_text
 #0.使用確認
@@ -53,13 +77,13 @@ puts doc.css('.izHQXc').size
 #リンク
 
 # puts doc.css('.product-item').size
-# #1.各要素の取得確認
+#1.各要素の取得確認
 # products = doc.css('.product-item')
 #     products.each do |product|
 #     #商品価格を取得する
-#     puts product_price = product.css('.price').inner_text
-#     #puts product.css(".price-box").text.strip
-#     #if product_price.include?(search_price) then
+#     puts product_price = product.css('span.price').inner_text
+#     puts product.css(".price-box").text.strip
+#     if product_price.include?(search_price) then
 #         #商品価格
 #         puts product_price.strip
 #         #商品名
@@ -67,8 +91,12 @@ puts doc.css('.izHQXc').size
 #         #画像リンク
 #         puts product.css('a').attribute("href").value
 #         #puts "https://www.dafneshop.it" + product.css('a').attribute("href").value
-#     #end
+#     end
 # end
+
+
+
+
 
 
 #1.各要素の取得確認(免税version)

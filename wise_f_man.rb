@@ -35,7 +35,7 @@ module WiseFarfetchMan
 
 
     def wise_farfetch_onetime_crawl(doc, wise_farfetch_target_price)
-        products = doc.css('li[data-testid="productCard"]')
+        products = doc.css('[data-component="ProductCard"]')
         products.each do |product|
             #セール価格を先に取得
             item_price = product.css('span[data-testid="initialPrice"]').inner_text
@@ -63,7 +63,7 @@ module WiseFarfetchMan
         wise_farfetch_categorized_url = wise_farfetch_return_category_page_url(attack_site_url, category)
         #docを作成
         doc = wise_farfetch_make_doc(wise_farfetch_categorized_url)
-        products = doc.css('li[data-testid="productCard"]')
+        products = doc.css('[data-component="ProductCard"]')
         #商品数0なら報告する
         if (products.size == 0)
             puts "wise-Farfetchに該当のカテゴリー商品は現在ありません"
@@ -80,7 +80,7 @@ module WiseFarfetchMan
             #wise-boutique は13文字 55+13=68
             #レディースと比較して2文字少ないので
             wise_farfetch_categorized_url = wise_farfetch_categorized_url.insert(66, "page=#{page_number}&")
-            while doc.css('li[data-testid="productCard"]').size == 90 do
+            while doc.css('[data-component="ProductCard"]').size == 90 do
                 #次ページのURLはpage=2なので+1しとく
                 page_number += 1
                 

@@ -18,17 +18,39 @@ require 'selenium-webdriver'
 #ためしにaリンク押してみるbrg-btn-green 以下成功
 #driver.execute_script('document.getElementById("brg-modal-content").getElementsByClassName("brg-btn-green")[0].click()')
 
+#ボタンが押せる・押せない? 結果はtrue false
+element.enabled? 
 
 #参考
 #https://sakaimo.hatenablog.com/entry/2014/06/14/165742
 
+
+
+
+
 #ヘッドレスバージョン
 
+
+def eleonorabonucci_one_time_crawl(doc, search_price)
+    products = doc.css('.izHQXc')
+    products.each do |product|
+    product_price = product.css('.kdAeOb').inner_text
+        if product_price.include?(search_price) then
+            #商品価格
+            #puts product_price.strip
+            #商品名
+            #puts product.css(".name").text.strip
+            #画像リンク
+            puts "https://www.eleonorabonucci.com" + product.css('a').attribute("href").value
+        end
+    end
+end
+
+
         #対象のURL入力
-        #brand_home_url = "https://www.antonia.it/it/brands/moncler"
-        brand_home_url = "https://www.thedoublef.com/it_en/man/designers/prada/"
+        brand_home_url = "https://www.capsulebyeso.com/en/men-palm+angels"
         search_category  = "服"
-        search_price  = "590"
+        search_price  = "745"
 
         #ヘッドレスバージョン
         #options = Selenium::WebDriver::Chrome::Options.new
@@ -37,69 +59,158 @@ require 'selenium-webdriver'
         #ノーマル
         driver = Selenium::WebDriver.for :chrome
         wait = Selenium::WebDriver::Wait.new(timeout: 10)
+        driver.manage.window.resize_to(1500,1000)
         driver.get(brand_home_url)
 
-        sleep 10
+        sleep 8
 
-        #メインコンテンツ表示されるまで待つ
-        wait.until { driver.find_element(:class, 'pagebuilder-column-group').displayed? }
-        #クリックdesignerをクリック
-        driver.find_element(:xpath, '//*[@id="maincontent"]/div[2]/div[2]/div/div/div[2]/div/div/div/ul/li[2]').click
+        #商品が表示されるまで待つ
+        wait.until { driver.find_element(:class, 'Section-sc-1aduclw-1').displayed? }
+        
+        
+        #初回クロール開始
+        doc = Nokogiri::HTML.parse(driver.page_source)
+        products = doc.css('.izHQXc')
 
-        sleep 1
+        if  (products.size > 0) then
+            eleonorabonucci_one_time_crawl(doc, search_price)
+            #ページネーション PaginationStyled-sc-1aduclw-18クラスあるなら繰り返し処理へ
+            if (doc.css('.PaginationStyled-sc-1aduclw-18').size > 0) then
+                
+                #リンクの最後のページまで飛ぶボタンがクリックできる限りは処理を繰り返す
+                while (driver.find_elements(:class, 'PaginationStyled-sc-1aduclw-18')[0].find_elements(:class, 'navButton-root-2Fj').last.enabled?) do
+                    
+                    #クッキーウィンンドウが表示されていたらクリックする
+                    if (driver.find_elements(:class, 'iubenda-cs-container').size != 0) then
+                        driver.execute_script('document.getElementsByClassName("iubenda-cs-accept-btn")[0].click()')
+                    end
 
-        wait.until { driver.find_element(:class, 'lists-container').displayed? }
-        #pradaをクリック
-        driver.find_element(:xpath, '//*[@id="maincontent"]/div[2]/div[2]/div/div/div/div/div[2]/div[2]/div/ul[17]/li[7]').click
+                    sleep 1
 
-        sleep 1
+                    #チャットウインドウが表示されていたらクリックして閉じる
+                    if (driver.find_elements(:class, 'sc-1q7kfbv-0').size != 0) then
+                        driver.execute_script('document.getElementsByClassName("sc-htpNat d697ci-0")[0].click()')
+                    end
 
+                    sleep 1
 
-        #サイドバーのcategoriaが表示されるのを待ってからcategoriaをクリック
-        wait.until { driver.find_element(:id, 'narrow-by-list').displayed? }
+                    #ジャパンサイトのバナー表示があるならクリックする
+                    if (driver.find_elements(:class, 'Root-sc-1x8nxv0-0').size != 0) then
+                        driver.execute_script('document.getElementsByClassName("Dismiss-sc-1x8nxv0-4")[0].click()')
+                    end
+                    
+                    #ページの一番下まで移動
+                    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-        #ポップアップ表示があるなら消す elementsにしないと エラー返すので注意すること
-        if driver.find_elements(:class, 'custom_popup').size != 0
-            #ポップアップウインドウの×を押して消す
-            puts "ポップアップウインドウを認識"
-            puts driver.find_elements(:class, 'close-custom-popup').size #1
-            puts driver.find_elements(:class, 'svg-sprite').size  #2
-            #driver.execute_script('document.getElementByXpath("//*[@id="html-body"]/div[1]/div/div[1]/a").click()')
-            #反応無し↓
-            driver.execute_script('document.getElementsByClassName("close-custom-popup")[0].click()')
-            #driver.execute_script('document.getElementsByClassName("svg-sprite")[0].click()')　#click is not afunctuon
-            #driver.execute_script('document.getElementsByClassName("svg-sprite")[1].click()') #click is not afunctuon
-            
-            
-            
-            #driver.execute_script('document.getElementsByClassName("svg-sprite")[1].click()') not a functionエラー
-            
-            puts "oseta"
-        end
+                    sleep 1
+                    
+                    #次のページへ移動
 
-        #if driver.find_element(:class, 'custom_popup').displa  
+                    driver.find_elements(:class, 'PaginationStyled-sc-1aduclw-18')[0].find_elements(:class, 'navButton-root-2Fj')[2].click
 
-        #カテゴリーをクリック
-        driver.find_element(:xpath, '//*[@id="ui-accordion-1-header-0"]').click
+                    sleep 6
 
-        sleep 5
+                    #商品コンテンツが表示されるまで待つ
+                    wait.until { driver.find_element(:class, 'Section-sc-1aduclw-1').displayed? }
+                    
+                    #再度docを取得する
+                    doc = Nokogiri::HTML.parse(driver.page_source)
 
-        #各カテゴリーのクリック
-        if search_category == "服" then
-            #ol class=no_max_height の最初のli
-            driver.find_element(:class, 'no_max_height').find_element(:tag_name, 'li').click
-            
-        elsif search_category == "靴" then
-            gb_shoes_url = attack_site_url + "?macrocategory=CALZATURE"
-            return gb_shoes_url
-        elsif search_category == "バッグ" then
-            gb_bag_url = attack_site_url + "?macrocategory=BORSE"
-            #puts gb_bag_url
-            return gb_bag_url
+                    #もう一度クロール
+                    eleonorabonucci_one_time_crawl(doc, search_price)
+                end
+            end
         else
-            gb_accessori_url = attack_site_url + "?macrocategory=ACCESSORI"
-            return gb_accessori_url
+            puts "eleonorabonucciには該当ブランドの商品がありません"
         end
+
+
+
+    # def eleonorabonucci_one_time_crawl(doc, search_price)
+
+#     products = doc.css('.izHQXc')
+#     products.each do |product|
+#     product_price = product.css('.price').inner_text
+#         if product_price.include?(search_price) then
+#             #商品価格
+#             #puts product_price.strip
+#             #商品名
+#             #puts product.css(".name").text.strip
+#             #画像リンク
+#             puts "https://www.montiboutique.com/" + product.css('a').attribute("href").value
+#         end
+#     end
+# end
+
+
+
+
+        # driver.find_element(:xpath, '//*[@id="maincontent"]/div[2]/div[2]/div/div/div[2]/div/div/div/ul/li[2]').click
+
+        # sleep 1
+
+        # wait.until { driver.find_element(:class, 'lists-container').displayed? }
+        # #pradaをクリック
+        # driver.find_element(:xpath, '//*[@id="maincontent"]/div[2]/div[2]/div/div/div/div/div[2]/div[2]/div/ul[17]/li[7]').click
+
+        # sleep 1
+
+
+        # #サイドバーのcategoriaが表示されるのを待ってからcategoriaをクリック
+        # wait.until { driver.find_element(:id, 'narrow-by-list').displayed? }
+
+        # #ポップアップ表示があるなら消す elementsにしないと エラー返すので注意すること
+        # if driver.find_elements(:class, 'custom_popup').size != 0
+        #     #ポップアップウインドウの×を押して消す
+        #     puts "ポップアップウインドウを認識"
+        #     puts driver.find_elements(:class, 'close-custom-popup').size #1
+        #     puts driver.find_elements(:class, 'svg-sprite').size  #2
+        #     #driver.execute_script('document.getElementByXpath("//*[@id="html-body"]/div[1]/div/div[1]/a").click()')
+        #     #反応無し↓
+        #     driver.execute_script('document.getElementsByClassName("close-custom-popup")[0].click()')
+        #     #driver.execute_script('document.getElementsByClassName("svg-sprite")[0].click()')　#click is not afunctuon
+        #     #driver.execute_script('document.getElementsByClassName("svg-sprite")[1].click()') #click is not afunctuon
+            
+            
+            
+        #     #driver.execute_script('document.getElementsByClassName("svg-sprite")[1].click()') not a functionエラー
+            
+        #     puts "oseta"
+        # end
+
+        # #if driver.find_element(:class, 'custom_popup').displa  
+
+        # #カテゴリーをクリック
+        # driver.find_element(:xpath, '//*[@id="ui-accordion-1-header-0"]').click
+
+        # sleep 5
+
+        # #各カテゴリーのクリック
+        # if search_category == "服" then
+        #     #ol class=no_max_height の最初のli
+        #     driver.find_element(:class, 'no_max_height').find_element(:tag_name, 'li').click
+            
+        # elsif search_category == "靴" then
+        #     gb_shoes_url = attack_site_url + "?macrocategory=CALZATURE"
+        #     return gb_shoes_url
+        # elsif search_category == "バッグ" then
+        #     gb_bag_url = attack_site_url + "?macrocategory=BORSE"
+        #     #puts gb_bag_url
+        #     return gb_bag_url
+        # else
+        #     gb_accessori_url = attack_site_url + "?macrocategory=ACCESSORI"
+        #     return gb_accessori_url
+        # end
+
+
+
+
+
+
+
+
+
+
 
 # def monti_one_time_crawl(doc, search_price)
 #     products = doc.css('.product')

@@ -36,7 +36,7 @@ module AuzmendiFarfetchWoman
 
 
     def auzmendi_farfetch_onetime_crawl(doc, auzmendi_farfetch_target_price)
-        products = doc.css('li[data-testid="productCard"]')
+        products = doc.css('[data-component="ProductCard"]')
         products.each do |product|
             #セール価格を先に取得
             item_price = product.css('span[data-testid="initialPrice"]').inner_text
@@ -64,7 +64,7 @@ module AuzmendiFarfetchWoman
         auzmendi_farfetch_categorized_url = auzmendi_farfetch_return_category_page_url(attack_site_url, category)
         #docを作成
         doc = auzmendi_farfetch_make_doc(auzmendi_farfetch_categorized_url)
-        products = doc.css('li[data-testid="productCard"]')
+        products = doc.css('[data-component="ProductCard"]')
         #商品数0なら報告する
         if (products.size == 0)
             puts "auzmendi-Farfetchに該当のカテゴリー商品は現在ありません"
@@ -79,7 +79,7 @@ module AuzmendiFarfetchWoman
             #insert以下の数字をショップ名に応じて変えること
             #基本は55文字スタート　auzmendiは8文字 55+8=63
             auzmendi_farfetch_categorized_url = auzmendi_farfetch_categorized_url.insert(63, "page=#{page_number}&")
-            while doc.css('li[data-testid="productCard"]').size == 90 do
+            while doc.css('[data-component="ProductCard"]').size == 90 do
                 #次ページのURLはpage=2なので+1しとく
                 page_number += 1
                 

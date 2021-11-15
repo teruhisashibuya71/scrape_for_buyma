@@ -18,30 +18,34 @@ module Gaudenzi
         doc = gaudenzi_make_doc(attack_site_url)
         if search_category == "服" then
             #服ならliタグの data-label="Abbigliamento" のhrefを取得
-            gaudenzi_clothing_url = doc.css('.categories').css('a')[0].attribute("href")
+            gaudenzi_clothing_url = attack_site_url + "/clothing"
             return gaudenzi_clothing_url
         elsif search_category == "靴" then
-            gaudenzi_shoes_url = doc.css('.categories').css('a')[3].attribute("href")
+            gaudenzi_shoes_url = attack_site_url + "/shoes"
             return gaudenzi_shoes_url
         elsif search_category == "バッグ" then
-            gaudenzi_bag_url = doc.css('.categories').css('a')[2].attribute("href")
+            gaudenzi_bag_url = attack_site_url + "/bags"
             return gaudenzi_bag_url
         else
-            gaudenzi_accessori_url = doc.css('.categories').css('a')[1].attribute("href")
+            gaudenzi_accessori_url = attack_site_url + "/shoes"
             return gaudenzi_accessori_url
         end
     end
 
     def gaudenzi_onetime_crawl(attack_site_url, search_price, doc)
-        doc.css(".product").each do |node|
-            #商品価格を取得する
-            item_price = node.css(".price").inner_text
-            #もし価格がsearch_priceあるいはlower_search_priceと同じなら商品名とリンクURLを取得する
-            if item_price.include?(search_price) then
-                #商品価格 商品名 画像リンク を取得する
-                #puts item_price
-                #puts node.css(".name").inner_text
-                puts product_url = node.css(".photo").css('a').attribute("href").value
+        if (doc.css(".product").size == 0) then
+            puts "gaudenziに対象のカテゴリーの商品はありません"
+        else
+            doc.css(".product").each do |node|
+                #商品価格を取得する
+                item_price = node.css(".price").inner_text
+                #もし価格がsearch_priceあるいはlower_search_priceと同じなら商品名とリンクURLを取得する
+                if item_price.include?(search_price) then
+                    #商品価格 商品名 画像リンク を取得する
+                    #puts item_price
+                    #puts node.css(".name").inner_text
+                    puts product_url = node.css(".photo").css('a').attribute("href").value
+                end
             end
         end
     end

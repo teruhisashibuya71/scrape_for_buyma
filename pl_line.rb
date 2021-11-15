@@ -3,18 +3,17 @@ require 'nokogiri'
 require 'open-uri'
 require 'selenium-webdriver'
 
+#サイト改修により修正が必要
 module Plline
 
     def plline_onetime_crawl_selenium(doc, search_price)
-        products = doc.css('.product')
+        products = doc.css('.products').css('.cell')
         products.each do |product|
             item_price = product.css('.price').inner_text
             if (item_price.include?(search_price)) then
-                puts item_price 
-                
-                puts product_name = product.css('h5').inner_text
-                
-                puts link_url = product.css('.product-overview-image').attribute("href")
+                #puts item_price 
+                #puts product_name = product.css('.desc').inner_text
+                puts product.css('a').attribute("href")
             end
         end
     end
@@ -35,7 +34,7 @@ module Plline
         sleep 1
         
         #商品一覧が表示されるまで待つ
-        wait.until { driver.find_element(:id, 'filtered').displayed? }
+        wait.until { driver.find_element(:id, 'product-overview').displayed? }
 
         sleep 1
 
@@ -47,36 +46,39 @@ module Plline
         #page-natonがあるかどうかで繰り返し処理
         if (!doc.css('.pagination').empty?) then
             
-            #icon--chevron-left がなくなるまでクローリングする
-            until (doc.css('.icon--chevron-right').size == 0) do
+            until (doc.css('.pagination-next').css('a').attribute('href').nil?)
 
-                #下に少しスクロールして次のページリンクボタンを押す準備
-                driver.execute_script("window.scrollTo(0,300);")
+                #一番下にスクロールしてボタン押す準備
+                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 #ページ上のpaginationが表示されているのを確認
-                wait.until { driver.find_element(:id, 'top-pagination').displayed? }
+                wait.until { driver.find_elements(:class, 'pagination')[0].displayed? }
+                
+                #次ページリンクをクリック
+                driver.find_elements(:class, 'pagination-next')[0].click
                 
                 #ページ移動リンクボタンの数を取得
                 #inner_text_atags = doc.css('#top-pagination').css('.pagination__pages').css('a')
                 
                 #現在のページ番号を確認 
-                current_page_number = doc.css('#top-pagination').css('.active').inner_text
-                current_page_number_integer = current_page_number.to_i
-                click_index = current_page_number_integer - 1
+                #current_page_number = doc.css('#top-pagination').css('.active').inner_text
+                #current_page_number_integer = current_page_number.to_i
+                #click_index = current_page_number_integer - 1
 
                 #商品ページのリンクリストを全て取得
-                page_tags = driver.find_element(:id, 'top-pagination').find_element(:class, 'pagination__pages').find_elements(:tag_name, 'a')
+                #page_tags = driver.find_element(:id, 'top-pagination').find_element(:class, 'pagination__pages').find_elements(:tag_name, 'a')
                 
                 #リンクリストの中からクリックするべきリンクをクリックする
                 #クリックするのはcurrent_page_numberから1引いた値
-                page_tags[click_index].click
+                #page_tags[click_index].click
 
                 #次のページに飛んだら少し待つ
                 sleep 2                
 
                 #商品一覧が表示されるまで待つ
-                wait.until { driver.find_element(:id, 'filtered').displayed? }
-                
-                #クロールリングを実行
+                #wait.until { driver.find_element(:id, 'filtered').displayed? }
+                wait.until { driver.find_element(:id, 'product-overview').displayed? }
+
+                #クローリングを実行
                 doc = Nokogiri::HTML.parse(driver.page_source)
                 plline_onetime_crawl_selenium(doc, search_price)
                 

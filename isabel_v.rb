@@ -12,68 +12,58 @@ require 'mechanize'
 
 #require ./ファイル名
 require './actuelb'
-require './alducadaosta'
 require './auzmendi_f_woman'
+require './amr'
 require './amr_f_woman'
-require './coltorti'
-require './eleonorabonucci_f_woman'
+require './coltorti_woman'
 require './gaudenzi'
-require './gb_f_woman'
 require './leam'
 require './nugnes'
 require './russocapri'
 require './sigrun'
 require './suit'
-require './tessabit'
 require './wise_f_woman'
 
 
 #selenium系
+require './alducadaosta'
 require './brunarosso_woman'
 require './blondie'
-#require './eleonorabonucci'
-#require './gb'
+require './eleonorabonucci'
+require './gb'
 require './monti'
-#require './wise'
+require './tessabit'
+require './wise'
 
 
 class IsabelVip
 
     #服 靴 バッグ アクセ の4種類で対応する
-    @category = "靴"
-    @price = "545"
+    @category = "服"
+    @price = "420"
     
     include Actuelb
-    include Alducadaosta
-    include AuzmendiFarfetchWoman
-    #----------------------
-    #include Amr
-    #----------------------
-    include AmrFarfetchMan
+    include Amr
     include AmrFarfetchWoman
-    include Coltorti
-    include EleonorabonucciFarfetchWoman
+    include AuzmendiFarfetchWoman
+    include ColtortiWoman
     include Gaudenzi
-    include GbFarfetchWoman
     include Leam
     include Nugnes
     include Russocapri
     include SigrunWoehr
     include Suit
-    include Tessabit
     include WiseFarfetchWoman
-    
+
     #seleniumm系
+    include Alducadaosta
     include BrunarossoWoman
     include Blondie
-    #include Eleonorabonucci
-    #----------------------
-    #include GB
-    #----------------------
+    include Eleonorabonucci
+    include Gb
     include Monti
-    #----------------------
-    #include Wise
-    #----------------------
+    include Tessabit
+    include Wise
 
     def self.call_category
         @category
@@ -86,28 +76,29 @@ class IsabelVip
 end
 
 ATTACK_LIST_URL = [
-    #"actuelB",
-    "https://www.alducadaosta.com/it/donna/designer/stella_mccartney",
-    #""AuzmendiFarfetchWoman,
-    "https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=180&scale=274&designer=5502",
-    "https://www.coltortiboutique.com/it/designer/stella_mccartney?cat=166",
-    "https://www.farfetch.com/it/shopping/women/eleonora-bonucci/items.aspx?view=90&scale=274&rootCategory=Women&designer=5502",
-    #"Gaudenzi",
-    "https://www.farfetch.com/it/shopping/women/G-B/items.aspx?view=90&scale=274&rootCategory=Women&designer=5502",
-    "https://www.leam.com/it_eu/designer/stella-mccartney-donna.html",
-    "https://nugnes1920.com/collections/stella-mccartney-woman",
-    "https://www.russocapri.com/it/donna/categorie/shopping/gruppi/nuovi-arrivi?ds=stella-mc-cartney",
-    #"sigtrun",
-    "https://suitnegozi.com/collections/stella-mccartney-donna",
-    "https://www.tessabit.com/it/donna/designers/stella-mccartney",
-    "https://www.farfetch.com/it/shopping/women/wise-boutique/items.aspx?view=90&scale=274&rootCategory=Women&designer=20851",
-    
+    "https://amrstore.com/collections/isabel-marant",
+    "https://www.coltortiboutique.com/it/designer/isabel_marant?cat=166",
+    "https://www.coltortiboutique.com/it/designer/isabel_marant_etoile?cat=166",
+    "https://www.gaudenziboutique.com/en-it/women/designer/isabel_marant",
+    "https://www.gaudenziboutique.com/en-it/women/designer/isabel_marant_etoile",
+    "https://nugnes1920.com/collections/isabel-marant-woman",
+    "https://nugnes1920.com/collections/isabel-marant-etoile-woman",
+    "https://www.sigrun-woehr.com/en/By-Brand/Isabel-Marant/",
+
     #以下selenium
-    "https://www.brunarosso.com/s/designers/stella-mccartney/?category=women",
-    "https://www.blondieshop.com/it/donna/woman-designer/stella-mccartney.htmls",
-    #"eleonorabonucci",
-    #"gb",
-    "https://www.montiboutique.com/en-US/women/designer/stella_mccartney"
+    "https://www.alducadaosta.com/it/donna/designer/isabel_marant",
+    "https://www.alducadaosta.com/it/donna/designer/isabel_marant_etoile",
+    "https://www.blondieshop.com/it/donna/woman-designer/isabel-mccartney.htmls",
+    "https://eleonorabonucci.com/en/isabel-marant/women/new-collection",
+    "https://eleonorabonucci.com/en/isabel-marant-etoile/women/new-collection",
+    #"https://eleonorabonucci.com/en/isabel-marant/women/sale",
+    #"https://eleonorabonucci.com/en/isabel-marant-etoile/women/sale",
+    "https://www.gebnegozionline.com/it_it/donna/designers/isabel-marant.html",
+    "https://www.gebnegozionline.com/it_it/donna/designers/isabel-marant-etoile.html",
+    "https://www.montiboutique.com/it-IT/donna/designer/isabel_marant",
+    "https://www.montiboutique.com/it-IT/donna/designer/isabel_marant_etoile",
+    "https://www.tessabit.com/it_it/donna/designers/isabel-marant.html?page=1",
+    "https://www.wiseboutique.com/it_it/donna/designers/isabel-marant-etoile.html"
 ]
 
     vip_isabel_woman = IsabelVip.new
@@ -116,74 +107,70 @@ ATTACK_LIST_URL = [
 
     ATTACK_LIST_URL.each do |attack_site_url|
         case attack_site_url
-        # when "actuelb" then
-        #     vip_isabel_woman.actuel_crawl(attack_site_url, @price, @category)
-        #     @price = @price.delete(",")
-        when "https://www.alducadaosta.com/it/donna/designer/stella_mccartney" then
-            vip_isabel_woman.alducadaosta_crawl(attack_site_url, @price, @category)
+        when "https://amrstore.com/collections/isabel-marant"
+            vip_isabel_woman.amr_crawl(attack_site_url, @price)
             @price = @price.delete(".")
-        # when "auzmendi" then
-        #     vip_isabel_woman.auzumendi_f_crawl(attack_site_url, @price, @category)
-        #     @price = @price.delete(".")
-        when "https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=180&scale=274&designer=5502" then
-            vip_isabel_woman.amr_farfetch_crawl(attack_site_url, @price, @category)
-            @price = @price.delete(".")
-        when "https://www.coltortiboutique.com/it/designer/stella_mccartney?cat=166" then
+        when "https://www.coltortiboutique.com/it/designer/isabel_mccartney?cat=166"
             vip_isabel_woman.coltorti_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
-        when "https://www.gaudenziboutique.com/en-it/women/designer/max_mara" then
+        when "https://www.coltortiboutique.com/it/designer/isabel_marant_etoile?cat=166"
+            vip_isabel_woman.coltorti_crawl(attack_site_url, @price, @category)
+            @price = @price.delete(".")
+        when "https://www.gaudenziboutique.com/en-it/women/designer/isabel_marant" 
             vip_isabel_woman.gaudenzi_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
-        when "https://www.farfetch.com/it/shopping/women/eleonora-bonucci/items.aspx?view=90&scale=274&rootCategory=Women&designer=5502" then
-            vip_isabel_woman.elenora_farfetch_crawl(attack_site_url, @price, @category)
+        when "https://www.gaudenziboutique.com/en-it/women/designer/isabel_marant_etoile" 
+            vip_isabel_woman.gaudenzi_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
-        when "https://www.farfetch.com/it/shopping/women/G-B/items.aspx?view=90&scale=274&designer=5502" then
-            vip_isabel_woman.gbfarfetch_crawl(attack_site_url, @price, @category)
-            @price = @price.delete(".")
-        # when "gaudenzi" then
-        #     vip_isabel_woman.gaudenzi_crawl(attack_site_url, @price, @category)
-        #     @price = @price.delete(".")
-        when "https://www.leam.com/it_eu/designer/stella-mccartney-donna.html" then
-            vip_isabel_woman.leam_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
-        when "https://nugnes1920.com/collections/stella-mccartney-woman" then
+        when "https://nugnes1920.com/collections/isabel-marant-woman" 
             vip_isabel_woman.nugnes_crawl(attack_site_url, @price)
             @price = @price.delete(".")
-        when "https://www.russocapri.com/it/donna/categorie/shopping/gruppi/nuovi-arrivi?ds=stella-mc-cartney" then
-            vip_isabel_woman.russo_crawl(attack_site_url, @price)
-            #価格調整無し
-        # when "sigrun" then
-        #     vip_isabel_woman.sigrun_crawl(attack_site_url, @price)
-        #     @price = @price.delete(".")
-        when "https://suitnegozi.com/collections/stella-mccartney-donna" then
-            vip_isabel_woman.suit_crawl(attack_site_url, @price)
+        when "https://nugnes1920.com/collections/isabel-marant-etoile-woman" 
+            vip_isabel_woman.nugnes_crawl(attack_site_url, @price)
             @price = @price.delete(".")
-        when "https://www.tessabit.com/it/donna/designers/stella-mccartney" then
-            vip_isabel_woman.tessabit_crawl(attack_site_url, @price, @category)
-            @price = @price.delete(",")
-        when "https://www.farfetch.com/it/shopping/women/wise-boutique/items.aspx?view=90&scale=274&rootCategory=Women&designer=20851" then
-            vip_isabel_woman.wise_crawl(attack_site_url, @price)
+        when "https://www.sigrun-woehr.com/en/By-Brand/Isabel-Marant/" 
+            vip_isabel_woman.sigrun_crawl(attack_site_url, @price)
             @price = @price.delete(".")
-            
         #以下selenium
-        when "https://www.brunarosso.com/s/designers/stella-mccartney/?category=women" then
-            vip_isabel_woman.brunarosso_crawl_selenium(attack_site_url, @price, @category)
-            #別の変数に代入して使用しているため調整不要
-        when "https://www.blondieshop.com/it/donna/woman-designer/stella-mccartney.html" then
+        when "https://www.alducadaosta.com/it/donna/designer/isabel_marant" 
+            vip_isabel_woman.alducadaosta_crawl_selenium(attack_site_url, @price, @category)
+            @price = @price.delete(".")
+        when "https://www.alducadaosta.com/it/donna/designer/isabel_marant_etoile" 
+            vip_isabel_woman.alducadaosta_crawl_selenium(attack_site_url, @price, @category)
+            @price = @price.delete(".")
+        when "https://www.blondieshop.com/it/donna/woman-designer/isabel-mccartney.htmls" 
             vip_isabel_woman.blondie_crawl_selenium(attack_site_url, @price)
             @price = @price.delete(".")
-        # when "eleonorabonucci" then
-        #     vip_isabel_woman.elenora_crawl_selenium(attack_site_url, @price, @category)
-        #     @price = @price.delete(".")
-        # when "gb" then
-        #     vip_isabel_woman.gb_crawl_selenium(attack_site_url, @price, @category)
-        #     @price = @price.delete(".")
-        when "https://www.montiboutique.com/it-IT/Donna/designer/stella_mccartney" then
+        when "https://eleonorabonucci.com/en/isabel-marant/women/new-collection" 
+            vip_isabel_woman.eleonorabonucci_crawl_selenium(attack_site_url, @price)
+            @price = @price.delete(".")
+        when "https://eleonorabonucci.com/en/isabel-marant-etoile/women/new-collection" 
+            vip_isabel_woman.eleonorabonucci_crawl_selenium(attack_site_url, @price)
+            @price = @price.delete(".")
+        #when "#"https://eleonorabonucci.com/en/isabel-marant/women/sale"" 
+        #    vip_isabel_woman.eleonorabonucci_crawl_selenium(attack_site_url, @price, @category)
+        #    @price = @price.delete(".")
+        #when "https://eleonorabonucci.com/en/isabel-marant-etoile/women/sale" 
+        #    vip_isabel_woman.eleonorabonucci_crawl_selenium(attack_site_url, @price, @category)
+        #    @price = @price.delete(".")
+        when "https://www.gebnegozionline.com/it_it/donna/designers/isabel-marant.html" 
+            vip_isabel_woman.gb_crawl_selenium(attack_site_url, @price)
+            @price = @price.delete(".")
+        when "https://www.gebnegozionline.com/it_it/donna/designers/isabel-marant-etoile.html" 
+            vip_isabel_woman.gb_crawl_selenium(attack_site_url, @price)
+            @price = @price.delete(".")
+        when "https://www.montiboutique.com/it-IT/donna/designer/isabel_marant" 
             vip_isabel_woman.monti_crawl_selenium(attack_site_url, @price, @category)
             @price = @price.delete(".")
-        #when "wise" then
-        #    vip_isabel_woman.wise_crawl_selenium(attack_site_url, @price)
-        #    @price = @price.delete(".")
+        when "https://www.montiboutique.com/it-IT/donna/designer/isabel_marant_etoile" 
+            vip_isabel_woman.monti_crawl_selenium(attack_site_url, @price, @category)
+            @price = @price.delete(".")
+        when "https://www.tessabit.com/it_it/donna/designers/isabel-marant.html?page=1" 
+            vip_isabel_woman.tessabit_crawl_selenium(attack_site_url, @price)
+            @price = @price.delete(",")
+        when "https://www.wiseboutique.com/it_it/donna/designers/isabel-marant-etoile.html" 
+            moncler_vip_man.wise_crawl_selenium(attack_site_url, @price)
+            @price = @price.delete(",")
         end
     end
 

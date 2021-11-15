@@ -46,6 +46,8 @@ module Michelefranzese
     #クロールするメソッド
     def michele_crawl(brand_home_url, search_price)
         
+        #商品価格の桁数調整の必要無し
+
         doc = michele_make_doc(brand_home_url)
         #初回クロール
         michele_onetime_crawl(doc, search_price)
