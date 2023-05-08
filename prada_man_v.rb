@@ -3,33 +3,16 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 require 'mechanize'
+require 'require_all'
+require_all '/Users/ts/Desktop/scrape/vip'
 
-#require ./ファイル名
-#require './actuelb'
-require './amr'
-require './amr_f_man'
-require './auzmendi_f_man'
-require './coltorti_man'
-#require './gaudenzi'
-#require './gb_f_man'
-#require './leam'
-require './nugnes'
-#require './russocapri'
-require './suit'
-#require './wise_f_man' #消えた
-
-#selenium系
-#require './alducadaosta'
-#require './brunarosso_man'
-require './blondie'
-#require './eleonorabonucci'
-require './gb'
-require './monti'
-#require './tessabit'
-#require './wise' #消えた
-
-
+#ruby prada_man_v.rb
 class PradaVipMan
+
+    #服 靴 バッグ アクセ の4種類で対応する
+    #ruby prada_man_v.rb
+    @category = "アクセ"
+    @price = "520"
 
     #include + クラス名
     include ColtortiMan
@@ -42,10 +25,6 @@ class PradaVipMan
     include Gb
     include Monti
     include Blondie
-
-    #服 靴 バッグ アクセ の4種類で対応する
-    @category = "服"
-    @price = "790"
 
     def self.call_category
         @category
@@ -67,8 +46,8 @@ ATTACK_LIST_URL = [
     "https://nugnes1920.com/collections/prada-man",
     #selenium
     "https://www.gebnegozionline.com/it_it/uomo/designers/prada.html",
-    "https://www.blondieshop.com/it/uomo/man-designer/prada.html",
-    "https://www.montiboutique.com/it-IT/Uomo/designer/prada"
+    "https://www.montiboutique.com/it-IT/Uomo/designer/prada",
+    "https://www.blondieshop.com/it/uomo/man-designer/prada.html"
     ]
 
     vip_prada_man = PradaVipMan.new

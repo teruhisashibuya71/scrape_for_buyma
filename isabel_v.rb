@@ -39,8 +39,9 @@ require './wise'
 class IsabelVip
 
     #服 靴 バッグ アクセ の4種類で対応する
-    @category = "服"
-    @price = "420"
+    #ruby isabel_v.rb
+    @category = "バッグ"
+    @price = "120"
     
     include Actuelb
     include Amr
@@ -88,7 +89,6 @@ ATTACK_LIST_URL = [
     #以下selenium
     "https://www.alducadaosta.com/it/donna/designer/isabel_marant",
     "https://www.alducadaosta.com/it/donna/designer/isabel_marant_etoile",
-    "https://www.blondieshop.com/it/donna/woman-designer/isabel-mccartney.htmls",
     "https://eleonorabonucci.com/en/isabel-marant/women/new-collection",
     "https://eleonorabonucci.com/en/isabel-marant-etoile/women/new-collection",
     #"https://eleonorabonucci.com/en/isabel-marant/women/sale",
@@ -98,7 +98,8 @@ ATTACK_LIST_URL = [
     "https://www.montiboutique.com/it-IT/donna/designer/isabel_marant",
     "https://www.montiboutique.com/it-IT/donna/designer/isabel_marant_etoile",
     "https://www.tessabit.com/it_it/donna/designers/isabel-marant.html?page=1",
-    "https://www.wiseboutique.com/it_it/donna/designers/isabel-marant-etoile.html"
+    "https://www.wiseboutique.com/it_it/donna/designers/isabel-marant-etoile.html",
+    "https://www.blondieshop.com/it/donna/woman-designer/isabel-mccartney.htmls"
 ]
 
     vip_isabel_woman = IsabelVip.new
@@ -109,7 +110,7 @@ ATTACK_LIST_URL = [
         case attack_site_url
         when "https://amrstore.com/collections/isabel-marant"
             vip_isabel_woman.amr_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
+            @price = @price.delete(",")
         when "https://www.coltortiboutique.com/it/designer/isabel_mccartney?cat=166"
             vip_isabel_woman.coltorti_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
@@ -169,7 +170,7 @@ ATTACK_LIST_URL = [
             vip_isabel_woman.tessabit_crawl_selenium(attack_site_url, @price)
             @price = @price.delete(",")
         when "https://www.wiseboutique.com/it_it/donna/designers/isabel-marant-etoile.html" 
-            moncler_vip_man.wise_crawl_selenium(attack_site_url, @price)
+            vip_isabel_woman.wise_crawl_selenium(attack_site_url, @price)
             @price = @price.delete(",")
         end
     end

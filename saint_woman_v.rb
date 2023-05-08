@@ -106,7 +106,7 @@ ATTACK_LIST_URL = [
             @price = @price.delete(",")
         when "https://amrstore.com/collections/saint-laurent" 
             vip_saint_woman.amr_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
+            @price = @price.delete(",")
         when "https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=90&scale=274&rootCategory=Women&designer=547344"
             vip_saint_woman.amr_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")

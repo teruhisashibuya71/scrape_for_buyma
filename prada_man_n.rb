@@ -1,35 +1,18 @@
 require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
+require 'require_all'
+require_all '/Users/ts/Desktop/scrape/normal'
 
-#./'ファイル名'
-require './cortecci'
-require './ekseption'
-require './grifo'
-require './julian'
-require './lidia'
-require './luisa_world'
-require './mycompanero'
-require './ottodisapietro'
-require './smets'
-require './vietti'
-
-#以下selenium
-require './credoman'
-require './labels'
-require './genteroma'
-require './papini'
-require './pl_line'
-require './spinnaker'
-
-
-
+#https://www.cumini.com/en/shop_uomo?brand=prada
+#spinnakerURL修正
 
 class PradaNormalMan
 
     #服 靴 バッグ アクセ の4種類で対応する
-    @category = "服"
-    @price = "790"
+    #ruby prada_man_n.rb
+    @category = "アクセ"
+    @price = "520"
     
     #include + クラス名
     include Cortecci
@@ -65,12 +48,11 @@ ATTACK_LIST_URL = [
     "https://www.julian-fashion.com/en-IT/men/designer/prada",
     "https://www.mycompanero.com/fr/brand/13-prada?categories=homme",
     "https://smets.lu/collections/prada/men",
-    "https://www.viettishop.com/it/designers/prada",
     
     #selenium
     "https://www.genteroma.com/it/designer/uomo/prada.html",
     "https://www.pl-line.com/en/prada",
-    "https://www.spinnakerboutique.it/en/men#/manFilters=188&pageSize=36&viewMode=grid&orderBy=15&pageNumber=1"
+    "https://www.spinnakerboutique.com/en-IT/man/designer/prada"
 ]
 
     prada_n_man = PradaNormalMan.new
@@ -99,7 +81,7 @@ ATTACK_LIST_URL = [
         when "https://www.pl-line.com/en/prada"
             prada_n_man.plline_crawl_selenium(attack_site_url, @price)
             #小数点削除必要無し
-        when "https://www.spinnakerboutique.it/en/men#/manFilters=188&pageSize=36&viewMode=grid&orderBy=15&pageNumber=1"
+        when "https://www.spinnakerboutique.com/en-IT/man/designer/prada"
             prada_n_man.spinnnaker_crawl_selenium(attack_site_url, @price)
             #小数点削除必要無し 
         end

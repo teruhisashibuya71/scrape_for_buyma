@@ -1,0 +1,107 @@
+require 'rubygems'
+require 'open-uri'
+
+#服なら 服と アクティブウェア
+#修正アクセなら アクセと ジュエリー をクロールする必要あり
+#ブランド毎に作成する必要がある(URL調整のため)
+module JilSanderFarfetchWoman #①ブランド名追加
+
+    #1.category変数の値に応じて 各カテゴリページのurlを返すメソッド
+    #このメソッドは絶対に変わらない
+    def get_categorized_url(attack_site_url, category)  #②メソッド名を修正
+        if category == "服" then
+            farfetch_clothing_url = attack_site_url + "?page=1&view=90&sort=3&category=136330"  #③付け足す文字列を念のため確認する(基本どのブランドも同じだが)
+            return farfetch_clothing_url
+        elsif category == "靴" then
+            farfetch_shoes_url = attack_site_url + "?page=1&view=90&sort=3&scale=282&category=135968" #③付け足す文字列を念のため確認する(基本どのブランドも同じだが)
+            return farfetch_shoes_url
+        elsif category == "バッグ" then
+            farfetch_bag_url = attack_site_url + "?page=1&view=90&sort=3&category=135970" #③付け足す文字列を念のため確認する(基本どのブランドも同じだが)
+            return farfetch_bag_url
+        else
+            #クロール対象がアクセサリーの場合
+            farfetch_accessori_url.push(attack_site_url + "?page=1&view=90&sort=3&category=135970")
+            farfetch_accessori_url.push(attack_site_url + "?page=1&view=90&sort=3&category=135970")
+            #farfetch_accessori_url = attack_site_url + "?page=1&view=90&sort=3&category=135970" #③付け足す文字列を念のため確認する(基本どのブランドも同じだが)
+            return farfetch_accessori_url
+        end
+    end
+
+    #カテゴリーURLを引数としてdocを作成
+    def farfetch_make_doc(categorized_url)
+        charset = nil
+        html = URI.open(categorized_url) do |f|
+            charset = f.charset
+            f.read
+        end
+        doc = Nokogiri::HTML.parse(html, nil, charset)
+        return doc
+    end
+
+
+    def farfetch_onetime_crawl(doc, target_price)
+        products = doc.css('[data-component="ProductCard"]')
+        products.each do |product|
+            #セール価格を先に取得
+            item_price = product.css('span[data-testid="initialPrice"]').inner_text 
+            #セール価格表示が無いなら通常価格を取得
+            if (item_price.empty?) then
+                item_price = product.css('span[data-testid="price"]').inner_text
+            end
+            if item_price.include?(target_price) then
+                get_url = product.css('a').attribute("href").value
+                access_url = "https://www.farfetch.com" + get_url
+                #商品アクセスURL
+                puts access_url
+            end
+        end
+    end
+
+
+    def farfetch_crawl(attack_site_url, target_price, category)
+        
+        #クロール対象の価格が4桁の場合はドット(.)を入れて調整
+        if target_price.length >= 4 then
+            target_price = target_price.insert(1, ".")
+        end
+
+        #カテゴリーURLを取得
+        categorized_url = get_categorized_url(attack_site_url, category)
+        #docを作成
+        doc = farfetch_make_doc(categorized_url)
+        products = doc.css('[data-component="ProductCard"]')
+
+        #商品数0ならターミナルにメッセージを表示
+        if (products.size == 0)
+            puts "JIL SANDER Farfetchに該当のカテゴリー商品は現在ありません" #④ブランド名修正
+        else
+            #初回クロール
+            farfetch_onetime_crawl(doc, target_price)
+            
+            #ページが複数ある時の処理
+            #商品数が90個あるなら繰り返し処理へ そうでなければ終了
+            if (doc.css('[data-component="ProductCard"]').size == 90)  
+                
+                #次ページのページ番号
+                page_number = 2
+                #URL中のpage=の次の数字を置き換える page=1 → page=2へ
+                farfetch_categorized_url[71] = "#{page_number}"  #⑤URLの書き換え ブランドにより桁数がことなるので書き換え JIL-SANDER(10文字)で71番目
+                #puts off_white_farfetch_categorized_url
+                #新しいURLでdocを作りなおす
+                doc = farfetch_make_doc(farfetch_categorized_url)
+
+                #商品数が90であるうちはうちはクローリングを繰り返す
+                while doc.css('[data-component="ProductCard"]').size == 90 do
+                    #ページ数を+1する
+                    page_number += 1
+                    #URLを書き換える
+                    farfetch_categorized_url[71] = "#{page_number}" #⑥URLの書き換え ブランドにより桁数がことなるので書き換え JIL-SANDER(10文字)で71番目
+                    #次のページのURLを元にdocを再度作成→変数に代入
+                    doc = farfetch_make_doc(farfetch_categorized_url)
+                    #2ページ目をクロール
+                    farfetch_onetime_crawl(doc, target_price)
+                end
+            end
+        end
+    end
+end

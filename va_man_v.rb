@@ -32,8 +32,9 @@ require './wise'
 class ValentinoVipMan
 
     #服 靴 バッグ アクセ の4種類で対応する
-    @category = "アクセ"
-    @price = "350"
+    #ruby va_man_v.rb
+    @category = "服"
+    @price = "450"
     
     include Actuelb
     include Amr
@@ -80,7 +81,6 @@ ATTACK_LIST_URL = [
     "https://www.alducadaosta.com/it/uomo/designer/valentino",
     "https://www.brunarosso.com/s/designers/valentino/",
     "https://www.blondieshop.com/it/uomo/man-designer/valentino.html",
-    "https://eleonorabonucci.com/en/valentino/men/sale",
     #日本発送不可 "https://www.gebnegozionline.com/it_it/uomo/designers/valentino.html",
     "https://www.montiboutique.com/it-IT/uomo/designer/valentino",
     "https://www.tessabit.com/it_it/uomo/designers/valentino.html?page=1",
@@ -98,7 +98,7 @@ ATTACK_LIST_URL = [
             @price = @price.delete(",")
         when "https://amrstore.com/collections/valentino"
             vip_valentino_man.amr_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
+            @price = @price.delete(",")
         when "https://www.farfetch.com/be/shopping/men/auzmendi/items.aspx?view=90&scale=282&rootCategory=Men&designer=10533"
             vip_valentino_man.auzmendi_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
@@ -106,7 +106,7 @@ ATTACK_LIST_URL = [
             vip_valentino_man.coltorti_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
         when "https://www.gaudenziboutique.com/en-it/men/designer/valentino"
-            vip_valentino_man.gaudenzi_crawl(attack_site_url, @price)
+            vip_valentino_man.gaudenzi_crawl(attack_site_url, @price, @category) 
             @price = @price.delete(".")
         #when #要ログイン "https://www.leam.com/en/designer/valentino-men.html"
         #    vip_valentino_man.leam_crawl(attack_site_url, @price)
@@ -128,9 +128,6 @@ ATTACK_LIST_URL = [
         when "https://www.blondieshop.com/it/uomo/man-designer/valentino.html"
             vip_valentino_man.blondie_crawl_selenium(attack_site_url, @price)
             @price = @price.delete(".")
-        when "https://eleonorabonucci.com/en/valentino/men/sale"
-            vip_valentino_man.eleonorabonucci_crawl_selenium(attack_site_url, @price)
-            @price = @price.delete(".")
         #when #現状日本発送不可 "https://www.gebnegozionline.com/it_it/uomo/designers/valentino.html"
         #    vip_valentino_man.gb_crawl_selenium(attack_site_url, @price)
         #    @price = @price.delete(".")
@@ -146,3 +143,45 @@ ATTACK_LIST_URL = [
         end
     end
 end
+
+
+#valentinoだけのURL Alducadaostaは40%あるので
+# https://www.alducadaosta.com/it/uomo/designer/valentino
+# https://www.styleisnow.com/business/designer/valentino?cat=151
+# https://www.brunarosso.com/s/designers/valentino/?category=men
+
+# https://www.farfetch.com/be/shopping/men/auzmendi/items.aspx?view=90&scale=282&rootCategory=Men&designer=10533
+# https://nugnes1920.com/collections/valentino-man
+# https://www.wiseboutique.com/it_it/uomo/designers/valentino.html
+# https://www.gebnegozionline.com/it_it/uomo/designers/valentino.html
+# https://www.leam.com/it_eu/designer/valentino-uomo.html
+# https://www.gaudenziboutique.com/en-it/men/designer/valentino
+# https://www.tessabit.com/it_it/uomo/designers/valentino.html
+# https://www.montiboutique.com/it-IT/Uomo/designer/valentino
+
+
+
+# #gravaniだけのURL
+# https://www.alducadaosta.com/it/uomo/designer/valentino_garavani
+# https://www.styleisnow.com/business/designer/valentino_garavani?cat=151
+# https://www.brunarosso.com/s/designers/valentino-garavani/?category=men
+
+# https://www.farfetch.com/be/shopping/men/auzmendi/items.aspx?page=1&view=90&sort=3&scale=282&designer=534369
+# https://nugnes1920.com/collections/valentino-garavani-man
+# https://www.wiseboutique.com/it_it/uomo/designers/valentino-garavani.html
+# https://www.gebnegozionline.com/it_it/uomo/designers/valentino-garavani.html
+# https://www.leam.com/it_eu/designer/valentino-garavani-uomo.html
+# https://www.gaudenziboutique.com/en-it/men/designer/valentino_garavani
+# https://www.tessabit.com/it_it/uomo/designers/valentino-garavani.html
+# https://www.montiboutique.com/it-IT/Uomo/designer/valentino_garavani
+
+
+
+
+# #服と小物両方のサイト suitは3位とする
+# #coltortiboutique
+# #buruna
+# #alduca
+# https://suitnegozi.com/collections/valentino-uomo
+# https://actuelb.com/en/71-men-s-valentino
+# https://www.blondieshop.com/it/uomo/man-designer/valentino.html?p=2

@@ -36,6 +36,7 @@ GEM
     ntlm-http (0.1.1)
     racc (1.5.2)
     rake (13.0.3)
+    require_all (3.0.0)
     ruby-debug-ide (0.7.2)
       rake (>= 0.8.1)
     unf (0.1.4)
@@ -52,7 +53,8 @@ PLATFORMS
 DEPENDENCIES
   debase
   mechanize
+  require_all
   ruby-debug-ide
 
 BUNDLED WITH
-   2.2.13
+   2.2.29

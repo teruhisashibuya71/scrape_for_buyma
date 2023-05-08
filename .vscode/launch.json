@@ -2,15 +2,18 @@
     // IntelliSense を使用して利用可能な属性を学べます。
     // 既存の属性の説明をホバーして表示します。
     // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    //使い方
+    //①.program部分のファイル名を変更する  ②.サイドバーのデバッグボタンで画面切り替え
+    //③.画面上に表示される再生ボタンを押してプログラムを実行→→ポイントで止まる
+
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "Debug Local File",
             "type": "Ruby",
             "request": "launch",
-            "program": "${workspaceRoot}/moncler_n_man.rb",
-            "useBundler": true
+            "program": "${workspaceRoot}/margiela_man_v.rb",
+            "useBundler": false
         }
     ]
 }

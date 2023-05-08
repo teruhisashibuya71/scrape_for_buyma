@@ -3,90 +3,38 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 require 'mechanize'
-
-
-#montiとcoltortiboutiqueがおかしい
-
-#require ./ファイル名
-require './actuelb'
-require './auzmendi_f_woman'
-require './amr'
-require './amr_f_woman'
-require './coltorti_woman'
-require './gaudenzi'
-require './leam'
-require './michelef'
-require './nugnes'
-require './russocapri'
-require './sigrun'
-require './suit'
-require './wise_f_woman' #monclerの価格違いあるので
-
-#selenium系
-require './alducadaosta'
-require './brunarosso_woman'
-require './blondie'
-require './eleonorabonucci' #サイズ35〜
-require './gb'
-require './monti'
-require './tessabit'
-require './wise'
-
+require 'require_all'
+require_all '/Users/ts/Desktop/scrape/vip'
 
 class MiumiuVipWoman
-
     #服 靴 バッグ アクセ の4種類で対応する
-    @category = "靴"
-    @price = "750"
-    
-    include Actuelb
-    include Amr
-    include AmrFarfetchWoman
-    include AuzmendiFarfetchWoman
-    include ColtortiWoman
-    include Gaudenzi
-    include Leam
-    include Michelefranzese
-    include Nugnes
-    include Russocapri
-    include SigrunWoehr
-    include Suit
-    include WiseFarfetchWoman
-
-    #seleniumm系
-    include Alducadaosta
-    include BrunarossoWoman
-    include Blondie
-    include Eleonorabonucci
-    include Gb
-    include Monti
-    include Tessabit
-    include Wise
-
+    #ruby miumiu_v.rb
+    @category = "アクセ"
+    @price = "420"
+    include Actuelb, Amr, AmrFarfetchWoman, AuzmendiFarfetchWoman, ColtortiWoman, Eleonorabonucci, Gaudenzi, Leam, Michelefranzese, Nugnes, Russocapri, SigrunWoehr, Suit, WiseFarfetchWoman
+    include Alducadaosta, AngeloMinetti, BrunarossoWoman, Blondie, Gb, Monti, Tessabit, Wise
     def self.call_category
         @category
     end
-
     def self.call_price
         @price
     end
-
 ATTACK_LIST_URL = [    
     "https://amrstore.com/collections/miu-miu",
     "https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=90&scale=274&rootCategory=Women&designer=8360",
     "https://www.farfetch.com/be/shopping/women/auzmendi/items.aspx?view=90&scale=274&rootCategory=Women&designer=8360",
     "https://www.coltortiboutique.com/it/designer/miu_miu?cat=166",
-    "https://www.sigrun-woehr.com/en/By-Brand/Miu-Miu/",
+    #"https://www.sigrun-woehr.com/en/By-Brand/Miu-Miu/",
     "https://suitnegozi.com/collections/miu-miu-donna",
 
     #以下selenium
-    "https://www.brunarosso.com/s/designers/miu-miu/?category=women",
-    "https://www.blondieshop.com/it/donna/woman-designer/miu-miu.html",
+    "https://www.minettiangeloonline.com/it/woman?idt=385",
     "https://www.gebnegozionline.com/it_it/donna/designers/miu-miu.html",
-    "https://www.montiboutique.com/it-IT/donna/designer/miu_miu",
-    "https://www.tessabit.com/it_it/donna/designers/miu-miu.html?page=1"
+    "https://www.brunarosso.com/s/designers/miu-miu/?category=women",
+    "https://www.tessabit.com/it_it/donna/designers/miu-miu.html",
+    "https://www.blondieshop.com/it/donna/woman-designer/miu-miu.html",
+    "https://www.montiboutique.com/it-IT/donna/designer/miu_miu"
 ]
-
     vip_miumiu_woman = MiumiuVipWoman.new
     @price = MiumiuVipWoman.call_price
     @category = MiumiuVipWoman.call_category
@@ -95,7 +43,7 @@ ATTACK_LIST_URL = [
         case attack_site_url
         when "https://amrstore.com/collections/miu-miu"
             vip_miumiu_woman.amr_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
+            @price = @price.delete(",")
         when "https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=90&scale=274&rootCategory=Women&designer=8360"
             vip_miumiu_woman.amr_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")
@@ -125,7 +73,7 @@ ATTACK_LIST_URL = [
         when "https://www.montiboutique.com/it-IT/donna/designer/miu_miu"
             vip_miumiu_woman.monti_crawl_selenium(attack_site_url, @price, @category)
             @price = @price.delete(".")
-        when "https://www.tessabit.com/it_it/donna/designers/miu-miu.html?page=1"
+        when "https://www.tessabit.com/it_it/donna/designers/miu-miu.html"
             vip_miumiu_woman.tessabit_crawl_selenium(attack_site_url, @price)
             @price = @price.delete(",")
         end

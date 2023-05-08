@@ -93,7 +93,7 @@ ATTACK_LIST_URL = [
         case attack_site_url
         when "https://amrstore.com/collections/golden-goose"
             vip_golden_man.amr_crawl(attack_site_url, @price)
-            @price = @price.delete(".")
+            @price = @price.delete(",")
         when "https://www.farfetch.com/it/shopping/men/AMR/items.aspx?view=90&scale=282&rootCategory=Men&designer=353940"
             vip_golden_man.amr_farfetch_crawl(attack_site_url, @price, @category)
             @price = @price.delete(".")

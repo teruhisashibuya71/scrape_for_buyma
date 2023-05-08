@@ -1,0 +1,35 @@
+🌟セレニウムのversionが変わった場合
+実行コマンド1
+brew upgrade chromedriver
+
+これでたいていはoKのはず
+
+brew reinstall chromedriver
+
+最新版の数値がダウロードされない場合はこちらの記事を参考にする
+https://qiita.com/koki_73/items/5f15ecb41269da6cadb0
+
+プログラムを実行すると初回はエラーが生じるので、以下手順で対応すること
+https://qiita.com/apukasukabian/items/77832dd42e85ab7aa568
+
+
+resintall後に再度プログラムを実行すると開発元未確認エラーがでる
+システム環境設定→セキュリティとプライバシーで→一般→「このまま許可」→再度実行→「開く」
+
+
+クロームドライバーのディレクトリ
+/opt/homebrew/bin/chromedriver'
+これがreinstallで更新されていると思われる
+
+
+その他コマンド
+chromedriver --version
+which chromedriver
+→通常は/usr//bin/chromedriver
+
+
+日本円表記サイトの対策事項
+海外プロキシを使用する?方法
+プロキシサーバーのURLを調べる必要あり？
+https://rooter.jp/web-crawling/change-chrome-proxy/
+https://mixhost.jp/vpn-column/overseas-site/

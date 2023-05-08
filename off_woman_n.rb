@@ -12,10 +12,11 @@ class OffwhiteWoman
     #include + クラス名
     include Smets
     
-
+    
     #服 靴 バッグ アクセ の4種類で対応する
-    @category = "靴"
-    @price = "790"
+    #ruby off_woman_n.rb
+    @category = "服"
+    @price = "595"
     #jilsander_woman = FendiVipWoman.new
 
     def self.call_category

@@ -26,8 +26,9 @@ require './spinnaker'
 class ValentinogNormalMan
 
     #服 靴 バッグ アクセ の4種類で対応する
+    #ruby vag_man_n.rb
     @category = "服"
-    @price = "1980"
+    @price = "450"
     
     #include + クラス名
     include Capsel

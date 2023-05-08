@@ -1,0 +1,1 @@
+https://www.yoox.com/jp/%e3%83%ac%e3%83%87%e3%82%a3%e3%83%bc%e3%82%b9/shoponline/tod's_d?d=83&dept=women&page=1&pricemin=15000&sort=3&countrycode=jp&gender=D&tp=212874&utm_source=google&utm_medium=cpc&utm_campaign=jp_designer-category-cvo&utm_term=TOD%27S&gclid=CjwKCAiArNOeBhAHEiwAze_nKNbuRENPirWVQRTGFH-X-7neDh-AJv5R1ZdQnJsVxllEKDk3n9VzuhoCxt0QAvD_BwE

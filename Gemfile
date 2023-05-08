@@ -8,3 +8,4 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem 'mechanize' #2.7.7らしい
 gem "ruby-debug-ide"
 gem "debase"
+gem 'require_all'

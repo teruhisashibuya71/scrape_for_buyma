@@ -1,71 +1,27 @@
 require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
-
-#./'ファイル名'
-require './cortecci'
-require './ekseption'
-require './grifo'
-require './julian'
-require './lidia'
-require './luisa_world'
-require './mycompanero'
-require './smets'
-require './vietti'
-
-#以下selenium
-require './bernardelli'
-require './credoman'
-require './genteroma'
-require './labels'
-require './ottodisapietro'
-require './papini'
-require './pl_line'
-require './spinnaker'
-
-
-#クローリング不可能なサイト
-#https://www.antonia.it/jp/brands/moncler?cat=3
-#https://www.thedoublef.com/it_en/man/designers/moncler/
-#https://www.dellogliostore.com/jp/designer/102247/moncler-men
-
-#https://www.10corsocomo-theshoponline.com/ita_en/brand/moncler-genius-man
+require 'csv'
+require 'mechanize'
+require 'require_all'
+require_all '/Users/ts/Desktop/scrape/normal'
 
 class MonclerNormalMan
-
     #服 靴 バッグ アクセ の4種類で対応する
-    @category = "服"
-    @price = "435"
+    #ruby moncler_man_n.rb
+    @@category = "バッグ"
+    @price = "535"
     
-    #include + クラス名
-    include Cortecci
-    include Ekseption
-    include Grifo
-    include Julian #0サイズあるよ
-    include Lidia
-    include LuisaWorld
-    include Mycompanero
-    include Smets
-    include Vietti
-    
-    #selenium
-    include Bernardelli
-    include Credoman
-    include Genteroma
-    include Labels
-    include Ottodisapietro
-    include Papini
-    include Plline
-    include Spinnaker
-    
+    #nokogiri #seleniumで行分け
+    include Cortecci, Ekseption, Grifo, Julian, Lidia, LuisaWorld, Mycompanero, Smets, Vietti
+    include Bernardelli, Credoman, Genteroma, Labels, Ottodisapietro, Plline, Spinnaker
+    #Papini,
     def self.call_category
         @category
     end
-
     def self.call_price
         @price
     end
-
 end
 
 ATTACK_LIST_URL = [
@@ -78,24 +34,24 @@ ATTACK_LIST_URL = [
     "https://www.julian-fashion.com/it-IT/uomo/designer/moncler",
     "https://www.viettishop.com/it/designers/moncler?cat=462",
     "https://www.luisaworld.com/product-category/man/?product_brand=moncler",
-    
     #以下selenium
     "https://www.bernardellistores.com/it/uomo/moncler",
     "https://www.credomen.com/moncler/",
     "https://www.genteroma.com/it/designer/uomo/moncler.html",
     "https://shop.labelsfashion.com/men/designers/moncler",
-    "https://www.ottodisanpietro.com/eu_en/man-fashion/man-designers/moncler-man",
-    "https://www.papinistore.com/it/633-uomo#s-4/uomo-nuovi_arrivi/designers-moncler",
+    #"https://ottodisanpietro.com/collections/moncler-men",
+    "https://www.pl-line.com/en/moncler?gender=men",
     "https://www.spinnakerboutique.com/it-IT/uomo/designer/moncler",
-    "https://www.pl-line.com/en/moncler?gender=men"
+    "https://www.papinistore.com/it/633-uomo#s-4/uomo-nuovi_arrivi/designers-moncler"
 
     #ジーニアス
-    #"https://www.bernardellistores.com/it/moncler-genius"
+    #"https://www.bernardellistores.com/it/moncler-genius",
 
     #フラグメント
     #"https://www.bernardellistores.com/it/moncler-fragment"
 
     #グルノーブル
+    #"https://ottodisanpietro.com/collections/moncler-grenoble-men"
 ]
 
     moncler_n_man = MonclerNormalMan.new
@@ -124,7 +80,7 @@ ATTACK_LIST_URL = [
             @price = @price.delete(",")
         when "https://www.mycompanero.com/fr/brand/2-moncler?categories=homme"
             moncler_n_man.mycompanero_crawl(attack_site_url, @price)
-            @price = @price.delete(",")
+            #調整なし 4桁価格の場合は ngsp; のため
         when "https://smets.lu/collections/moncler/men"
             moncler_n_man.smets_crawl(attack_site_url, @price)
             @price = @price.delete(".")
@@ -145,9 +101,9 @@ ATTACK_LIST_URL = [
         when "https://shop.labelsfashion.com/men/designers/moncler" 
             moncler_n_man.labels_crawl_selenium(attack_site_url, @price)
             #小数点削除必要無し
-        when "https://www.ottodisanpietro.com/eu_en/man-fashion/man-designers/moncler-man" 
-            moncler_n_man.ottodisapietro_crawl_selenium(attack_site_url, @price)
-            @price = @price.delete(",")
+        #when "https://ottodisanpietro.com/collections/moncler-men" 
+        #    moncler_n_man.ottodisapietro_crawl_selenium(attack_site_url, @price)
+        #    @price = @price.delete(",")
         when "https://papinistore.com/it/633-uomo#s-4/uomo-nuovi_arrivi/designers-moncler" 
             moncler_n_man.papini_crawl_selenium(attack_site_url, @price)
             #小数点削除必要無し
@@ -159,3 +115,9 @@ ATTACK_LIST_URL = [
             #小数点削除必要無し
         end
     end
+
+
+#brother2
+#https://www.mientus.com/en/moncler-down-jacket-vabb-11673?c=3
+#https://www.circle-fashion.com/clothing-c1/coats-jackets-c6/wimereux-navy-shell-jacket-p46928
+#https://www.10corsocomo-theshoponline.com/ita_en/brand/moncler-genius-man
