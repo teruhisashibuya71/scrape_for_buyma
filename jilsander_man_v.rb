@@ -41,6 +41,8 @@ ATTACK_LIST_URL = [
     "https://www.wiseboutique.com/it_it/uomo/designers/jil-sander.html",
     "https://www.blondieshop.com/it/uomo/man-designer/jil-sander.html?p=2",
     "http://specialshop.atelier98.net/it/uomo?idt=830000010"
+    #"http://belli.atelier98.info/it/man?idt=16"
+    #"http://siviglia.atelier-software.eu/it/man?idt=16"
 ]
 
     vip_jilsander_man = JilsanderVipMan.new

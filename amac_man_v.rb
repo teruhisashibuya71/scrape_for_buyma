@@ -25,14 +25,14 @@ class AmacVipMan
     end
 
 ATTACK_LIST_URL = [
-    "https://www.coltortiboutique.com/it/designer/alexander_mcqueen?cat=151",
+    "https://www.residenza725.com/us_en/designers/alexander-mcqueen.html?category_ids=35",
     "https://eleonorabonucci.com/en/alexander_mcqueen/men/new-collection",
     #"https://eleonorabonucci.com/en/alexander_mcqueen/men/sale",
     "https://www.gaudenziboutique.com/en-it/men/designer/alexander_mcqueen",
     "https://www.michelefranzesemoda.com/it/uomo/designer/alexander-mcqueen/",
     "https://nugnes1920.com/collections/alexander-mcqueen-man",
     "https://www.russocapri.com/it/uomo/designer/alexander-mcqueen/gruppi",
-    "https://suitnegozi.com/collections/alexander-mcqueen-uomo",
+    "https://suitnegozi.com/collections/mcqueen-uomo",
     
     #以下selenium
     "https://www.alducadaosta.com/it/uomo/designer/alexander_mcqueen",

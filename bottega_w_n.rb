@@ -78,7 +78,7 @@ ATTACK_LIST_URL = [
     "https://smets.lu/collections/bottega-veneta/women",
     
     #以下selenium
-
+    #"https://www.departementfeminin.com/en/designers/59-bottega-veneta"
 
 ]
 

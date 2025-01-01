@@ -37,6 +37,7 @@ ATTACK_LIST_URL = [
     "https://www.gebnegozionline.com/it_it/donna/designers/chloe.html",
     "http://specialshop.atelier98.net/it/donna?idt=9",
     "https://www.wiseboutique.com/it_it/donna/designers/chloe.html"
+    #"https://www.departementfeminin.com/en/designers/67-chloe"
 ]
 
     vip_chloe_woman = ChloeVipWoman.new

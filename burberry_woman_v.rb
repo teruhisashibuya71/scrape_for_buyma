@@ -28,7 +28,7 @@ ATTACK_LIST_URL = [
     "https://amrstore.com/collections/burberry",
     "https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=90&scale=274&rootCategory=Women&designer=769627",
     "https://www.farfetch.com/be/shopping/women/auzmendi/items.aspx?view=90&scale=274&rootCategory=Women&designer=769627",
-    "https://www.coltortiboutique.com/it/designer/burberry?cat=166",
+    "https://www.residenza725.com/ue_it/designers/burberry/category_abbigliamento.html",
     "https://www.gaudenziboutique.com/en-it/women/designer/burberry",
     "https://www.leam.com/it_eu/designer/burberry-donna.html",
     "https://www.michelefranzesemoda.com/it/donna/designer/burberry/",
@@ -37,8 +37,8 @@ ATTACK_LIST_URL = [
 
     #以下selenium
     "https://www.alducadaosta.com/it/donna/designer/burberry",
-    ""
-    "https://www.brunarosso.com/s/designers/burberry/?category=women",
+    "https://www.minettiangeloonline.com/it/woman?idt=88"
+    "https://www.brunarosso.com/designer/366-burberry-woman",
     "https://www.blondieshop.com/it/donna/woman-designer/burberry.html",
     "https://www.gebnegozionline.com/it_it/donna/designers/burberry.html",
     "https://www.montiboutique.com/it-IT/donna/designer/burberry",

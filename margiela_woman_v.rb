@@ -26,8 +26,8 @@ end
 ATTACK_LIST_URL = [
     "https://amrstore.com/collections/maison-margiela",
     "https://www.farfetch.com/it/shopping/women/AMR/items.aspx?view=90&scale=274&rootCategory=Women&designer=4981",
-    "https://www.coltortiboutique.com/it/designer/maison_margiela?cat=166",
-    "https://eleonorabonucci.com/en/maison-margiela/women/new-collection",
+    "https://www.residenza725.com/ue_it/designers/maison-margiela/category_donna.html",
+    "https://eleonorabonucci.com/en/maison-margiela/women",
     "https://www.gaudenziboutique.com/en-it/women/designer/maison_margiela",
     "https://nugnes1920.com/collections/maison-margiela-woman",
     "https://suitnegozi.com/collections/maison-margiela-donna",
@@ -35,10 +35,10 @@ ATTACK_LIST_URL = [
     #selenium
     "https://www.alducadaosta.com/it/donna/designer/maison_margiela",
     "https://www.minettiangeloonline.com/it/woman?idt=39",
-    #"https://www.brunarosso.com/designer/476-maison-margiela-woman",
+    "https://www.brunarosso.com/designer/476-maison-margiela-woman",
     #Margiela × Reebok
-    #"https://eleonorabonucci.com/en/maison-margiela-x-reebok/women/new-collection",
-    "https://www.gebnegozionline.com/it_it/donna/designers/maison-margiela.html",
+    #"https://eleonorabonucci.coｚｚm/en/maison-margiela-x-reebok/women/new-collection",
+    "https://www.gebnegozionline.com/en_it/women/designers/maison-margiela.html",
     "https://www.wiseboutique.com/it_it/donna/designers/maison-margiela.html",
     "http://specialshop.atelier98.net/it/donna?idt=1980000843",
     "https://www.blondieshop.com/jp/woman/woman-designer/maison-margiela.html",

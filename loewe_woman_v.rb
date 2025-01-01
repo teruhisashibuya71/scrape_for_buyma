@@ -39,6 +39,7 @@ ATTACK_LIST_URL = [
     #ibiza
     #"https://www.alducadaosta.com/it/donna/designer/loewe_paulas_ibiza",
     #"http://specialshop.atelier98.net/it/donna?idt=840000289"
+    #"https://www.departementfeminin.com/en/designers/8-loewe"
 ]
 
     vip_loewe_woman = LoeweVipWoman.new
