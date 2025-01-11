@@ -57,12 +57,21 @@ ATTACK_LIST_URL = [
 
 
     ##以下グルノーブル
+    #"https://www.residenza725.com/ue_it/designers/moncler-grenoble/category_uomo.html"
     #"https://eleonorabonucci.com/en/moncler-grenoble/men",
     #"https://www.gaudenziboutique.com/en-it/men/designer/moncler_grenoble",
     #"https://www.leam.com/en/designer/moncler-grenoble-men.html",
     #"https://nugnes1920.com/collections/moncler-grenoble-man",
-    #"https://www.russocapri.com/it/uomo/categorie/shopping/gruppi/nuovi-arrivi?ds=moncler-grenoble"
+    #"https://www.russocapri.com/it/uomo/designer/moncler-grenoble"
+    #"https://suitnegozi.com/collections/moncler-grenoble-uomo"
+    
+    
+    #"https://www.alducadaosta.com/it/uomo/designer/moncler_grenoble"
+    #"https://www.brunarosso.com/designer/500-moncler-grenoble-man"
     #"https://www.minettiangeloonline.com/it/man?idt=118"
+    #"http://belli.atelier98.info/it/man?idt=33" #Plazo belli
+    #"http://siviglia.atelier-software.eu/it/man-moncler+grenoble" #Plazo apain
+    #"https://www.wiseboutique.com/en_jp/uomo/designers/moncler-grenoble.html"
 
     ]
 

@@ -37,6 +37,7 @@ ATTACK_LIST_URL = [
     "https://labelsfashion.com/en-jp/collections/men-tom-ford",
     "https://www.pl-line.com/en/tom-ford"
     #"https://viettishop.com/collections/tom-ford/men"
+    #"https://www.graphiti.fr/brand/32-tom-ford"
 ]
 
 tom_n_man = TomNormalMan.new

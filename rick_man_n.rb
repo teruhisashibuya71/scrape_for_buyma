@@ -34,6 +34,7 @@ ATTACK_LIST_URL = [
 
     #selenium
     "https://www.wrongweather.net/it/shop/brand/rick-owens"
+    #"https://www.graphiti.fr/brand/226-rick-owens"
     
 ilduomo
 

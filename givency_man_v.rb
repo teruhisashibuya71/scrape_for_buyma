@@ -24,7 +24,7 @@ ATTACK_LIST_URL = [
     "https://www.gaudenziboutique.com/en-it/men/designer/givenchy",
     "https://eleonorabonucci.com/en/givenchy/men/new-collection",
     #"https://eleonorabonucci.com/en/givenchy/men/sale",
-    "https://www.michelefranzesemoda.com/it/uomo/designer/givenchy/",
+    "https://michelefranzesemoda.com/en-in/a/search/givenchy?filter_gender=Man",
     "https://nugnes1920.com/collections/givenchy-man",
     "https://www.russocapri.com/it/uomo/designer/givenchy/gruppi",
     "https://suitnegozi.com/collections/givenchy-uomo",
@@ -32,9 +32,11 @@ ATTACK_LIST_URL = [
     #以下selenium
     "https://www.alducadaosta.com/it/uomo/designer/givenchy",
     "https://www.minettiangeloonline.com/it/man-givenchy",
-    "https://www.brunarosso.com/s/designers/givenchy/?category=men",    
+    "https://www.brunarosso.com/designer/429-givenchy-man",    
     "https://www.gebnegozionline.com/it_it/uomo/designers/givenchy.html",
     "https://www.tessabit.com/it_it/man/designers/givenchy.html",
+    #"http://belli.atelier98.info/it/man?idt=91"
+    "http://siviglia.atelier-software.eu/it/man?idt=91"
     "https://www.wiseboutique.com/it_it/uomo/designers/givenchy.html",
     "https://www.blondieshop.com/it/uomo/man-designer/givenchy.html"
 ]

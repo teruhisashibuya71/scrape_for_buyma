@@ -66,13 +66,15 @@ class NormalWoman
         @price
     end
 
-end
+end             m
 
 ATTACK_LIST_URL = [
     
     #以下selenium
+    #"https://www.graphiti.fr/17_burberry/s-9/public-femme"
 
 ]
+
 
     _n_woman = NormalWoman.new
     @price = NormalWoman.call_price

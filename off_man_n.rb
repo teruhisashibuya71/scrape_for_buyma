@@ -41,6 +41,7 @@ ATTACK_LIST_URL = [
     "https://www.ottodisanpietro.com/eu_en/man-fashion/man-designers/off-white-man",
     "https://www.papinistore.com/en/64_off-white"
     #selle品 "https://www.spinnakerboutique.it/en/sale-2#/manFilters=287&pageSize=36&viewMode=grid&orderBy=15&pageNumber=1",
+    #"https://www.graphiti.fr/222_off-white/s-9/public-homme"
 ]
 
     off_man_n = OffManNormal.new

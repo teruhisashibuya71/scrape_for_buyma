@@ -53,6 +53,8 @@ ATTACK_LIST_URL = [
     "https://www.genteroma.com/it/designer/uomo/prada.html",
     "https://www.pl-line.com/en/prada",
     "https://www.spinnakerboutique.com/en-IT/man/designer/prada"
+
+    #"https://www.graphiti.fr/12_prada/s-9/public-homme"
 ]
 
     prada_n_man = PradaNormalMan.new
