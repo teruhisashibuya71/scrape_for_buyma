@@ -72,6 +72,7 @@ ATTACK_LIST_URL = [
     #"http://belli.atelier98.info/it/man?idt=33" #Plazo belli
     #"http://siviglia.atelier-software.eu/it/man-moncler+grenoble" #Plazo apain
     #"https://www.wiseboutique.com/en_jp/uomo/designers/moncler-grenoble.html"
+    #"https://www.wiseboutique.com/en_jp/uomo/designers/moncler-grenoble.html"
 
     ]
 

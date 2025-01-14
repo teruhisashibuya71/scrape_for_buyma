@@ -23,8 +23,8 @@ class LoeweVipMan
     end
 
 ATTACK_LIST_URL = [
-    "https://www.coltortiboutique.com/it/designer/loewe?cat=151",
-    "https://www.leam.com/it_eu/designer/loewe-uomo.html",
+    # なくなった"https://www.coltortiboutique.com/it/designer/loewe?cat=151",
+    "https://www.leam.com/eu_en/designers/loewe?cat=59",
     "https://suitnegozi.com/collections/loewe-uomo",
 
     #以下selenium

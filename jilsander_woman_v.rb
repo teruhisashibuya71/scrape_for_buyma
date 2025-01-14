@@ -31,21 +31,25 @@ end
 
 ATTACK_LIST_URL = [
     "https://actuelb.com/en/496-women-s-jil-sander",
-    "https://www.coltortiboutique.com/it/designer/jil_sander?cat=166",
+    "https://www.residenza725.com/ue_it/designers/jil-sander.html?cat=166",
     "https://eleonorabonucci.com/en/jil_sander/women",
     #"https://eleonorabonucci.com/en/jil_sander/women/sale",
     "https://www.gaudenziboutique.com/en-it/women/designer/jil_sander",
-    "https://www.leam.com/it_eu/designer/jil-sander-donna.html",
+    #なくなった "https://www.leam.com/it_eu/designer/jil-sander-donna.html",
     "https://www.michelefranzesemoda.com/it/donna/designer/jil-sander/",
     "https://nugnes1920.com/collections/jil-sander-woman",
     "https://www.russocapri.com/it/donna/designer/jil-sander/gruppi",
     "https://suitnegozi.com/collections/jil-sander-donna",
+    
     #selenium
+    "https://www.alducadaosta.com/it/donna/designer/jil_sander"
     "https://www.minettiangeloonline.com/it/woman?idt=19",
-    "https://www.brunarosso.com/s/designers/jil-sander/?category=women",
+    "https://www.brunarosso.com/designer/452-jil-sander-woman",
     "https://www.gebnegozionline.com/it_it/donna/designers/jil-sander.html",
     "https://www.wiseboutique.com/it_it/donna/designers/jil-sander.html",
     "http://specialshop.atelier98.net/it/donna?idt=830000010",
+    #"http://belli.atelier98.info/it/woman?idt=16"
+    #"http://siviglia.atelier-software.eu/it/woman?idt=16"
     "https://www.blondieshop.com/it/donna/woman-designer/jil-sander.html"
     
     ]

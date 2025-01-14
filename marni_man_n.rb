@@ -30,7 +30,8 @@ ATTACK_LIST_URL = [
     #"https://www.julian-fashion.com/it-IT/uomo/designer/marni",
     #https://www.family3-0.com/gb/263_marni
     #"https://www.dipierrobrandstore.it/en/39_marni/s-17/brand-marni/gender-man"
-
+    #"https://www.lidiashopping.com/it/JP/men/t/designers/marni?country=IT"
+    
     #以下selenium
     #"https://www.bernardellistores.com/it/uomo/marni?order=LATEST",
     #"https://10corsocomo.com/en-jp/collections/marni?filter.p.m.elastick.gender=Man",

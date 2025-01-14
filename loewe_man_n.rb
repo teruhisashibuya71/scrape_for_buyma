@@ -21,15 +21,16 @@ class LoeweNormalMan
 end
 
 ATTACK_LIST_URL = [
-  "https://www.ekseption.com/ot_en/designers/loewe",
+  "https://www.ekseption.com/collections/loewe?sort_by=manual&filter.p.m.custom.departamento=Hombre",
   "https://www.lidiashopping.com/en/IT/men/t/designers/loewe",
   "https://www.julian-fashion.com/en-IT/men/designer/loewe",
   "https://www.luisaworld.com/product-category/man/?product_brand=loewe",
-  "https://smets.lu/collections/loewe/men",
+  "https://smets.lu/collections/loewe-men",
   "https://www.viettishop.com/it/designers/loewe?cat=462",
   
   #以下selenium
   "https://www.genteroma.com/it/designer/uomo/loewe.html",
+  # "https://ottodisanpietro.com/collections/loewe-men"
   "https://www.papinistore.com/en/60_loewe"
 
   #イビザ系

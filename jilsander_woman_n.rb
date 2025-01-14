@@ -26,6 +26,8 @@ require_all '/Users/ts/Desktop/scrape/normal'
 #https://www.baseblu.com/it/designer/jil-sander.html?gender=woman&categorie=donna
 #"https://www.vooberlin.com/jil-sander/"
 #https://www.nathalieschuterman.com/en/shop/bags/handbags/jil-sander-link-vaska-brown
+#"https://www.macondostore.com/it/jil-sander"
+
 class JilsanderWoman
     #服 靴 バッグ アクセ の4種類で対応する
     #ruby jilsander_woman_n.rb
