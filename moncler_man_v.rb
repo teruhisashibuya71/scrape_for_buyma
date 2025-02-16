@@ -20,7 +20,7 @@ ATTACK_LIST_URL = [
     "https://actuelb.com/en/66-men-s-moncler",
     "https://amrstore.com/collections/moncler", 
     "https://www.farfetch.com/it/shopping/men/auzmendi/items.aspx?view=90&scale=282&rootCategory=Men&designer=4535",
-    "https://www.coltortiboutique.com/it/designer/moncler?cat=151",
+    "https://www.residenza725.com/ue_it/designers/moncler/category_uomo.html?cat=151",
     "https://eleonorabonucci.com/en/moncler/men",
     "https://www.gaudenziboutique.com/en-it/men/designer/moncler",
     "https://www.leam.com/it_eu/designer/moncler-uomo.html",

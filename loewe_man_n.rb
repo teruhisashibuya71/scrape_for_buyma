@@ -36,6 +36,7 @@ ATTACK_LIST_URL = [
   #イビザ系
   #https://www.luisaworld.com/product-category/man/?product_brand=loewe-paulas-ibiza
   #"https://www.graphiti.fr/9_loewe/s-9/public-homme"
+  #"https://www.zapclothing.com/collections/loewe"
 ]
 
     _n_man = NormalMan.new

@@ -25,10 +25,10 @@ class TodsVipWoman
     end
 ATTACK_LIST_URL = [
     "https://actuelb.com/en/93-women-s-tod-s",
-    "https://www.coltortiboutique.com/it/designer/tod_s?cat=166",
+    "https://www.residenza725.com/ue_it/designers/tod-s/category_donna.html?cat=166",
     "https://eleonorabonucci.com/en/tod_s/women",
     "https://www.gaudenziboutique.com/en-it/women/designer/tods",
-    "https://www.leam.com/it_eu/designer/tod-s-donna.html",
+    "https://www.leam.com/eu_en/designers/tod_s?cat=55",
     "https://nugnes1920.com/collections/tods-woman",
     #sigrun
     "https://suitnegozi.com/collections/tod-s-donna",
@@ -40,6 +40,8 @@ ATTACK_LIST_URL = [
     "https://www.gebnegozionline.com/it_it/donna/designers/tod-s.html",
     "https://www.wiseboutique.com/it_it/donna/designers/tod-s.html",
     "http://specialshop.atelier98.net/it/donna?idt=1980000791%7C1980000613",
+    "http://belli.atelier98.info/it/woman?idt=63"
+    "http://siviglia.atelier-software.eu/it/woman?idt=63"
     "https://www.montiboutique.com/it-IT/donna/designer/tods"
 ]
 

@@ -1,4 +1,7 @@
-https://grifo210.com/iit/donna/designers/tod-s.html?sale=0
-https://www.pozzilei.it/tod-s?page=2
-https://www.lucianabari.com/en-ES/woman/designer/tod's
-https://www.frmoda.com/en_jp/women/women-designers/tods
+
+
+https://www.frmoda.com/it_it/donna/designer-donna/tods
+https://www.grifo210.com/collections/women-tod-s
+https://www.lucianabari.com/it-IT/donna/designer/tod's
+https://www.pozzilei.it/en/women/tod-s
+https://smets.lu/collections/tods-women //商品ゼロだった

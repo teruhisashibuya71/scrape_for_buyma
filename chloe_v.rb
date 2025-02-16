@@ -27,7 +27,7 @@ class ChloeVipWoman
 ATTACK_LIST_URL = [
     "https://www.coltortiboutique.com/it/designer/zchloe?cat=166",
     "https://www.gaudenziboutique.com/en-it/women/designer/chloe",
-    "https://www.russocapri.com/it/donna/categorie/shopping/gruppi/nuovi-arrivi?ds=chloe",
+    "https://www.russocapri.com/it/tutti/designer/chloe",
     #"https://www.sigrun-woehr.com/en/By-Brand/Chloe/",
     "https://suitnegozi.com/collections/chloe-donna",
     
